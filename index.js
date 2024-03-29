@@ -23,6 +23,13 @@ app.get('/call-for-paper', (req, res)=>{
 app.get('/call-for-workshop', (req, res)=>{
     res.render("call-for-workshop");
 })
+app.get('/login',(req,res) => {
+    res.render("login.ejs");
+});
+app.get('/signup',(req,res) => {
+    res.render("signup.ejs");
+});
+
 app.listen(8000, ()=>{
     console.log("Server running on port 8000!!");
 })
