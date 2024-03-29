@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ConfoEase</title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <!-- swiper css -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <!-- swipper css link -->
+
+    <!-- font awesome link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- font awesome link -->
+  </head>
+  <body>
+    <!-- header Section -->
+    <header class="header">
+      <a href="#" class="logo"><span>C</span>onfoEase</a>
+
+      <!-- nav bar -->
+      <nav class="navbar">
+        <a href="/home">Home</a>
+        <a href="#">Committees</a>
+        <a href="#speakers">Speakers</a>
+        <a href="#contact-us">Contact Us</a>
+        <a href="#">Login</a>
+
+        <div id="menu-bar" class="fas fa-bars"></div>
+      </nav>
+      <!-- Nab Bar ended -->
+    </header>
+    <!-- header Section -->
+
+    <!-- Section for displaying the heading -->
+    <section class="home" id="home">
+      <div class="content">
+        <h3>Welcome to <span>C</span>onfoEase</h3>
+      </div>
+    </section>
+    <!-- Section for heading closed -->
+
+    <!-- Div for Photo Gallery -->
+    <div class="top_container">
+      <div class="photo">
+        <h3>Photo <span>Gallery</span></h3>
+        <div class="home-slider swiper mySwiper swiper-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide first-photo">
+              <img
+                src="https://source.unsplash.com/1600x650/?conference, events, management"
+                class="card-img-top"
+                onload="render()"
+                alt="..."
+              />
+              <div class="centered">
+                <h2>ICDM 2k24</h2>
+                <span>Abu Dhabi, UAE</span>
+                <p>9-20 DEC.</p>
+              </div>
+            </div>
+            <div class="swiper-slide">
+              <img
+                src="https://source.unsplash.com/1600x650/?conference"
+                class="card-img-top"
+                onload="render()"
+                alt="..."
+              />
+              <!-- <div class="bottom-left">
+                <h2>ICDM 2k24</h2>
+                <span>Abu Dhabi, UAE</span>
+                <p>9-20 DEC.</p>
+              </div> -->
+            </div>
+            <!-- <div class="swiper-slide">
+              <img
+                ssrc="https://source.unsplash.com/1600x650/?events"
+                class="card-img-top"
+                onload="render()"
+                alt="..."
+              />
+            </div> -->
+            <div class="swiper-slide">
+              <img
+                src="https://source.unsplash.com/1600x650/?computer"
+                class="card-img-top"
+                onload="render()"
+                alt="..."
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                src="https://source.unsplash.com/1600x650/?digital"
+                class="card-img-top"
+                onload="render()"
+                alt="..."
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                src="https://source.unsplash.com/1600x650/?conference hall"
+                class="card-img-top"
+                onload="render()"
+                alt="..."
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                src="https://source.unsplash.com/1600x650/?internet of things"
+                class="card-img-top"
+                onload="render()"
+                alt="..."
+              />
+            </div>
+            <div class="swiper-slide">
+              <img
+                src="https://source.unsplash.com/1600x650/?events"
+                class="card-img-top"
+                onload="render()"
+                alt="..."
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Photo Gallery closed -->
+
+    <!-- swipper js -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- swipper js  -->
+
+    <!-- swipper file -->
+    <script src="/js/app.js"></script>
+
+    <div class="middle">
+      <div class="info">
+        <h2>IC<span>DM</span></h2>
+        <p style="text-align: left;">
+          The IEEE International Conference on Data Mining (ICDM) has
+          established itself as the world’s premier research conference in data
+          mining. It provides an international forum for presentation of
+          original research results, as well as exchange and dissemination of
+          innovative and practical development experiences. The conference
+          covers all aspects of data mining, including algorithms, software,
+          systems, and applications. ICDM draws researchers, application
+          developers, and practitioners from a wide range of data mining related
+          areas such as big data, deep learning, pattern recognition,
+          statistical and machine learning，databases, data warehousing, data
+          visualization, knowledge-based systems, and high-performance
+          computing. By promoting novel, high-quality research findings, and
+          innovative solutions to challenging data mining problems, the
+          conference seeks to advance the state-of-the-art in data mining.
+          Topics of interest Topics of interest include, but are not limited
+          to:<br />
+          <p style="text-align: left;">
+          Foundations, algorithms, models and theory of data mining, including
+          big data mining.<br />
+          Deep learning and statistical methods for data mining.<br />
+          Mining from heterogeneous data sources, including text,
+          semi-structured, spatio-temporal, streaming, graph, web, and
+          multimedia data.<br />
+          Data mining systems and platforms, and their efficiency, scalability,
+          security and privacy.<br />
+          Data mining for modelling, visualization, personalization, and
+          recommendation. Data mining for cyber-physical systems and complex,
+          time-evolving networks.<br />
+          Applications of data mining in social sciences, physical sciences,
+          engineering, life sciences, web, marketing, finance, precision
+          medicine, health informatics, and other domains.<br />
+        </p>
+        </p>
+      </div>
+    </div>
+
+    <!-- services cards -->
+    <div class="cards">
+    <sectiion class="services" id="services">
+        <div class="box-conatainer">
+            <div class="box">
+                <div class="fa-regular fa-calendar-days" style="color: #3867d6;"></div>
+                <!-- <div class="fas fa-date"></div> -->
+                <a href="#keydates"><h3>Key <span>Dates</span></h3></a>
+                <p>Important dates: submission, registration, conference</p>
+            </div>
+            <div class="box">
+                <div class="fa-solid fa-envelope-open-text" style="color: #3867d6;"></div>
+                <!-- <div class="fas fa-date"></div> -->
+                <a href="/call-for-paper"><h3>Call for <span>Papers</span></h3></a>
+                <p>Please find the submission guidelines and topic overview for the conference</p>
+            </div>
+            <div class="box">
+                <div class="fa-solid fa-person-chalkboard" style="color: #3867d6;"></div>
+                <!-- <div class="fas fa-letter"></div> -->
+                <a href="/call-for-workshop"><h3>Call for <span>Workshop</span></h3></a>
+                <p>We warmly invite proposals for workshops on current and emerging topics in data mining</p>
+            </div>
+            <div class="box">
+                <div class="fa-solid fa-user-plus" style="color: #3867d6;"></div>
+                <!-- <div class="fas fa-teacher"></div> -->
+                <a href="#"><h3>New <span>User</span></h3></a>
+                <p>Register for the conference</p>
+            </div>
+            <div class="box">
+                <div class="fa-solid fa-location-dot" style="color: #3867d6;"></div>
+                <!-- <div class="fas fa-registration"></div> -->
+                <a href="#venue"><h3>Venue <span>Details</span></h3></a>
+                <p>Details about conference place</p>
+            </div>
+            <div class="box">
+                <div class="fa-solid fa-people-group" style="color: #3867d6;"></div>
+                <!-- <div class="fas fa-venue"></div> -->
+                <a href="#"><h3>Organization <span>Committees</span></h3></a>
+                <p>Meet the experts behind the event</p>
+            </div>
+        </div>
+    </sectiion>
+
+    </div>
+    <!-- services cards -->
+
+    
+    <!-- key Date Section  -->
+    <div class="display-date" id="keydates">
+      <h2>Key <span>Dates</span></h2>
+    </div>
+    <div class="keydates">
+      <!-- for rendering dates -->
+      <div class="dates">
+        <h2>Date</h2>
+        <p>12/Jan/2024</p>
+        <p>12/Feb/2024</p>
+        <p>12/Mar/2024</p>
+        <p>12/Mar/2024</p>
+        <p>12/Mar/2024</p>
+        <p>12/Mar/2024</p>
+        <p>12/Mar/2024</p>
+      </div>
+      <!-- for rendering dates -->
+      
+      <!-- for rendering description -->
+      <div class="description">
+        <h2>Description</h2>
+        <p>Call for paper started</p>
+        <p>Call for workshop started</p>
+        <p>Last Day Of Paper Submission</p>
+        <p>Last Day Of Paper Submission</p>
+        <p>Last Day Of Paper Submission</p>
+        <p>Last Day Of Paper Submission</p>
+        <p>Last Day Of Paper Submission</p>
+      </div>
+      <!-- for rendering description -->
+      
+    </div>
+    <!-- key Date Section  -->
+    
+
+    <!-- Speakers Section -->
+    <section class="speakers" id="speakers">
+        <h2>Speaker <span>Message</span></h2>
+        <div class="box-conatainer">
+          <div class="box">
+            <img src="https://source.unsplash.com/1600x650/?bill gates"
+            class="card-img-top"
+            onload="render()"
+            alt="...">
+            <h4>Aman <span>Gupta</span></h4>
+            <h6>CEO BOAT</h6>
+            <p>Aman Gupta is co-founder and chief marketing officer at BoAt, a consumer electronics brand based in India that focuses on audio technology headware.</p>
+          </div>
+          <div class="box">
+            <img src="https://source.unsplash.com/1600x650/?de broglie"
+            class="card-img-top"
+            onload="render()"
+            alt="...">
+            <h4>De <span>Broglie</span></h4>
+            <h6>Professor at MIT</h6>
+            <p>Louis Victor Pierre Raymond, 7th Duc de Broglie was a French aristocrat and physicist who made groundbreaking contributions to quantum theory.</p>
+          </div>
+          <div class="box">
+            <img src="https://source.unsplash.com/1600x650/?Erwin Schrödinger"
+            class="card-img-top"
+            onload="render()"
+            alt="...">
+            <h4>Erwin  <span>Schrödinger</span></h4>
+            <h6>Renowed Researcher at CERN</h6>
+            <p>Erwin Rudolf Josef Alexander Schrödinger, sometimes written as Schroedinger or Schrodinger, was a Nobel Prize–winning Austrian and naturalized Irish physicist who developed fundamental results in quantum theory.</p>
+          </div>
+          <div class="box">
+            <img src="https://source.unsplash.com/1600x650/?steve jobs"
+            class="card-img-top"
+            onload="render()"
+            alt="...">
+            <h4>Aman <span>Gupta</span></h4>
+            <h6>CEO BOAT</h6>
+            <p>Aman Gupta is co-founder and chief marketing officer at BoAt, a consumer electronics brand based in India that focuses on audio technology headware.</p>
+          </div>
+          <div class="box">
+            <img src="https://source.unsplash.com/1600x650/?faraday"
+            class="card-img-top"
+            onload="render()"
+            alt="...">
+            <h4>De <span>Broglie</span></h4>
+            <h6>Professor at MIT</h6>
+            <p>Louis Victor Pierre Raymond, 7th Duc de Broglie was a French aristocrat and physicist who made groundbreaking contributions to quantum theory.</p>
+          </div>
+          <div class="box">
+            <img src="https://source.unsplash.com/1600x650/?einstein"
+            class="card-img-top"
+            onload="render()"
+            alt="...">
+            <h4>Erwin  <span>Schrödinger</span></h4>
+            <h6>Renowed Researcher at CERN</h6>
+            <p>Erwin Rudolf Josef Alexander Schrödinger, sometimes written as Schroedinger or Schrodinger, was a Nobel Prize–winning Austrian and naturalized Irish physicist who developed fundamental results in quantum theory.</p>
+          </div>
+        </div>
+    </section>
+    <!-- Speakers Section -->
+
+
+    <!-- Venue Details -->
+    <div class="venue-details" id="venue">
+        <h2>Venue <span>Details</span></h2>
+    </div>
+    <div class="venue">
+        <h2>Venue: <span>ADQ, Abu Dhabi, UAE</span></h2>
+        <div class="venue-info">
+        ADNEC Group, a subsidiary of “ADQ”, is a contributor to the development of the business tourism sector in Abu Dhabi and is playing a vital role in the emirate’s ambition to become a leading destination for business meetings and events to achieve its long-term goals of economic growth and diversification. Abu Dhabi is truly a one-of-a-kind destination, unlike anywhere else. The city is vibrant, modern and is known for being the safest city in the world. It’s ideally positioned so that half of the world’s population is within a five hour flight. Abu Dhabi’s year round sunshine along with its growing knowledge economy and numerous attractions are all enabling the city to emerge as a popular business hub and a favoured spot for tourists.
+      </div>
+
+        <div class="venue-photo">
+            <div class="venue-slider swiper mySwiper swiper-container">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide first-photo">
+                    <img
+                      src="https://source.unsplash.com/1600x650/?venues,hackathone"
+                      class="card-img-top"
+                      onload="render()"
+                      alt="..."
+                    />
+                  </div>
+                  <div class="swiper-slide">
+                    <img
+                      src="https://source.unsplash.com/1600x650/?conference,hall"
+                      class="card-img-top"
+                      onload="render()"
+                      alt="..."
+                    />
+                  </div>
+                  <div class="swiper-slide">
+                    <img
+                      src="https://source.unsplash.com/1600x650/?computer,lab"
+                      class="card-img-top"
+                      onload="render()"
+                      alt="..."
+                    />
+                  </div>
+                  <div class="swiper-slide">
+                    <img
+                      src="https://source.unsplash.com/1600x650/?digital,management"
+                      class="card-img-top"
+                      onload="render()"
+                      alt="..."
+                    />
+                  </div>
+                  <div class="swiper-slide">
+                    <img
+                      src="https://source.unsplash.com/1600x650/?skyscraper"
+                      class="card-img-top"
+                      onload="render()"
+                      alt="..."
+                    />
+                  </div>
+                  <div class="swiper-slide">
+                    <img
+                      src="https://source.unsplash.com/1600x650/?buildings"
+                      class="card-img-top"
+                      onload="render()"
+                      alt="..."
+                    />
+                  </div>
+                  <div class="swiper-slide">
+                    <img
+                      src="https://source.unsplash.com/1600x650/?infrastructure"
+                      class="card-img-top"
+                      onload="render()"
+                      alt="..."
+                    />
+                  </div>
+                </div>
+              </div>
+        </div>
+    </div>
+    <!-- Venue Details -->
+
+    <!-- swiper js -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- swiper js  -->
+
+    <!-- swiper file -->
+    <script src="/js/app.js"></script>
+    <!-- swiper file-->
+
+    <!-- sponsers sections -->
+    <div class="sponsers" id="sponsers">
+        <h2>Our <span>Sponsers</span></h2>
+    </div>
+    <div class="sponsers-list">
+        <div class="sponser-container">
+            <img src="/image/google.png"
+            alt="...">
+        </div>
+        <div class="sponser-container">
+            <img src="/image/mercedes.png"
+            alt="...">
+        </div>
+        <div class="sponser-container">
+            <img src="/image/spotify.png"
+            alt="...">
+        </div>
+        <div class="sponser-container">
+            <img src="/image/apple.jpeg"
+            alt="...">
+        </div>
+    </div>
+    <!-- sponsers sections -->
+
+
+    <!-- contact us section -->
+    <section class="contact-us" id="contact-us">
+        <h2>Contact <span>US</span></h2>
+        <form action="#">
+            <div class="input-box">
+                <input type="text" placeholder="name">
+                <input type="email" placeholder="email">
+            </div>
+            <div class="input-box">
+                <input type="tel" placeholder="phone">
+                <input type="text" placeholder="subject">
+            </div>
+            <textarea name="" id="" cols="30" rows="10" placeholder="message"></textarea>
+            <input type="submit" value="Send Message" class="btn">
+        </form>
+    </section>
+    <!-- contact us section -->
+
+
+    <!-- Footer Section -->
+    <section class="footer" id="footer">
+        <div class="box-conatainer">
+            <div class="box">
+                <h3>Head Quarters</h3>
+                <a href="#"><i class="fas fa-map-marker-alt"></i>Washington DC, USA</a>
+                <a href="#"><i class="fas fa-map-marker-alt"></i>Dubai, UAE</a>
+                <a href="#"><i class="fas fa-map-marker-alt"></i>Delhi, INDIA</a>
+                <a href="#"><i class="fas fa-map-marker-alt"></i>Tokiyo, Japan</a>
+                <a href="#"><i class="fas fa-map-marker-alt"></i>Beijing, China</a>
+            </div>
+            <div class="box">
+                <h3>Quick links</h3>
+                <a href="#home"><i class="fas fa-arrow-right"></i>Home</a>
+                <a href="#"><i class="fas fa-arrow-right"></i>Committees</a>
+                <a href="#keydates"><i class="fas fa-arrow-right"></i>Key Dates</a>
+                <a href="#"><i class="fas fa-arrow-right"></i>Call for Papers</a>
+                <a href="#contact-us"><i class="fas fa-arrow-right"></i>Contact Us</a>
+                <a href="#"><i class="fas fa-arrow-right"></i>Login</a>
+            </div>
+            <div class="box">
+                <h3>Contact info</h3>
+                <a href="#"><i class="fas fa-phone"></i>+1-1234567890</a>
+                <a href="#"><i class="fas fa-phone"></i>+91-1234567890</a>
+                <a href="#"><i class="fas fa-envelope"></i>confoease@confo.ease.com</a>
+                <a href="#"><i class="fas fa-envelope"></i>head@confoease.com</a>
+                <a href="#"><i class="fas fa-map-marker-alt"></i>Washington DC, USA, 753698</a>
+            </div>
+
+            <div class="box">
+                <h3>Follow us</h3>
+                <a href="#"><i class="fab fa-facebook-f"></i>facebook</a>
+                <a href="#"><i class="fab fa-twitter"></i>twitter</a>
+                <a href="#"><i class="fab fa-instagram"></i>instagram</a>
+                <a href="#"><i class="fab fa-linkedin-in"></i>linkedin</a>
+            </div>
+          </div>
+          <div class="credit">
+              Created by <span>Group 23</span>| All Rights Reserved
+          </div>
+    </section>
+    <!-- Footer Section -->
+  </body>
+</html>
