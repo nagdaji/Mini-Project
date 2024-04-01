@@ -3,6 +3,11 @@ const app = express();
 app.use(express.static("public"));
 const path = require("path");
 
+const mongoose = require("mongoose");
+const session = require("express-session");
+const passport = require("passport");
+
+
 const csspath = path.join(__dirname, "/public/css");
 const jspath = path.join(__dirname, "/public/js");
 const imgpath = path.join(__dirname, "/public/image");
