@@ -28,6 +28,11 @@ app.get('/call-for-paper', (req, res)=>{
 app.get('/call-for-workshop', (req, res)=>{
     res.render("call-for-workshop");
 })
+
+app.get('/committee', (req, res)=>{
+    res.render("committee");
+})
+    
 app.get('/login',(req,res) => {
     res.render("login.ejs");
 });
