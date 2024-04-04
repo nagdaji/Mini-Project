@@ -264,12 +264,13 @@ body{
     width: 100%;
     padding: 20px;
     display: grid;
-    grid-gap: 30px;
-    grid-template-columns: repeat(4,1fr);
+    grid-gap: 35px;
+    grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
 }
 
 .container .main .cardbox .card{
     position: relative;
+    /* height: 12rem; */
     background-color: #444;
     padding: 20px;
     box-shadow: 0 7px 25px rgba(216, 215, 215, 0.08);
@@ -296,4 +297,20 @@ body{
 .container .main .cardbox .card .icon{
     font-size: 3.5rem;
     color: #3867d6;
+}
+
+
+.container .main .cardbox .card:hover{
+    background: #3867d6;
+}
+
+.container .main .cardbox .card:hover .numbers{
+    color: #222;
+}
+
+.container .main .cardbox .card:hover .cardname{
+    color: #fff;
+}
+.container .main .cardbox .card:hover .icon i{
+    color: #fff;
 }
