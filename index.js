@@ -47,6 +47,10 @@ const userschema = new mongoose.Schema({
     interest : String,
     role : String,
     gender : String,
+    paperid : {
+      type : String,
+      default : null
+    }
 });
 
 userschema.plugin(passportlocalmongoose);
