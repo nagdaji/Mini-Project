@@ -98,7 +98,6 @@ app.route("/mail")
 .post(signup);
 
 
-
 app.route('/login')
 .get((req,res) => {
     if(req.isAuthenticated()){
