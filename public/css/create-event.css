@@ -27,9 +27,6 @@ html{
     scroll-behavior: smooth;
 }
 
-section{
-    padding: 1.5rem;
-}
 
 body{
     background: #222;
@@ -259,58 +256,174 @@ body{
 }
 
 
-.container .main .cardbox{
-    position: relative;
-    width: 100%;
-    padding: 20px;
-    display: grid;
-    grid-gap: 35px;
-    grid-template-columns: repeat(auto-fit, minmax(35rem, 1fr));
+.home .content {
+    text-align: center;
+    padding-top: 2rem;
+    margin: 1rem auto;
+    max-width: 70rem;
+
 }
 
-.container .main .cardbox .card{
-    position: relative;
-    /* height: 12rem; */
-    background-color: #444;
-    padding: 20px;
-    box-shadow: 0 7px 25px rgba(216, 215, 215, 0.08);
-    border-radius: 20px;
-    display: flex;
-    justify-content: space-between;
-    cursor: pointer;
+.home .content h3{
+    color:#fff;
+    font-size: 4.5rem;
+    text-transform: uppercase;
 }
-
-
-.container .main .cardbox .card .numbers{
-    position: relative;
-    font-weight: 500;
-    font-size: 3rem;
+.home .content h3 span {
     color: #3867d6;
+    text-transform: uppercase;
 }
 
-.container .main .cardbox .card .cardname{
+.event-creation{
+    text-align: center;
     color: #fff;
-    font-size: 1.7rem;
-    margin-top: 5px;
+    font-size: 3rem;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
 }
 
-.container .main .cardbox .card .icon{
-    font-size: 3.5rem;
+.event-creation h2 span{
     color: #3867d6;
+    text-transform: uppercase;
+}
+
+.event-creation form {
+    padding: 1rem;
+    max-width: 85rem;
+    margin: 1rem auto;
+    text-align: center;
+}
+
+.event-creation form .input-box{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 
-.container .main .cardbox .card:hover{
+.event-creation form .input-box input, textarea{
+    width: 100%;
+    background: #333;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin: 0.7rem 0;
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+.event-creation form .input-box label{
+    font-size: 1.7rem;
+}
+
+
+.event-creation form .input-box input::placeholder, textarea::placeholder{
+    color: #eee;
+}
+
+.event-creation form .input-box input:focus, textarea:focus{
+    background: #444;
+}
+
+.event-creation form .input-box input{
+    width: 49%;
+}
+
+.event-creation form textarea{
+    resize: none;
+}
+
+.btn{
+    margin-top: 1rem;
+    display: inline-block;
+    padding: 0.8rem 3rem;
+    border-radius: 0.5rem;
+    background: #666;
+    color: #fff;
+    cursor: pointer;
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+
+.btn:hover{
     background: #3867d6;
 }
 
-.container .main .cardbox .card:hover .numbers{
-    color: #222;
+
+.event-creation form .input-box .heading{
+    font-size: 2.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
-.container .main .cardbox .card:hover .cardname{
-    color: #fff;
+.event-creation form .input-box .heading span{
+    color: #3867d6;
 }
-.container .main .cardbox .card:hover .icon i{
-    color: #fff;
+
+form{
+    border: 5px solid #eee;
+    border-radius: 10px;
+}
+
+.event-creation form .view input{
+    width: 32%;
+}
+
+.event-creation form .event, .call-for-paper-details, .venue-details, .headquarters, .follow-us{
+    border: 3px solid #3867d6;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.event-creation form .each-speaker{
+    border: 3px solid #fff;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.event-creation form .each-committee{
+    border: 3px solid #fff;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.event-creation form .view1 .btn{
+    margin-top: 8.5px;
+    margin-bottom: 0;
+    height: 40px;
+}
+
+.event-creation form .view1 input{
+    width: 40%;
+}
+
+.event-creation form .view1 label{
+    /* width: 10%; */
+    display: grid;
+    margin-left: -180px;
+}
+
+.event-creation form .organization-committee-details{
+
+    border: 3px solid #3867d6;
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+
+.event-creation form .each-committee .each-user{
+    border: 2px solid #3867d6;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
 }
