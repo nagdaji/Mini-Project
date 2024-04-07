@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const bodyparser = require("body-parser");
+const {signup} = require("./public/js/mail");
 
 const app = express();
 app.use(express.static("public"));
@@ -85,7 +86,19 @@ app.get('/call-for-workshop', (req, res)=>{
 app.get('/committee', (req, res)=>{
     res.render("committee");
 })
-    
+  
+app.get('/admin', (req, res)=>{
+  res.render("admin-dashboard");
+})
+
+app.route("/mail")
+.get(function(req,res){
+  res.render("mail.ejs");
+})
+.post(signup);
+
+
+
 app.route('/login')
 .get((req,res) => {
     if(req.isAuthenticated()){
@@ -106,7 +119,6 @@ app.route('/login')
             passport.authenticate("local", function (err, user, info) {
               if (err) console.log(err);
               if (!user) {
-                console.log("this is not working");
                 res.render("login.ejs", { error: "Invalid User ID or Password" });
               } else {
                 res.redirect("/home");
