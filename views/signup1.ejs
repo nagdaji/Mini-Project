@@ -38,7 +38,7 @@
     </header>
     <!-- header Section -->
 
-    <!-- login form  -->
+    <!-- singup form  -->
     <secton class="container forms">
       <div class="form login">
         <div class="form-content">
@@ -51,16 +51,47 @@
               <input type="email" class="input" placeholder="email" />
             </div>
             <div class="field input-field">
-              <input type="password" class="password" placeholder="password" />
-              <i
+              <input
+                type="password"
+                class="password"
+                placeholder="create password"
+                id="password"
+              />
+              <!-- <i
                 class="fa-solid fa-eye-slash eye-icon"
                 style="color: #3687d6"
-              ></i>
+              ></i> -->
+            </div>
+            <div class="content">
+              <p>Password must contains:</p>
+              <ul class="requirement-list">
+                <li>
+                  <i class="fa-solid fa-circle"></i>
+                  <span>At least 8 character length</span>
+                </li>
+                <li>
+                  <i class="fa-solid fa-circle"></i>
+                  <span>At least one lowercase alphabet</span>
+                </li>
+                <li>
+                  <i class="fa-solid fa-circle"></i>
+                  <span>At least one uppercase alphabet</span>
+                </li>
+                <li>
+                  <i class="fa-solid fa-circle"></i>
+                  <span>At least one special character</span>
+                </li>
+                <li>
+                  <i class="fa-solid fa-circle"></i>
+                  <span>At least numeric character</span>
+                </li>
+              </ul>
             </div>
             <div class="field input-field">
               <input
                 type="password"
                 class="password"
+                id="confirm-password"
                 placeholder="confirm password"
               />
               <i
@@ -68,6 +99,7 @@
                 style="color: #3687d6"
               ></i>
             </div>
+            <p class="message"></p>
             <div class="field input-field">
               <select name="Choose Role" id="role">
                 <option value="1" class="choose">Enter As</option>
@@ -85,12 +117,14 @@
           <div class="form-link">
             <span
               >Already have an account
-              <a href="/login1" class="signup-link">Login</a></span
+              <a href="/login1" class="link login-link">Login</a></span
             >
           </div>
         </div>
       </div>
     </secton>
-    <!-- login form  -->
+    <!-- signup form  -->
+
+    <script src="/js/signup.js" defer></script>
   </body>
 </html>
