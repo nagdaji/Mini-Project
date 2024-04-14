@@ -98,6 +98,10 @@ app.get("/edit-event", (req, res) => {
   res.render("edit-event");
 });
 
+app.get("/login1", (req, res) => {
+  res.render("login1");
+});
+
 app
   .route("/login")
   .get((req, res) => {

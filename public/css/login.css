@@ -1,0 +1,190 @@
+
+
+/* Google fonts (Poppins) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&display=swap');
+
+
+:root{
+    --theme-color: #3867d6
+}
+
+*{
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: 0.2s linear;
+}
+
+html{
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-padding-top: 7rem;
+    scroll-behavior: smooth;
+}
+
+section{
+    padding: 1.5rem;
+}
+
+body{
+    background: #222;
+}
+
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #333;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 9%;
+}
+
+.header .logo{
+    color: #fff;
+    font-weight: bolder;
+    font-size: 2.5rem;
+}
+
+.header .logo span {
+    color: #3867d6;
+}
+
+.header .navbar a{
+    font-size: 1.7rem;
+    color: #fff;
+    margin-left: 2rem;
+}
+
+.header .navbar a:hover{
+    color: #3867d6;
+}
+
+#menu-bar{
+    font-size: 3rem;
+    color: #fff;
+    cursor: pointer;
+    display: none;
+}
+
+.home .content {
+    text-align: center;
+    padding-top: 6rem;
+    margin: 2rem auto;
+    max-width: 70rem;
+
+}
+
+.home .content h3{
+    color:#fff;
+    font-size: 4.5rem;
+    text-transform: uppercase;
+}
+.home .content h3 span {
+    color: #3867d6;
+    text-transform: uppercase;
+}
+
+
+.container{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: #333; */
+}
+
+.container .form{
+    background-color: #3867d6;
+    border-radius: 6px;
+    max-width: 430px;
+    width: 100%;
+    padding: 30px;
+}
+
+.container .form header{
+    font-size: 3.5rem;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+}
+
+
+.container .form form{
+    margin-top: 3rem;
+}
+
+.container .form form .field{
+    position: relative;
+    height: 42px;
+    width: 100%;
+    margin-top: 2rem;
+    margin-bottom: 2.5rem;
+}
+
+.container .form form .field input, .container .form form .field button{
+    height: 100%;
+    width: 100%;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: 500;
+    border-radius: 6px;
+    color: black;
+}
+
+.container .form form .field input{
+    /* border: 5px solid #cacaca; */
+    padding: 0 13px;
+}
+
+.container .form form .field input:focus{
+    border-bottom-width: 7px;
+    background-color: #eefeef;
+}
+
+.container .form form .field button{
+    /* background-color: black; */
+    transition: all 0.3 ease;
+    cursor: pointer;
+}
+
+.container .form form .field button:hover{
+    background-color: #1e15c3;
+    color: #fff;
+}
+
+.container .form form .eye-icon{
+    font-size: 18px;
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    padding: 5px;
+}
+
+.container .form .form-link{
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.7rem;
+    color: #fff;
+}
+
+.container .form .form-link a{
+    color: black;
+}
+
+.container .form .form-link a:hover{
+    color: #fff;
+    text-decoration: underline;
+}
+
