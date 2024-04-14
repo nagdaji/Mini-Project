@@ -23,13 +23,19 @@ toggle.onclick = function () {
   bar.classList.toggle("active");
 };
 
+let dateFieldCounter = 0;
 //adding the new date field
 function addField() {
   var formContainer = document.getElementById("key-dates-insert");
   var newField = document.createElement("div");
   newField.className = "input-box view1";
+  dateFieldCounter++;
   newField.innerHTML =
-    '<input type="date" class="view1" placeholder="Date" /><input type="text" class="view1" placeholder="Description" /><button class="remove-btn btn view1" onclick="removeField(this)">Remove</button>';
+    `
+    <input name="date-${dateFieldCounter}" type="date" class="view1" placeholder="Date" />
+    <input name="description-${dateFieldCounter}" type="text" class="view1" placeholder="Description" />
+    <button class="remove-btn btn view1" onclick="removeField(this)">Remove</button>
+    `;
   formContainer.appendChild(newField);
 }
 
@@ -37,6 +43,7 @@ function addField() {
 function removeField(btn) {
   var formContainer = document.getElementById("key-dates-insert");
   formContainer.removeChild(btn.parentNode);
+  dateFieldCounter--;
 }
 
 //adding the new speaker
