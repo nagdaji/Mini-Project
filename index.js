@@ -102,6 +102,10 @@ app.get("/login1", (req, res) => {
   res.render("login1");
 });
 
+app.get("/signup1", (req, res) => {
+  res.render("signup1");
+});
+
 app
   .route("/login")
   .get((req, res) => {

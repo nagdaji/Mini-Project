@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ConfoEase</title>
-    <link rel="stylesheet" href="/css/login.css" />
+    <link rel="stylesheet" href="/css/singup.css" />
     <!-- swiper css -->
     <link
       rel="stylesheet"
@@ -42,8 +42,11 @@
     <secton class="container forms">
       <div class="form login">
         <div class="form-content">
-          <header>Login</header>
+          <header>SignUp</header>
           <form action="#">
+            <div class="field input-field">
+              <input type="text" class="input" placeholder="name" />
+            </div>
             <div class="field input-field">
               <input type="email" class="input" placeholder="email" />
             </div>
@@ -54,17 +57,35 @@
                 style="color: #3687d6"
               ></i>
             </div>
-            <div class="form-link">
-              <a href="#" class="forgot-password">Forgot Password?</a>
+            <div class="field input-field">
+              <input
+                type="password"
+                class="password"
+                placeholder="confirm password"
+              />
+              <i
+                class="fa-solid fa-eye-slash eye-icon"
+                style="color: #3687d6"
+              ></i>
             </div>
+            <div class="field input-field">
+              <select name="Choose Role" id="role">
+                <option value="1" class="choose">Enter As</option>
+                <option value="author">Author</option>
+                <option value="attendee">Attendee</option>
+              </select>
+            </div>
+            <!-- <div class="form-link">
+              <a href="#" class="forgot-password">Forgot Password?</a>
+            </div> -->
             <div class="field button-field">
-              <button>Login</button>
+              <button>Register</button>
             </div>
           </form>
           <div class="form-link">
             <span
-              >Don't have an account
-              <a href="/signup1" class="signup-link">SignUp</a></span
+              >Already have an account
+              <a href="/login1" class="signup-link">Login</a></span
             >
           </div>
         </div>
