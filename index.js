@@ -31,22 +31,27 @@ app.use("/image", express.static(imgpath));
 app.set("view engine", "ejs");
 app.set("views", "./views");
 
-
 //storage and filename settings//
-const storage  = multer.diskStorage({
-  destination : "public/uploads",
-  filename : function(req,file,cb){
-    cb(null,file.originalname);
-  }
+const storage = multer.diskStorage({
+  destination: "public/uploads",
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
 });
 
 //upload setting//
 const upload = multer({
-  storage : storage,
+  storage: storage,
 });
 
 // for multiple files at a time //
-var multipleUpload = upload.fields([{name : 'conferenceimages',maxCount : 5},{name : 'venueimages',maxCount : 5},{name : 'speakerimages',maxCount : 5},{name : 'memberimages',maxCount : 5},{name : 'sponserimage',maxCount : 5}]);
+var multipleUpload = upload.fields([
+  { name: "conferenceimages", maxCount: 5 },
+  { name: "venueimages", maxCount: 5 },
+  { name: "speakerimages", maxCount: 5 },
+  { name: "memberimages", maxCount: 5 },
+  { name: "sponserimage", maxCount: 5 },
+]);
 
 app.use(
   session({
@@ -61,12 +66,16 @@ app.use(passport.session());
 
 mongoose
   .connect(
-    "mongodb+srv://kartik:kartik123@cluster0.8ou8ajo.mongodb.net/?retryWrites=true&w=majority"
+    "mongodb+srv://deepaknagda:deepaknagda285@cluster0.odlpsag.mongodb.net/MiniProject?retryWrites=true&w=majority&appName=Cluster0"
   )
   .then(() => console.log("mongo connected"))
-  .catch((err) => console.log(err));
-
-
+  .catch((err) => console.log(err.message));
+// mongoose
+//   .connect(
+//     "mongodb+srv://kartik:kartik123@cluster0.8ou8ajo.mongodb.net/?retryWrites=true&w=majority"
+//   )
+//   .then(() => console.log("mongo connected"))
+//   .catch((err) => console.log(err));
 
 const userschema = new mongoose.Schema({
   username: String,
@@ -95,10 +104,7 @@ passport.deserializeUser(function (user, done) {
 
 passport.use(usermodel.createStrategy());
 
-
-
 app.get("/", (req, res) => {
-
   res.render("index");
 });
 app.get("/home", (req, res) => {
@@ -116,7 +122,7 @@ app.get("/committee", (req, res) => {
 });
 
 app.get("/admin", (req, res) => {
-  res.render("admin-dashboard"); 
+  res.render("admin-dashboard");
 });
 
 app.route("/create-event")
@@ -176,16 +182,15 @@ app.route("/create-event")
 
   // data.save();
 
-  res.redirect("/create-event");
-});
+    res.redirect("/create-event");
+  });
 
-app.get("/signup1")
-
-app.route("/mail")
-.get(function(req,res){
-  res.render("mail.ejs");
-})
-.post(signup);
+app
+  .route("/mail")
+  .get(function (req, res) {
+    res.render("mail.ejs");
+  })
+  .post(signup);
 app
   .route("/login")
   .get((req, res) => {
