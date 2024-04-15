@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/css/create-event.css" />
+    <link rel="stylesheet" href="/css/edit-event.css" />
     <title>Dashboard</title>
     <!-- font awesome link -->
     <link
@@ -32,13 +32,13 @@
               <span class="title">Home</span>
             </a>
           </li>
-          <li class="hovered">
+          <li>
             <a href="/create-event">
               <span class="icon"><i class="fa-solid fa-plus"></i></span>
               <span class="title">Create Event</span>
             </a>
           </li>
-          <li>
+          <li class="hovered">
             <a href="/edit-event">
               <span class="icon"
                 ><i class="fa-solid fa-pen-to-square"></i
@@ -47,19 +47,19 @@
             </a>
           </li>
           <li>
-            <a href="/manage-reviewer">
+            <a href="#">
               <span class="icon"><i class="fa-solid fa-list-check"></i></span>
               <span class="title">Manage Reviewer</span>
             </a>
           </li>
           <li>
-            <a href="/schedule">
+            <a href="#">
               <span class="icon"><i class="fa-regular fa-calendar"></i></span>
               <span class="title">Schedule</span>
             </a>
           </li>
           <li>
-            <a href="/logout">
+            <a href="#">
               <span class="icon"
                 ><i class="fa-solid fa-right-from-bracket"></i
               ></span>
@@ -83,7 +83,7 @@
             </label>
           </div>
           <div class="user">
-            <img src="/image/user.jpg" alt="" />
+            <img src="user.jpg" alt="" />
           </div>
         </div>
         <!-- top navigation bar -->
@@ -100,7 +100,7 @@
 
         <div class="form-container">
           <section class="event-creation" id="event-creation">
-            <form  onsubmit="fetchData()" method="post" action="/create-event" enctype="multipart/form-data">
+            <form onsubmit="return false;">
               <!-- Basic event details -->
               <div class="event">
                 <div class="input-box">
@@ -109,24 +109,24 @@
                   >
                 </div>
                 <div class="input-box">
-                  <label for="eventname">Event Name:</label>
+                  <label for="event-name">Event Name:</label>
                   <label for="images">Conference Images</label>
                 </div>
                 <div class="input-box">
                   <input
                     type="text"
-                    name="eventname"
+                    name="event-name"
                     placeholder="Event Name"
                   />
-                  <input type="file" name="conferenceimages" multiple />
+                  <input type="file" name="conference-images" multiple />
                 </div>
                 <div class="input-box">
-                  <label for="conferencedescription"
+                  <label for="conference-description"
                     >Conference Description</label
                   >
                 </div>
                 <textarea
-                  name="conferencedescription"
+                  name=""
                   id=""
                   cols="30"
                   rows="5"
@@ -147,10 +147,10 @@
                   <label for="key-dates-description">Description</label>
                 </div>
                 <div class="input-box view1">
-                  <input type="date" name="date[]" placeholder="Date" />
+                  <input type="date" name="date" placeholder="Date" />
                   <input
                     type="text"
-                    name="description[]"
+                    name="description"
                     placeholder="Description"
                   />
                   <button class="remove-btn btn" onclick="removeField(this)">
@@ -159,7 +159,7 @@
                 </div>
               </div>
               <div class="input-box">
-                <button class="add-btn btn" onclick="addField(); return false;">
+                <button class="add-btn btn" onclick="addField()">
                   Add Date
                 </button>
               </div>
@@ -176,7 +176,7 @@
                   <label for="aims-and-scope">Aims and Scope</label>
                 </div>
                 <textarea
-                  name="aim"
+                  name=""
                   id=""
                   cols="30"
                   rows="5"
@@ -186,7 +186,7 @@
                   <label for="topic-of-interest">Topic Of Interest</label>
                 </div>
                 <textarea
-                  name="topic"
+                  name=""
                   id=""
                   cols="30"
                   rows="5"
@@ -198,7 +198,7 @@
                   >
                 </div>
                 <textarea
-                  name="guidelines"
+                  name=""
                   id=""
                   cols="30"
                   rows="5"
@@ -210,7 +210,7 @@
                   >
                 </div>
                 <textarea
-                  name="preparesubmission"
+                  name=""
                   id=""
                   cols="30"
                   rows="5"
@@ -218,9 +218,9 @@
                 ></textarea>
                 <div class="input-box">
                   <label for="contact">Contact</label>
-                </div>  
+                </div>
                 <textarea
-                  name="contact"
+                  name=""
                   id=""
                   cols="30"
                   rows="2"
@@ -240,7 +240,7 @@
                   <label for="aims-and-scope">Aims and Scope</label>
                 </div>
                 <textarea
-                  name="workshopaim"
+                  name=""
                   id=""
                   cols="30"
                   rows="5"
@@ -252,7 +252,7 @@
                   >
                 </div>
                 <textarea
-                  name="workshopproposal"
+                  name=""
                   id=""
                   cols="30"
                   rows="5"
@@ -269,18 +269,18 @@
                   >
                 </div>
                 <div class="input-box">
-                  <label for="venuename">Venue Name:</label>
+                  <label for="venue-name">Venue Name:</label>
                   <label for="images">Venue Images</label>
                 </div>
                 <div class="input-box">
                   <input type="text" name="venue" placeholder="Event Name" />
-                  <input type="file" name="venueimages" multiple />
+                  <input type="file" name="venue-images" multiple />
                 </div>
                 <div class="input-box">
-                  <label for="venuedescription">Venue Description</label>
+                  <label for="venue-description">Venue Description</label>
                 </div>
                 <textarea
-                  name="venuedescription"
+                  name=""
                   id=""
                   cols="30"
                   rows="5"
@@ -299,24 +299,24 @@
                 <div id="speaker-list">
                   <div class="each-speaker">
                     <div class="input-box">
-                      <label for="speakername">Speaker Name:</label>
+                      <label for="speaker-name">Speaker Name:</label>
                       <label for="images">Speaker Images</label>
                     </div>
                     <div class="input-box">
                       <input
                         type="text"
-                        name="speakername[]"
+                        name="speaker-name"
                         placeholder="Speaker Name"
                       />
-                      <input type="file" name="speakerimages" multiple />
+                      <input type="file" name="speaker-images" multiple />
                     </div>
                     <div class="input-box">
-                      <label for="venuedescription">Speaker Occupation</label>
+                      <label for="venue-description">Speaker Occupation</label>
                     </div>
                     <div class="input-box">
                       <input
                         type="text"
-                        name="speakeroccupation[]"
+                        name="speaker-occupation"
                         placeholder="Speaker Occupation"
                       />
                     </div>
@@ -328,7 +328,7 @@
                     </button>
                   </div>
                 </div>
-                <button class="add-btn btn" onclick="addSpeaker(); return false;">
+                <button class="add-btn btn" onclick="addSpeaker()">
                   Add Speaker
                 </button>
               </div>
@@ -345,12 +345,12 @@
                 <div class="committee-list" id="committee-list">
                   <div class="each-committee">
                     <div class="input-box">
-                      <label for="committeename">Committee Name:</label>
+                      <label for="committee-name">Committee Name:</label>
                     </div>
                     <div class="input-box">
                       <input
                         type="text"
-                        name="committeename"
+                        name="committee-name"
                         placeholder="Committee Name"
                       />
                     </div>
@@ -366,10 +366,10 @@
                         <div class="input-box">
                           <input
                             type="text"
-                            name="membername"
+                            name="member-name"
                             placeholder="Member Name"
                           />
-                          <input type="file" name="memberimages" />
+                          <input type="file" name="member-images" />
                         </div>
                         <div class="input-box view">
                           <label for="facebool">Facebook:</label>
@@ -379,17 +379,17 @@
                         <div class="input-box view">
                           <input
                             type="text"
-                            name="facebooklink"
+                            name="facebook-link"
                             placeholder="Facebook"
                           />
                           <input
                             type="text"
-                            name="twitterlink"
+                            name="twitter-link"
                             placeholder="Twitter"
                           />
                           <input
                             type="text"
-                            name="linkedinlink"
+                            name="linkedin-link"
                             placeholder="LinkedIn"
                           />
                         </div>
@@ -403,7 +403,7 @@
                     </div>
                     <button
                       class="add-btn btn"
-                      onclick="addCommitteeMember(this); return false;"
+                      onclick="addCommitteeMember(this)"
                     >
                       Add User</button
                     ><br />
@@ -415,7 +415,7 @@
                     </button>
                   </div>
                 </div>
-                <button class="add-btn btn" onclick="addCommittee(); return false;">
+                <button class="add-btn btn" onclick="addCommittee()">
                   Add Committee
                 </button>
               </div>
@@ -432,16 +432,16 @@
                 <div class="sponsers-list" id="sponsers-list">
                   <div class="each-sponser">
                     <div class="input-box">
-                      <label for="sponsername">Sponser Name:</label>
+                      <label for="Sponser-name">Sponser Name:</label>
                       <label for="images">Sponser Images</label>
                     </div>
                     <div class="input-box">
                       <input
                         type="text"
-                        name="sponsername[]"
+                        name="sponser-name"
                         placeholder="Sponser Name"
                       />
-                      <input type="file" name="sponserimage" multiple />
+                      <input type="file" name="Sponser-image" multiple />
                     </div>
                     <button
                       class="remove-btn btn"
@@ -451,7 +451,7 @@
                     </button>
                   </div>
                 </div>
-                <button class="add-btn btn" onclick="addSponser(); return false;">
+                <button class="add-btn btn" onclick="addSponser()">
                   Add Sponser
                 </button>
               </div>
@@ -467,18 +467,18 @@
                 <div class="quarter-list" id="quarter-list">
                   <div class="each-headquarter">
                     <div class="input-box">
-                      <label for="headquartersname">Headquarter Name:</label>
-                      <label for="headquarterslink">Headquarter link:</label>
+                      <label for="headquarters-name">Headquarter Name:</label>
+                      <label for="headquarters-link">Headquarter link:</label>
                     </div>
                     <div class="input-box">
                       <input
                         type="text"
-                        name="headquartername[]"
+                        name="headquarter-name"
                         placeholder="Headquarter Name"
                       />
                       <input
                         type="text"
-                        name="headquarterlink[]"
+                        name="headquarter-link"
                         placeholder="Headquarter Link"
                       />
                       <button
@@ -490,7 +490,7 @@
                     </div>
                   </div>
                 </div>
-                <button class="add-btn btn" onclick="addquarters(); return false;">
+                <button class="add-btn btn" onclick="addquarters()">
                   Add Headquarter
                 </button>
               </div>
@@ -512,12 +512,12 @@
                     <div class="input-box">
                       <input
                         type="tel"
-                        name="mobilenumber[]"
+                        name="mobile-number"
                         placeholder="Mobile Number"
                       />
                       <input
                         type="email"
-                        name="email[]"
+                        name="email-id"
                         placeholder="Email id"
                       />
                       <button
@@ -529,7 +529,7 @@
                     </div>
                   </div>
                 </div>
-                <button class="add-btn btn" onclick="addcontact(); return false;">
+                <button class="add-btn btn" onclick="addcontact()">
                   Add Contact
                 </button>
               </div>
@@ -549,12 +549,12 @@
                 <div class="input-box">
                   <input
                     type="text"
-                    name="facebookconnect"
+                    name="facebook-connect"
                     placeholder="Facebook Link"
                   />
                   <input
                     type="text"
-                    name="twitterconnect"
+                    name="twitter-connect"
                     placeholder="Twitter Link"
                   />
                 </div>
@@ -565,12 +565,12 @@
                 <div class="input-box">
                   <input
                     type="text"
-                    name="linkedinconnect"
+                    name="linkedin-connect"
                     placeholder="LinkedIn Link"
                   />
                   <input
                     type="text"
-                    name="instagramconnect"
+                    name="instagram-connect"
                     placeholder="Instagram Link"
                   />
                 </div>
@@ -582,7 +582,6 @@
                 id="create-event-submission"
                 value="Send Message"
                 class="btn"
-                onclick="fetchData()"
               />
             </form>
           </section>
@@ -594,7 +593,7 @@
     <!-- side navigation bar -->
 
     <!-- script file -->
-    <script src="/js/create-event.js"></script>
+    <script src="/js/edit-event.js"></script>
     <!-- script file -->
   </body>
 </html>

@@ -2,6 +2,13 @@ require("dotenv").config();
 const express = require("express");
 const bodyparser = require("body-parser");
 
+const {signup} = require("./public/js/mail");
+const {processFiles , datearr} = require("./utils/utils");
+
+
+const homemodel = require("./schema/homeschema");
+const multer = require("multer");
+
 const app = express();
 app.use(express.static("public"));
 const path = require("path");
@@ -24,6 +31,28 @@ app.use("/image", express.static(imgpath));
 app.set("view engine", "ejs");
 app.set("views", "./views");
 
+//storage and filename settings//
+const storage = multer.diskStorage({
+  destination: "public/uploads",
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+//upload setting//
+const upload = multer({
+  storage: storage,
+});
+
+// for multiple files at a time //
+var multipleUpload = upload.fields([
+  { name: "conferenceimages", maxCount: 5 },
+  { name: "venueimages", maxCount: 5 },
+  { name: "speakerimages", maxCount: 5 },
+  { name: "memberimages", maxCount: 5 },
+  { name: "sponserimage", maxCount: 5 },
+]);
+
 app.use(
   session({
     secret: process.env.KEY,
@@ -35,6 +64,12 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+// mongoose
+//   .connect(
+//     "mongodb+srv://deepaknagda:deepaknagda285@cluster0.odlpsag.mongodb.net/MiniProject?retryWrites=true&w=majority&appName=Cluster0"
+//   )
+//   .then(() => console.log("mongo connected"))
+//   .catch((err) => console.log(err.message));
 mongoose
   .connect(
     "mongodb+srv://kartik:kartik123@cluster0.8ou8ajo.mongodb.net/?retryWrites=true&w=majority"
@@ -90,14 +125,75 @@ app.get("/admin", (req, res) => {
   res.render("admin-dashboard");
 });
 
-app.get("/create-event", (req, res) => {
-  res.render("create-event");
-});
-
 app.get("/reviewer", (req, res) => {
-  res.render("reviewer-dashboard.ejs");
+  res.render("reviewer-dashboard");
 });
+app.route("/create-event")
+.get((req, res) => {
+  res.render("create-event");
+})
+.post(multipleUpload,(req,res) => {
 
+  // to access each object in an array
+  console.log(req.body);
+  
+  let confimg = processFiles(req.files.conferenceimages);
+  let venueimg = processFiles(req.files.venueimages);
+  let speakerimg = processFiles(req.files.speakerimages);
+  let memimg = processFiles(req.files.memberimages);
+  let sponimg = processFiles(req.files.sponserimage);
+
+  // let d = datearr(req.body.date); 
+
+
+  const data = new homemodel({
+    eventname : req.body.eventname,
+    conferenceimages : confimg,
+    conferencedescription : req.body.conferencedescription,
+    date : req.body.date,
+    description : req.body.description,
+    aim : req.body.aim,
+    topic : req.body.topic,
+    guidelines : req.body.guidelines,
+    preparesubmission : req.body.preparesubmission,
+    contact : req.body.contact,
+    workshopaim : req.body.workshopaim,
+    workshopproposal : req.body.workshopproposal,
+    venue : req.body.venue,
+    venueimages : venueimg,
+    venuedescription : req.body.venuedescription,
+    speakername : req.body.speakername,
+    speakerimages : speakerimg,
+    speakeroccupation : req.body.speakeroccupation,
+    committeename : req.body.committeename,
+    membername : req.body.membername,
+    memberimages : memimg,
+    facebooklink : req.body.facebooklink,
+    twitterlink : req.body.twitterlink,
+    instagramlink : req.body.instagramlink,
+    sponsorname : req.body.sponsorname,
+    sponsorimage : sponimg,
+    headquartername : req.body.headquartername,
+    headquarterlink : req.body.headquarterlink,
+    mobilenumber : req.body.mobilenumber,
+    email : req.body.email,
+    facebookconnect : req.body.facebookconnect,
+    instagramconnect : req.body.instagramconnect,
+    linkedinconnect : req.body.linkedinconnect,
+    twitterconnect : req.body.twitterconnect,
+  });
+
+  // data.save();
+
+    // res.redirect("/create-event");
+  });
+
+app
+  .route("/mail")
+  .get(function (req, res) {
+    res.render("mail.ejs");
+  })
+  .post(signup);
 app
   .route("/login")
   .get((req, res) => {
@@ -155,6 +251,33 @@ app
       }
     );
   });
+
+
+  app.get("/edit-event", (req, res) => {
+    res.render("edit-event");
+  });
+  
+  app.get("/login1", (req, res) => {
+    res.render("login1");
+  });
+  
+  app.get("/signup1", (req, res) => {
+    res.render("signup1");
+  });
+
+  app.get("/logout", (req, res) => {
+    // Destroy the session to log out the user
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Error destroying session:", err);
+        res.status(500).send("Internal Server Error");
+      } else {
+        islogged = false;
+        res.redirect("/login"); // Redirect to the login page after logout
+      }
+    });
+  });
+
 
 app.listen(8000, () => {
   console.log("Server running on port 8000!!");

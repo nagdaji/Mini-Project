@@ -1,0 +1,41 @@
+const mongoose = require('mongoose');
+const { Schema } = mongoose;
+
+const homeschema = new Schema({
+    eventname : String,
+    conferenceimages : [String],
+    conferencedescription : String,
+    date : [Date],
+    description : [String],
+    aim : String,
+    topic : String,
+    guidelines : String,
+    preparesubmission : String,
+    contact : String,
+    workshopaim : String,
+    workshopproposal : String,
+    venue : String,
+    venueimages : [String],
+    venuedescription : String,
+    speakername : [String],
+    speakerimages : [String],
+    speakeroccupation : [String],
+    committeename : [String],
+    membername : [String],
+    memberimages : [String],
+    facebooklink : [String],
+    twitterlink : [String],
+    instagramlink : [String],
+    sponsorname : [String],
+    sponsorimage : [String],
+    headquartername : [String],
+    headquarterlink : [String],
+    mobilenumber : [String],
+    email : [String],
+    facebookconnect : String,
+    instagramconnect : String,
+    linkedinconnect : String,
+    twitterconnect : String,
+});
+
+module.exports = mongoose.model('homedata', homeschema);
