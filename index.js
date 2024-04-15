@@ -1,9 +1,8 @@
 require("dotenv").config();
 const express = require("express");
 const bodyparser = require("body-parser");
-const {signup} = require("./public/js/mail");
-
-
+const { signup } = require("./public/js/mail");
+const nodemailer = require("nodemailer");
 const homemodel = require("./schema/homeschema");
 const multer = require("multer");
 const fs = require("fs");
@@ -30,22 +29,27 @@ app.use("/image", express.static(imgpath));
 app.set("view engine", "ejs");
 app.set("views", "./views");
 
-
 //storage and filename settings//
-const storage  = multer.diskStorage({
-  destination : "public/uploads",
-  filename : function(req,file,cb){
-    cb(null,file.originalname);
-  }
+const storage = multer.diskStorage({
+  destination: "public/uploads",
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
 });
 
 //upload setting//
 const upload = multer({
-  storage : storage,
+  storage: storage,
 });
 
 // for multiple files at a time //
-var multipleUpload = upload.fields([{name : 'conferenceimages',maxCount : 5},{name : 'venueimages',maxCount : 5},{name : 'speakerimages',maxCount : 5},{name : 'memberimages',maxCount : 5},{name : 'sponserimage',maxCount : 5}]);
+var multipleUpload = upload.fields([
+  { name: "conferenceimages", maxCount: 5 },
+  { name: "venueimages", maxCount: 5 },
+  { name: "speakerimages", maxCount: 5 },
+  { name: "memberimages", maxCount: 5 },
+  { name: "sponserimage", maxCount: 5 },
+]);
 
 app.use(
   session({
@@ -60,12 +64,16 @@ app.use(passport.session());
 
 mongoose
   .connect(
-    "mongodb+srv://kartik:kartik123@cluster0.8ou8ajo.mongodb.net/?retryWrites=true&w=majority"
+    "mongodb+srv://deepaknagda:deepaknagda285@cluster0.odlpsag.mongodb.net/MiniProject?retryWrites=true&w=majority&appName=Cluster0"
   )
   .then(() => console.log("mongo connected"))
-  .catch((err) => console.log(err));
-
-
+  .catch((err) => console.log(err.message));
+// mongoose
+//   .connect(
+//     "mongodb+srv://kartik:kartik123@cluster0.8ou8ajo.mongodb.net/?retryWrites=true&w=majority"
+//   )
+//   .then(() => console.log("mongo connected"))
+//   .catch((err) => console.log(err));
 
 const userschema = new mongoose.Schema({
   username: String,
@@ -94,10 +102,7 @@ passport.deserializeUser(function (user, done) {
 
 passport.use(usermodel.createStrategy());
 
-
-
 app.get("/", (req, res) => {
-
   res.render("index");
 });
 app.get("/home", (req, res) => {
@@ -115,120 +120,113 @@ app.get("/committee", (req, res) => {
 });
 
 app.get("/admin", (req, res) => {
-  res.render("admin-dashboard"); 
+  res.render("admin-dashboard");
 });
 
-app.route("/create-event")
-.get((req, res) => {
-  res.render("create-event");
-})
-.post(multipleUpload,(req,res) => {
-
-  // to access each object in an array
-  console.log(req.body);
-  const confimg = [];
-  if(req.files.conferenceimages) {
-    for(let cfi of req.files.conferenceimages)
-    {
-      // console.log(cfi.path);
-      const imgpath = cfi.path;
-      const img64 = fs.readFileSync(imgpath, { encoding: "base64" });
-      confimg.push(img64);
+app
+  .route("/create-event")
+  .get((req, res) => {
+    res.render("create-event");
+  })
+  .post(multipleUpload, (req, res) => {
+    // to access each object in an array
+    console.log(req.body);
+    const confimg = [];
+    if (req.files.conferenceimages) {
+      for (let cfi of req.files.conferenceimages) {
+        // console.log(cfi.path);
+        const imgpath = cfi.path;
+        const img64 = fs.readFileSync(imgpath, { encoding: "base64" });
+        confimg.push(img64);
+      }
     }
-  }
 
-  const venueimg = [];
-  if(req.files.venueimages) {
-    for(let cfi of req.files.venueimages)
-    {
-      // console.log(cfi.path);
-      const imgpath = cfi.path;
-      const img64 = fs.readFileSync(imgpath, { encoding: "base64" });
-      venueimg.push(img64);
+    const venueimg = [];
+    if (req.files.venueimages) {
+      for (let cfi of req.files.venueimages) {
+        // console.log(cfi.path);
+        const imgpath = cfi.path;
+        const img64 = fs.readFileSync(imgpath, { encoding: "base64" });
+        venueimg.push(img64);
+      }
     }
-  }
 
-  const speakerimg = [];
-  if(req.files.speakerimages) {
-    for(let cfi of req.files.speakerimages)
-    {
-      // console.log(cfi.path);
-      const imgpath = cfi.path;
-      const img64 = fs.readFileSync(imgpath, { encoding: "base64" });
-      speakerimg.push(img64);
+    const speakerimg = [];
+    if (req.files.speakerimages) {
+      for (let cfi of req.files.speakerimages) {
+        // console.log(cfi.path);
+        const imgpath = cfi.path;
+        const img64 = fs.readFileSync(imgpath, { encoding: "base64" });
+        speakerimg.push(img64);
+      }
     }
-  }
-  
-  const memimg = [];
-  if(req.files.memberimages) {
-    for(let cfi of req.files.memberimages)
-    {
-      // console.log(cfi.path);
-      const imgpath = cfi.path;
-      const img64 = fs.readFileSync(imgpath, { encoding: "base64" });
-      memimg.push(img64);
-    }
-  }
-  
-  const sponimg = [];
-  if(req.files.sponserimage) {
-    for(let cfi of req.files.sponserimage)
-    {
-      // console.log(cfi.path);
-      const imgpath = cfi.path;
-      const img64 = fs.readFileSync(imgpath, { encoding: "base64" });
-      sponimg.push(img64);
-    }
-  }
 
+    const memimg = [];
+    if (req.files.memberimages) {
+      for (let cfi of req.files.memberimages) {
+        // console.log(cfi.path);
+        const imgpath = cfi.path;
+        const img64 = fs.readFileSync(imgpath, { encoding: "base64" });
+        memimg.push(img64);
+      }
+    }
 
-  const data = new homemodel({
-    eventname : req.body.eventname,
-    conferenceimages : confimg,
-    conferencedescription : req.body.conferencedescription,
-    date : req.body.date,
-    description : req.body.description,
-    aim : req.body.aim,
-    topic : req.body.topic,
-    guidelines : req.body.guidelines,
-    preparesubmission : req.body.preparesubmission,
-    contact : req.body.contact,
-    workshopaim : req.body.workshopaim,
-    workshopproposal : req.body.workshopproposal,
-    venue : req.body.venue,
-    venueimages : venueimg,
-    venuedescription : req.body.venuedescription,
-    speakername : req.body.speakername,
-    speakerimages : speakerimg,
-    speakeroccupation : req.body.speakeroccupation,
-    comitteename : req.body.comitteename,
-    membername : req.body.membername,
-    memberimages : memimg,
-    facebooklink : req.body.facebooklink,
-    twitterlink : req.body.twitterlink,
-    instagramlink : req.body.instagramlink,
-    sponsorname : req.body.sponsorname,
-    sponsorimage : sponimg,
-    headquartername : req.body.headquartername,
-    headquarterlink : req.body.headquarterlink,
-    mobilenumber : req.body.mobilenumber,
-    email : req.body.email,
-    facebookconnect : req.body.facebookconnect,
-    instagramconnect : req.body.instagramconnect,
-    linkedinconnect : req.body.linkedinconnect,
-    twitterconnect : req.body.twitterconnect,
+    const sponimg = [];
+    if (req.files.sponserimage) {
+      for (let cfi of req.files.sponserimage) {
+        // console.log(cfi.path);
+        const imgpath = cfi.path;
+        const img64 = fs.readFileSync(imgpath, { encoding: "base64" });
+        sponimg.push(img64);
+      }
+    }
+
+    const data = new homemodel({
+      eventname: req.body.eventname,
+      conferenceimages: confimg,
+      conferencedescription: req.body.conferencedescription,
+      date: req.body.date,
+      description: req.body.description,
+      aim: req.body.aim,
+      topic: req.body.topic,
+      guidelines: req.body.guidelines,
+      preparesubmission: req.body.preparesubmission,
+      contact: req.body.contact,
+      workshopaim: req.body.workshopaim,
+      workshopproposal: req.body.workshopproposal,
+      venue: req.body.venue,
+      venueimages: venueimg,
+      venuedescription: req.body.venuedescription,
+      speakername: req.body.speakername,
+      speakerimages: speakerimg,
+      speakeroccupation: req.body.speakeroccupation,
+      comitteename: req.body.comitteename,
+      membername: req.body.membername,
+      memberimages: memimg,
+      facebooklink: req.body.facebooklink,
+      twitterlink: req.body.twitterlink,
+      instagramlink: req.body.instagramlink,
+      sponsorname: req.body.sponsorname,
+      sponsorimage: sponimg,
+      headquartername: req.body.headquartername,
+      headquarterlink: req.body.headquarterlink,
+      mobilenumber: req.body.mobilenumber,
+      email: req.body.email,
+      facebookconnect: req.body.facebookconnect,
+      instagramconnect: req.body.instagramconnect,
+      linkedinconnect: req.body.linkedinconnect,
+      twitterconnect: req.body.twitterconnect,
+    });
+
+    res.redirect("/create-event");
   });
 
-  // data.save();
-
-  res.redirect("/create-event");
-});
-
-app.route("/mail")
-.get(function(req,res){
-  res.render("mail.ejs");
-})
-.post(signup);
+app
+  .route("/mail")
+  .get(function (req, res) {
+    res.render("mail.ejs");
+  })
+  .post(signup);
 app
   .route("/login")
   .get((req, res) => {
