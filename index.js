@@ -1,12 +1,13 @@
 require("dotenv").config();
 const express = require("express");
 const bodyparser = require("body-parser");
+
 const {signup} = require("./public/js/mail");
+const {processFiles , datearr} = require("./utils/utils");
 
 
 const homemodel = require("./schema/homeschema");
 const multer = require("multer");
-const fs = require("fs");
 
 const app = express();
 app.use(express.static("public"));
@@ -126,60 +127,14 @@ app.route("/create-event")
 
   // to access each object in an array
   console.log(req.body);
-  const confimg = [];
-  if(req.files.conferenceimages) {
-    for(let cfi of req.files.conferenceimages)
-    {
-      // console.log(cfi.path);
-      const imgpath = cfi.path;
-      const img64 = fs.readFileSync(imgpath, { encoding: "base64" });
-      confimg.push(img64);
-    }
-  }
-
-  const venueimg = [];
-  if(req.files.venueimages) {
-    for(let cfi of req.files.venueimages)
-    {
-      // console.log(cfi.path);
-      const imgpath = cfi.path;
-      const img64 = fs.readFileSync(imgpath, { encoding: "base64" });
-      venueimg.push(img64);
-    }
-  }
-
-  const speakerimg = [];
-  if(req.files.speakerimages) {
-    for(let cfi of req.files.speakerimages)
-    {
-      // console.log(cfi.path);
-      const imgpath = cfi.path;
-      const img64 = fs.readFileSync(imgpath, { encoding: "base64" });
-      speakerimg.push(img64);
-    }
-  }
   
-  const memimg = [];
-  if(req.files.memberimages) {
-    for(let cfi of req.files.memberimages)
-    {
-      // console.log(cfi.path);
-      const imgpath = cfi.path;
-      const img64 = fs.readFileSync(imgpath, { encoding: "base64" });
-      memimg.push(img64);
-    }
-  }
-  
-  const sponimg = [];
-  if(req.files.sponserimage) {
-    for(let cfi of req.files.sponserimage)
-    {
-      // console.log(cfi.path);
-      const imgpath = cfi.path;
-      const img64 = fs.readFileSync(imgpath, { encoding: "base64" });
-      sponimg.push(img64);
-    }
-  }
+  let confimg = processFiles(req.files.conferenceimages);
+  let venueimg = processFiles(req.files.venueimages);
+  let speakerimg = processFiles(req.files.speakerimages);
+  let memimg = processFiles(req.files.memberimages);
+  let sponimg = processFiles(req.files.sponserimage);
+
+  // let d = datearr(req.body.date); 
 
 
   const data = new homemodel({
@@ -201,7 +156,7 @@ app.route("/create-event")
     speakername : req.body.speakername,
     speakerimages : speakerimg,
     speakeroccupation : req.body.speakeroccupation,
-    comitteename : req.body.comitteename,
+    committeename : req.body.committeename,
     membername : req.body.membername,
     memberimages : memimg,
     facebooklink : req.body.facebooklink,
@@ -223,6 +178,8 @@ app.route("/create-event")
 
   res.redirect("/create-event");
 });
+
+app.get("/signup1")
 
 app.route("/mail")
 .get(function(req,res){
@@ -287,6 +244,18 @@ app
     );
   });
 
+
+  app.get("/edit-event", (req, res) => {
+    res.render("edit-event");
+  });
+  
+  app.get("/login1", (req, res) => {
+    res.render("login1");
+  });
+  
+  app.get("/signup1", (req, res) => {
+    res.render("signup1");
+  });
 app.listen(8000, () => {
   console.log("Server running on port 8000!!");
 });

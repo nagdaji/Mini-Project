@@ -23,17 +23,15 @@ toggle.onclick = function () {
   bar.classList.toggle("active");
 };
 
-let dateFieldCounter = 0;
 //adding the new date field
 function addField() {
   var formContainer = document.getElementById("key-dates-insert");
   var newField = document.createElement("div");
   newField.className = "input-box view1";
-  dateFieldCounter++;
   newField.innerHTML =
     `
-    <input name="date-${dateFieldCounter}" type="date" class="view1" placeholder="Date" />
-    <input name="description-${dateFieldCounter}" type="text" class="view1" placeholder="Description" />
+    <input name="date[]" type="date" class="view1" placeholder="Date" />
+    <input name="description[]" type="text" class="view1" placeholder="Description" />
     <button class="remove-btn btn view1" onclick="removeField(this)">Remove</button>
     `;
   formContainer.appendChild(newField);
@@ -43,7 +41,6 @@ function addField() {
 function removeField(btn) {
   var formContainer = document.getElementById("key-dates-insert");
   formContainer.removeChild(btn.parentNode);
-  dateFieldCounter--;
 }
 
 //adding the new speaker
@@ -56,14 +53,14 @@ function addSpeaker() {
     <label for="images">Speaker Images</label>
   </div>
   <div class="input-box">
-    <input type="text" placeholder="Speaker Name" />
-    <input type="file" name="speaker-images" multiple />
+    <input name="speakername[]" type="text" placeholder="Speaker Name" />
+    <input type="file" name="speakerimages" multiple />
   </div>
   <div class="input-box">
     <label for="venue-description">Speaker Occupation</label>
   </div>
   <div class="input-box">
-    <input type="text" placeholder="Speaker Occupation" />
+    <input name="speakeroccupation[]" type="text" placeholder="Speaker Occupation" />
   </div>
   <button class="remove-btn btn" onclick="removeSpeaker(this)">
     Remove speaker
@@ -101,8 +98,8 @@ function addCommitteeMember(ele) {
   <label for="images">Member Images</label>
 </div>
 <div class="input-box">
-  <input type="text" placeholder="Member Name" />
-  <input type="file" name="conference-images" />
+  <input name = "membername[]" type="text" placeholder="Member Name" />
+  <input type="file" name="memberimages" />
 </div>
 <div class="input-box view">
   <label for="facebool">Facebook:</label>
@@ -110,9 +107,9 @@ function addCommitteeMember(ele) {
   <label for="facebool">LinkedIn:</label>
 </div>
 <div class="input-box view">
-  <input type="text" placeholder="Facebook" />
-  <input type="text" placeholder="Twitter" />
-  <input type="text" placeholder="LinkedIn" />
+  <input name="facebooklink[]" type="text" placeholder="Facebook" />
+  <input name="twitterlink[]" type="text" placeholder="Twitter" />
+  <input name="linkedinlink[]" type="text" placeholder="LinkedIn" />
 </div>
 <button
   class="remove-btn btn"
@@ -137,7 +134,7 @@ function addCommittee() {
   <label for="committee-name">Committee Name:</label>
 </div>
 <div class="input-box">
-  <input type="text" placeholder="Committee Name" />
+  <input name="committeename[]" type="text" placeholder="Committee Name" />
 </div>
 <div class="committee-member-list" id="committee-member-list">
   <div class="each-user">
@@ -146,8 +143,8 @@ function addCommittee() {
       <label for="images">Member Images</label>
     </div>
     <div class="input-box">
-      <input type="text" placeholder="Member Name" />
-      <input type="file" name="conference-images" />
+      <input name="membername[]" type="text" placeholder="Member Name" />
+      <input type="file" name="memberimages" />
     </div>
     <div class="input-box view">
       <label for="facebool">Facebook:</label>
@@ -155,9 +152,9 @@ function addCommittee() {
       <label for="facebool">LinkedIn:</label>
     </div>
     <div class="input-box view">
-      <input type="text" placeholder="Facebook" />
-      <input type="text" placeholder="Twitter" />
-      <input type="text" placeholder="LinkedIn" />
+      <input name="facebooklink[]" type="text" placeholder="Facebook" />
+      <input name="twitterlink[]" type="text" placeholder="Twitter" />
+      <input name="linkedinlink[]" type="text" placeholder="LinkedIn" />
     </div>
     <button
       class="remove-btn btn"
@@ -167,7 +164,7 @@ function addCommittee() {
     </button>
   </div>
 </div>
-<button class="add-btn btn" onclick="addCommitteeMember(this)">
+<button class="add-btn btn" onclick="addCommitteeMember(this); return false;">
   Add User</button
 ><br />
 <button
@@ -195,8 +192,8 @@ function addSponser() {
       <label for="images">Sponser Images</label>
     </div>
     <div class="input-box">
-      <input type="text" placeholder="Sponser Name" />
-      <input type="file" name="Sponser-image" multiple />
+      <input name="sponsername[]" type="text" placeholder="Sponser Name" />
+      <input type="file" name="sponserimage" multiple />
     </div>
     <button
       class="remove-btn btn"
@@ -223,8 +220,8 @@ function addquarters() {
     <label for="headquarters-link">Headquarter link:</label>
   </div>
   <div class="input-box">
-    <input type="text" placeholder="Headquarter Name" />
-    <input type="text" placeholder="Headquarter Link" />
+    <input name="headquartername[]" type="text" placeholder="Headquarter Name" />
+    <input name="headquarterlink[]" type="text" placeholder="Headquarter Link" />
     <button
       class="remove-btn btn"
       onclick="removequarters(this)"
@@ -251,8 +248,8 @@ function addcontact() {
     <label for="email">Email:</label>
   </div>
   <div class="input-box">
-    <input type="tel" placeholder="Mobile Number" />
-    <input type="email" placeholder="Email id" />
+    <input name="mobilenumber[]" type="tel" placeholder="Mobile Number" />
+    <input name="email[]" type="email" placeholder="Email id" />
     <button
       class="remove-btn btn"
       onclick="removeContact(this)"
