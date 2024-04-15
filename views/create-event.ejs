@@ -100,7 +100,7 @@
 
         <div class="form-container">
           <section class="event-creation" id="event-creation">
-            <form  method="post" action="/create-event" enctype="multipart/form-data">
+            <form  onsubmit="fetchData()" method="post" action="/create-event" enctype="multipart/form-data">
               <!-- Basic event details -->
               <div class="event">
                 <div class="input-box">
@@ -350,7 +350,7 @@
                     <div class="input-box">
                       <input
                         type="text"
-                        name="committeename[]"
+                        name="committeename"
                         placeholder="Committee Name"
                       />
                     </div>
@@ -366,7 +366,7 @@
                         <div class="input-box">
                           <input
                             type="text"
-                            name="membername[]"
+                            name="membername"
                             placeholder="Member Name"
                           />
                           <input type="file" name="memberimages" />
@@ -379,17 +379,17 @@
                         <div class="input-box view">
                           <input
                             type="text"
-                            name="facebooklink[]"
+                            name="facebooklink"
                             placeholder="Facebook"
                           />
                           <input
                             type="text"
-                            name="twitterlink[]"
+                            name="twitterlink"
                             placeholder="Twitter"
                           />
                           <input
                             type="text"
-                            name="linkedinlink[]"
+                            name="linkedinlink"
                             placeholder="LinkedIn"
                           />
                         </div>
@@ -582,6 +582,7 @@
                 id="create-event-submission"
                 value="Send Message"
                 class="btn"
+                onclick="fetchData()"
               />
             </form>
           </section>

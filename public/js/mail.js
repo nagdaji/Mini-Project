@@ -12,7 +12,7 @@ const signup = async (req, res) => {
 
   await transporter.sendMail({
     from: process.env.USER,
-    to: "deepaknagda285@gmail.com",
+    to: "kartik.2022ca043@mnnit.ac.in",
     subjest: "otp validation",
     text: "Hello world",
     html: "<b>HELLO WORLD</b>",

@@ -64,18 +64,18 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose
-  .connect(
-    "mongodb+srv://deepaknagda:deepaknagda285@cluster0.odlpsag.mongodb.net/MiniProject?retryWrites=true&w=majority&appName=Cluster0"
-  )
-  .then(() => console.log("mongo connected"))
-  .catch((err) => console.log(err.message));
 // mongoose
 //   .connect(
-//     "mongodb+srv://kartik:kartik123@cluster0.8ou8ajo.mongodb.net/?retryWrites=true&w=majority"
+//     "mongodb+srv://deepaknagda:deepaknagda285@cluster0.odlpsag.mongodb.net/MiniProject?retryWrites=true&w=majority&appName=Cluster0"
 //   )
 //   .then(() => console.log("mongo connected"))
-//   .catch((err) => console.log(err));
+//   .catch((err) => console.log(err.message));
+mongoose
+  .connect(
+    "mongodb+srv://kartik:kartik123@cluster0.8ou8ajo.mongodb.net/?retryWrites=true&w=majority"
+  )
+  .then(() => console.log("mongo connected"))
+  .catch((err) => console.log(err));
 
 const userschema = new mongoose.Schema({
   username: String,
@@ -182,7 +182,7 @@ app.route("/create-event")
 
   // data.save();
 
-    res.redirect("/create-event");
+    // res.redirect("/create-event");
   });
 
 app
@@ -261,6 +261,21 @@ app
   app.get("/signup1", (req, res) => {
     res.render("signup1");
   });
+
+  app.get("/logout", (req, res) => {
+    // Destroy the session to log out the user
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Error destroying session:", err);
+        res.status(500).send("Internal Server Error");
+      } else {
+        islogged = false;
+        res.redirect("/login"); // Redirect to the login page after logout
+      }
+    });
+  });
+
+
 app.listen(8000, () => {
   console.log("Server running on port 8000!!");
 });
