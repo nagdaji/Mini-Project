@@ -94,6 +94,10 @@ app.get("/create-event", (req, res) => {
   res.render("create-event");
 });
 
+app.get("/reviewer", (req, res) => {
+  res.render("reviewer-dashboard.ejs");
+});
+
 app
   .route("/login")
   .get((req, res) => {
