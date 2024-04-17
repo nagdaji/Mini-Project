@@ -141,6 +141,9 @@ app.get("/admin", (req, res) => {
   } else res.redirect("/login1");
 });
 
+app.get("/reviewer", (req, res) => {
+  res.render("reviewer-dashboard");
+});
 app.route("/create-event")
 .get((req, res) => {
   if (req.isAuthenticated()) {
