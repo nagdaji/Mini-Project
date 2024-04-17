@@ -100,7 +100,7 @@
 
         <div class="form-container">
           <section class="event-creation" id="event-creation">
-            <form  onsubmit="fetchData()" method="post" action="/create-event" enctype="multipart/form-data">
+            <form  method="post" action="/create-event" enctype="multipart/form-data">
               <!-- Basic event details -->
               <div class="event">
                 <div class="input-box">
@@ -345,7 +345,7 @@
                 <div class="committee-list" id="committee-list">
                   <div class="each-committee">
                     <div class="input-box">
-                      <label for="committeename">Committee Name:</label>
+                      <label for="committee-name">Committee Name:</label>
                     </div>
                     <div class="input-box">
                       <input
@@ -419,6 +419,7 @@
                   Add Committee
                 </button>
               </div>
+              <!-- Committee Details -->
               <!-- Committee Details -->
               <br />
 
@@ -582,7 +583,6 @@
                 id="create-event-submission"
                 value="Send Message"
                 class="btn"
-                onclick="fetchData()"
               />
             </form>
           </section>

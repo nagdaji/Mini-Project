@@ -43,12 +43,12 @@
       <div class="form login">
         <div class="form-content">
           <header>Login</header>
-          <form action="#">
+          <form action="/login1" method="post">
             <div class="field input-field">
-              <input type="email" class="input" placeholder="email" />
+              <input name="username" type="email" class="input" placeholder="email" />
             </div>
             <div class="field input-field">
-              <input type="password" class="password" placeholder="password" />
+              <input name="password" type="password" class="password" placeholder="password" />
               <i
                 class="fa-solid fa-eye-slash eye-icon"
                 style="color: #3687d6"
@@ -58,7 +58,7 @@
               <a href="#" class="forgot-password">Forgot Password?</a>
             </div>
             <div class="field button-field">
-              <button>Login</button>
+              <button type="submit">Login</button>
             </div>
           </form>
           <div class="form-link">
