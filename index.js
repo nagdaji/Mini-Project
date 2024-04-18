@@ -3,7 +3,7 @@ const express = require("express");
 const bodyparser = require("body-parser");
 
 const {signup} = require("./public/js/mail");
-const {processFiles , datearr} = require("./utils/utils");
+const {processFiles} = require("./utils/utils");
 
 
 const homemodel = require("./schema/homeschema");
@@ -146,22 +146,20 @@ app.get("/reviewer", (req, res) => {
 });
 app.route("/create-event")
 .get((req, res) => {
-  if (req.isAuthenticated()) {
+  // if (req.isAuthenticated()) {
     res.render("create-event.ejs");
-  } else res.redirect("/login1");  
+  // } else res.redirect("/login1");  
 })
-.post(multipleUpload,(req,res) => {
+.post(multipleUpload,async(req,res) => {
 
   // to access each object in an array
-  console.log(req.body);
+  // console.log(req.body);
   
-  let confimg = processFiles(req.files.conferenceimages);
-  let venueimg = processFiles(req.files.venueimages);
-  let speakerimg = processFiles(req.files.speakerimages);
-  let memimg = processFiles(req.files.memberimages);
-  let sponimg = processFiles(req.files.sponserimage);
-
-  // let d = datearr(req.body.date); 
+  let confimg = await processFiles(req.files.conferenceimages);
+  let venueimg = await processFiles(req.files.venueimages);
+  let speakerimg = await processFiles(req.files.speakerimages);
+  let memimg = await  processFiles(req.files.memberimages);
+  let sponimg = await processFiles(req.files.sponserimage);
 
 
   const data = new homemodel({
@@ -201,7 +199,7 @@ app.route("/create-event")
     twitterconnect : req.body.twitterconnect,
   });
 
-  data.save();
+    data.save();
 
     res.redirect("/create-event");
   });
@@ -232,7 +230,6 @@ app
         passport.authenticate("local", function (err, user, info) {
           if (err) console.log(err);
           if (!user) {
-            console.log("this is not working");
             res.render("login1.ejs", { error: "Invalid User ID or Password" });
           } else {
             res.redirect("/admin");
