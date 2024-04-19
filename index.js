@@ -2,9 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const bodyparser = require("body-parser");
 
-const {signup} = require("./public/js/mail");
-const {processFiles} = require("./utils/utils");
-
+const { signup } = require("./public/js/mail");
+const { processFiles } = require("./utils/utils");
 
 const homemodel = require("./schema/homeschema");
 const multer = require("multer");
@@ -104,25 +103,23 @@ passport.deserializeUser(function (user, done) {
 passport.use(usermodel.createStrategy());
 
 app.get("/", (req, res) => {
-  
   async function findData() {
     try {
-        const result = await homemodel.findOne({ eventname: "CONFOEASE" });
-        return result;
+      const result = await homemodel.findOne({ eventname: "CONFOEASE" });
+      return result;
     } catch (error) {
-        console.error("Error:", error);
-        throw error;
+      console.error("Error:", error);
+      throw error;
     }
-}
+  }
 
-findData()
+  findData()
     .then((result) => {
-        res.render("index.ejs", { data: result });
+      res.render("index.ejs", { data: result });
     })
     .catch((error) => {
-        res.status(500).send("Internal Server Error");
+      res.status(500).send("Internal Server Error");
     });
-  
 });
 app.get("/call-for-paper", (req, res) => {
   res.render("call-for-paper");
@@ -144,60 +141,59 @@ app.get("/admin", (req, res) => {
 app.get("/reviewer", (req, res) => {
   res.render("reviewer-dashboard");
 });
-app.route("/create-event")
-.get((req, res) => {
-  // if (req.isAuthenticated()) {
+app
+  .route("/create-event")
+  .get((req, res) => {
+    // if (req.isAuthenticated()) {
     res.render("create-event.ejs");
-  // } else res.redirect("/login1");  
-})
-.post(multipleUpload,async(req,res) => {
+    // } else res.redirect("/login1");
+  })
+  .post(multipleUpload, async (req, res) => {
+    // to access each object in an array
+    // console.log(req.body);
 
-  // to access each object in an array
-  // console.log(req.body);
-  
-  let confimg = await processFiles(req.files.conferenceimages);
-  let venueimg = await processFiles(req.files.venueimages);
-  let speakerimg = await processFiles(req.files.speakerimages);
-  let memimg = await  processFiles(req.files.memberimages);
-  let sponimg = await processFiles(req.files.sponserimage);
+    let confimg = await processFiles(req.files.conferenceimages);
+    let venueimg = await processFiles(req.files.venueimages);
+    let speakerimg = await processFiles(req.files.speakerimages);
+    let memimg = await processFiles(req.files.memberimages);
+    let sponimg = await processFiles(req.files.sponserimage);
 
-
-  const data = new homemodel({
-    eventname : req.body.eventname,
-    conferenceimages : confimg,
-    conferencedescription : req.body.conferencedescription,
-    date : req.body.date,
-    description : req.body.description,
-    aim : req.body.aim,
-    topic : req.body.topic,
-    guidelines : req.body.guidelines,
-    preparesubmission : req.body.preparesubmission,
-    contact : req.body.contact,
-    workshopaim : req.body.workshopaim,
-    workshopproposal : req.body.workshopproposal,
-    venue : req.body.venue,
-    venueimages : venueimg,
-    venuedescription : req.body.venuedescription,
-    speakername : req.body.speakername,
-    speakerimages : speakerimg,
-    speakeroccupation : req.body.speakeroccupation,
-    committeename : req.body.committeename,
-    membername : req.body.membername,
-    memberimages : memimg,
-    facebooklink : req.body.facebooklink,
-    twitterlink : req.body.twitterlink,
-    instagramlink : req.body.instagramlink,
-    sponsorname : req.body.sponsorname,
-    sponsorimage : sponimg,
-    headquartername : req.body.headquartername,
-    headquarterlink : req.body.headquarterlink,
-    mobilenumber : req.body.mobilenumber,
-    email : req.body.email,
-    facebookconnect : req.body.facebookconnect,
-    instagramconnect : req.body.instagramconnect,
-    linkedinconnect : req.body.linkedinconnect,
-    twitterconnect : req.body.twitterconnect,
-  });
+    const data = new homemodel({
+      eventname: req.body.eventname,
+      conferenceimages: confimg,
+      conferencedescription: req.body.conferencedescription,
+      date: req.body.date,
+      description: req.body.description,
+      aim: req.body.aim,
+      topic: req.body.topic,
+      guidelines: req.body.guidelines,
+      preparesubmission: req.body.preparesubmission,
+      contact: req.body.contact,
+      workshopaim: req.body.workshopaim,
+      workshopproposal: req.body.workshopproposal,
+      venue: req.body.venue,
+      venueimages: venueimg,
+      venuedescription: req.body.venuedescription,
+      speakername: req.body.speakername,
+      speakerimages: speakerimg,
+      speakeroccupation: req.body.speakeroccupation,
+      committeename: req.body.committeename,
+      membername: req.body.membername,
+      memberimages: memimg,
+      facebooklink: req.body.facebooklink,
+      twitterlink: req.body.twitterlink,
+      instagramlink: req.body.instagramlink,
+      sponsorname: req.body.sponsorname,
+      sponsorimage: sponimg,
+      headquartername: req.body.headquartername,
+      headquarterlink: req.body.headquarterlink,
+      mobilenumber: req.body.mobilenumber,
+      email: req.body.email,
+      facebookconnect: req.body.facebookconnect,
+      instagramconnect: req.body.instagramconnect,
+      linkedinconnect: req.body.linkedinconnect,
+      twitterconnect: req.body.twitterconnect,
+    });
 
     data.save();
 
@@ -247,7 +243,6 @@ app
     } else res.render("signup1.ejs");
   })
   .post((req, res) => {
-
     console.log(req.body.password);
     usermodel.register(
       {
@@ -267,31 +262,25 @@ app
     );
   });
 
-
-  app.get("/edit-event", (req, res) => {
-    if (req.isAuthenticated()) {
-      res.render("edit-event.ejs");
-    } else res.redirect("/login1");
-  });
-  
-
-app.get("/logout", (req, res) => {  
-
-    if (req.isAuthenticated()) {
-      // Destroy the session to log out the user
-      req.session.destroy((err) => {
-        if (err) {
-          console.error("Error destroying session:", err);
-          res.status(500).send("Internal Server Error");
-        } else {
-          res.redirect("/login1"); // Redirect to the login page after logout
-        }
-      });
-      
-    } else res.redirect("/login1");
-  
+app.get("/edit-event", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("edit-event.ejs");
+  } else res.redirect("/login1");
 });
 
+app.get("/logout", (req, res) => {
+  if (req.isAuthenticated()) {
+    // Destroy the session to log out the user
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Error destroying session:", err);
+        res.status(500).send("Internal Server Error");
+      } else {
+        res.redirect("/login1"); // Redirect to the login page after logout
+      }
+    });
+  } else res.redirect("/login1");
+});
 
 app.listen(8000, () => {
   console.log("Server running on port 8000!!");
