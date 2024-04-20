@@ -2,9 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const bodyparser = require("body-parser");
 
-const {signup} = require("./public/js/mail");
-const {processFiles , datearr} = require("./utils/utils");
-
+const { signup } = require("./public/js/mail");
+const { processFiles } = require("./utils/utils");
 
 const homemodel = require("./schema/homeschema");
 const multer = require("multer");
@@ -18,6 +17,7 @@ const session = require("express-session");
 const passport = require("passport");
 const passportlocalmongoose = require("passport-local-mongoose");
 const { stringify } = require("querystring");
+const { resolveObjectURL } = require("buffer");
 
 const csspath = path.join(__dirname, "/public/css");
 const jspath = path.join(__dirname, "/public/js");
@@ -46,11 +46,11 @@ const upload = multer({
 
 // for multiple files at a time //
 var multipleUpload = upload.fields([
-  { name: "conferenceimages", maxCount: 5 },
-  { name: "venueimages", maxCount: 5 },
-  { name: "speakerimages", maxCount: 5 },
-  { name: "memberimages", maxCount: 5 },
-  { name: "sponserimage", maxCount: 5 },
+  { name: "conferenceimages", maxCount: 10 },
+  { name: "venueimages", maxCount: 10 },
+  { name: "speakerimages", maxCount: 10 },
+  { name: "memberimages", maxCount: 15 },
+  { name: "sponserimage", maxCount: 10 },
 ]);
 
 app.use(
@@ -81,9 +81,7 @@ const userschema = new mongoose.Schema({
   username: String,
   password: String,
   name: String,
-  interest: String,
   role: String,
-  gender: String,
   paperid: {
     type: String,
     default: null,
@@ -105,10 +103,23 @@ passport.deserializeUser(function (user, done) {
 passport.use(usermodel.createStrategy());
 
 app.get("/", (req, res) => {
-  res.render("index");
-});
-app.get("/home", (req, res) => {
-  res.render("index");
+  async function findData() {
+    try {
+      const result = await homemodel.findOne({ eventname: "CONFOEASE" });
+      return result;
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
+  }
+
+  findData()
+    .then((result) => {
+      res.render("index.ejs", { data: result });
+    })
+    .catch((error) => {
+      res.status(500).send("Internal Server Error");
+    });
 });
 app.get("/call-for-paper", (req, res) => {
   res.render("call-for-paper");
@@ -122,22 +133,18 @@ app.get("/committee", (req, res) => {
 });
 
 app.get("/admin", (req, res) => {
-  res.render("admin-dashboard");
+  if (req.isAuthenticated()) {
+    res.render("admin-dashboard.ejs");
+  } else res.redirect("/login1");
 });
 
 app.get("/reviewer", (req, res) => {
   res.render("reviewer-dashboard");
 });
-
-app.get("/calendar", (req, res) => {
-  res.render("calendar");
-});
-
 app.route("/create-event")
 .get((req, res) => {
   res.render("create-event");
 })
-
 .post(multipleUpload,(req,res) => {
 
   // to access each object in an array
@@ -152,46 +159,46 @@ app.route("/create-event")
   // let d = datearr(req.body.date); 
 
 
-  const data = new homemodel({
-    eventname : req.body.eventname,
-    conferenceimages : confimg,
-    conferencedescription : req.body.conferencedescription,
-    date : req.body.date,
-    description : req.body.description,
-    aim : req.body.aim,
-    topic : req.body.topic,
-    guidelines : req.body.guidelines,
-    preparesubmission : req.body.preparesubmission,
-    contact : req.body.contact,
-    workshopaim : req.body.workshopaim,
-    workshopproposal : req.body.workshopproposal,
-    venue : req.body.venue,
-    venueimages : venueimg,
-    venuedescription : req.body.venuedescription,
-    speakername : req.body.speakername,
-    speakerimages : speakerimg,
-    speakeroccupation : req.body.speakeroccupation,
-    committeename : req.body.committeename,
-    membername : req.body.membername,
-    memberimages : memimg,
-    facebooklink : req.body.facebooklink,
-    twitterlink : req.body.twitterlink,
-    instagramlink : req.body.instagramlink,
-    sponsorname : req.body.sponsorname,
-    sponsorimage : sponimg,
-    headquartername : req.body.headquartername,
-    headquarterlink : req.body.headquarterlink,
-    mobilenumber : req.body.mobilenumber,
-    email : req.body.email,
-    facebookconnect : req.body.facebookconnect,
-    instagramconnect : req.body.instagramconnect,
-    linkedinconnect : req.body.linkedinconnect,
-    twitterconnect : req.body.twitterconnect,
-  });
+    const data = new homemodel({
+      eventname: req.body.eventname,
+      conferenceimages: confimg,
+      conferencedescription: req.body.conferencedescription,
+      date: req.body.date,
+      description: req.body.description,
+      aim: req.body.aim,
+      topic: req.body.topic,
+      guidelines: req.body.guidelines,
+      preparesubmission: req.body.preparesubmission,
+      contact: req.body.contact,
+      workshopaim: req.body.workshopaim,
+      workshopproposal: req.body.workshopproposal,
+      venue: req.body.venue,
+      venueimages: venueimg,
+      venuedescription: req.body.venuedescription,
+      speakername: req.body.speakername,
+      speakerimages: speakerimg,
+      speakeroccupation: req.body.speakeroccupation,
+      committeename: req.body.committeename,
+      membername: req.body.membername,
+      memberimages: memimg,
+      facebooklink: req.body.facebooklink,
+      twitterlink: req.body.twitterlink,
+      instagramlink: req.body.instagramlink,
+      sponsorname: req.body.sponsorname,
+      sponsorimage: sponimg,
+      headquartername: req.body.headquartername,
+      headquarterlink: req.body.headquarterlink,
+      mobilenumber: req.body.mobilenumber,
+      email: req.body.email,
+      facebookconnect: req.body.facebookconnect,
+      instagramconnect: req.body.instagramconnect,
+      linkedinconnect: req.body.linkedinconnect,
+      twitterconnect: req.body.twitterconnect,
+    });
 
-  // data.save();
+    data.save();
 
-    // res.redirect("/create-event");
+    res.redirect("/create-event");
   });
 
 app
@@ -201,11 +208,11 @@ app
   })
   .post(signup);
 app
-  .route("/login")
+  .route("/login1")
   .get((req, res) => {
     if (req.isAuthenticated()) {
-      res.redirect("/home");
-    } else res.render("login.ejs", { error: "" });
+      res.redirect("/admin");
+    } else res.render("login1.ejs", { error: "" });
   })
   .post((req, res) => {
     const user = new usermodel({
@@ -220,10 +227,9 @@ app
         passport.authenticate("local", function (err, user, info) {
           if (err) console.log(err);
           if (!user) {
-            console.log("this is not working");
-            res.render("login.ejs", { error: "Invalid User ID or Password" });
+            res.render("login1.ejs", { error: "Invalid User ID or Password" });
           } else {
-            res.redirect("/home");
+            res.redirect("/admin");
           }
         })(req, res);
       }
@@ -231,59 +237,51 @@ app
   });
 
 app
-  .route("/signup")
+  .route("/signup1")
   .get((req, res) => {
     if (req.isAuthenticated()) {
-      res.redirect("/signup.ejs");
-    } else res.render("signup.ejs");
+      res.redirect("/signup1");
+    } else res.render("signup1.ejs");
   })
   .post((req, res) => {
+    console.log(req.body.password);
     usermodel.register(
       {
         name: req.body.name,
         username: req.body.username,
-        interest: req.body.interest,
         role: req.body.role,
-        gender: req.body.inlineRadioOptions,
       },
       req.body.password,
       function (err, user) {
         if (err) {
           console.log(err);
-          res.redirect("/signup");
+          res.redirect("/signup1");
         } else {
-          res.redirect("/login");
+          res.redirect("/login1");
         }
       }
     );
   });
 
+app.get("/edit-event", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("edit-event.ejs");
+  } else res.redirect("/login1");
+});
 
-  app.get("/edit-event", (req, res) => {
-    res.render("edit-event");
-  });
-  
-  app.get("/login1", (req, res) => {
-    res.render("login1");
-  });
-  
-  app.get("/signup1", (req, res) => {
-    res.render("signup1");
-  });
-
-  app.get("/logout", (req, res) => {
+app.get("/logout", (req, res) => {
+  if (req.isAuthenticated()) {
     // Destroy the session to log out the user
     req.session.destroy((err) => {
       if (err) {
         console.error("Error destroying session:", err);
         res.status(500).send("Internal Server Error");
       } else {
-        islogged = false;
-        res.redirect("/login"); // Redirect to the login page after logout
+        res.redirect("/login1"); // Redirect to the login page after logout
       }
     });
-  });
-
+  } else res.redirect("/login1");
+});
 
 app.listen(8000, () => {
   console.log("Server running on port 8000!!");

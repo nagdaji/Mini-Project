@@ -43,15 +43,16 @@
       <div class="form login">
         <div class="form-content">
           <header>SignUp</header>
-          <form action="#">
+          <form action="/signup1" method="post">
             <div class="field input-field">
-              <input type="text" class="input" placeholder="name" />
+              <input name="name" type="text" class="input" placeholder="name" />
             </div>
             <div class="field input-field">
-              <input type="email" class="input" placeholder="email" />
+              <input name="username" type="email" class="input" placeholder="email" />
             </div>
             <div class="field input-field">
               <input
+                name="password"
                 type="password"
                 class="password"
                 placeholder="create password"
@@ -101,7 +102,7 @@
             </div>
             <p class="message"></p>
             <div class="field input-field">
-              <select name="Choose Role" id="role">
+              <select name="role" id="role">
                 <option value="1" class="choose">Enter As</option>
                 <option value="author">Author</option>
                 <option value="attendee">Attendee</option>
@@ -111,7 +112,7 @@
               <a href="#" class="forgot-password">Forgot Password?</a>
             </div> -->
             <div class="field button-field">
-              <button>Register</button>
+              <button type="submit">Register</button>
             </div>
           </form>
           <div class="form-link">

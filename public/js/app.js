@@ -38,7 +38,7 @@ var swiper = new Swiper(".venue-slider", {
   });
 
 
-  var menuBtn = documen.querySelector("#menu-bar");
+  var menuBtn = document.querySelector("#menu-bar");
 var navBar = document.querySelector(".navbar");
 menuBtn.onclick = ()=>{
     menuBtn.classList.toggle("fa-times");
