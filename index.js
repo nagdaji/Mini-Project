@@ -128,10 +128,16 @@ app.get("/admin", (req, res) => {
 app.get("/reviewer", (req, res) => {
   res.render("reviewer-dashboard");
 });
+
+app.get("/calendar", (req, res) => {
+  res.render("calendar");
+});
+
 app.route("/create-event")
 .get((req, res) => {
   res.render("create-event");
 })
+
 .post(multipleUpload,(req,res) => {
 
   // to access each object in an array
