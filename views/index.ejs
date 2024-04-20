@@ -63,7 +63,7 @@
             <% for(let i = 0; i < data.conferenceimages.length; i++) { %>
               <div class="swiper-slide">
                 <img
-                  src="data:image/jpeg;base64,<%= data.conferenceimages[i] %>"
+                  src="<%= data.conferenceimages[i] %>"
                 />
               </div>
             <% } %>
@@ -172,7 +172,7 @@
 
           <% for(let i=0;i<data.speakerimages.length;i++) {%>
             <div class="box">
-              <img src="data:image/jpeg;base64,<%= data.speakerimages[i] %>">
+              <img src="<%= data.speakerimages[i] %>">
               <h4><%= data.speakername[i] %></h4>
               <h6><%= data.speakeroccupation[i] %></h6>
             </div>
@@ -199,7 +199,7 @@
                   <% for(let i = 0; i < data.venueimages.length; i++) { %>
                     <div class="swiper-slide">
                       <img
-                        src="data:image/jpeg;base64,<%= data.venueimages[i] %>"
+                        src="<%= data.venueimages[i] %>"
                       />
                     </div>
                   <% } %>
@@ -225,7 +225,7 @@
       <% for(let i = 0; i < data.sponsorimage.length; i++) { %>
         <div class="sponser-container">
           <img
-            src="data:image/jpeg;base64,<%= data.sponsorimage[i] %>"
+            src="<%= data.sponsorimage[i] %>"
           />
         </div>
         <% } %>

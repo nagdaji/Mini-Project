@@ -49,7 +49,7 @@ var multipleUpload = upload.fields([
   { name: "conferenceimages", maxCount: 10 },
   { name: "venueimages", maxCount: 10 },
   { name: "speakerimages", maxCount: 10 },
-  { name: "memberimages", maxCount: 10 },
+  { name: "memberimages", maxCount: 15 },
   { name: "sponserimage", maxCount: 10 },
 ]);
 
@@ -141,6 +141,11 @@ app.get("/admin", (req, res) => {
 app.get("/reviewer", (req, res) => {
   res.render("reviewer-dashboard");
 });
+
+app.get("/attendee", (req, res) => {
+  res.render("attendee");
+});
+
 app
   .route("/create-event")
   .get((req, res) => {
