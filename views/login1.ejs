@@ -26,10 +26,10 @@
 
       <!-- nav bar -->
       <nav class="navbar">
-        <a href="/home">Home</a>
+        <a href="/">Home</a>
         <a href="/committee">Committees</a>
-        <a href="/home">Speakers</a>
-        <a href="/home">Contact Us</a>
+        <a href="/">Speakers</a>
+        <a href="/">Contact Us</a>
         <a href="/login1">Login</a>
 
         <div id="menu-bar" class="fas fa-bars"></div>
@@ -45,10 +45,20 @@
           <header>Login</header>
           <form action="/login1/<%=data%>" method="post">
             <div class="field input-field">
-              <input name="username" type="email" class="input" placeholder="email" />
+              <input
+                name="username"
+                type="email"
+                class="input"
+                placeholder="email"
+              />
             </div>
             <div class="field input-field">
-              <input name="password" type="password" class="password" placeholder="password" />
+              <input
+                name="password"
+                type="password"
+                class="password"
+                placeholder="password"
+              />
               <i
                 class="fa-solid fa-eye-slash eye-icon"
                 style="color: #3687d6"
