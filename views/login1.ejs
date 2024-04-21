@@ -43,7 +43,7 @@
       <div class="form login">
         <div class="form-content">
           <header>Login</header>
-          <form action="/login1" method="post">
+          <form action="/login1/<%=data%>" method="post">
             <div class="field input-field">
               <input name="username" type="email" class="input" placeholder="email" />
             </div>
@@ -64,7 +64,7 @@
           <div class="form-link">
             <span
               >Don't have an account
-              <a href="/signup1" class="signup-link">SignUp</a></span
+              <a href="/signup1/<%= data %>" class="signup-link">SignUp</a></span
             >
           </div>
         </div>

@@ -27,7 +27,7 @@
         <a href="/committee">Committees</a>
         <a href="#speakers">Speakers</a>
         <a href="#contact-us">Contact Us</a>
-        <a href="/login1">Login</a>
+        <a href="/login1/<%= data._id.valueOf() %>">Login</a>
 
         <div id="menu-bar" class="fas fa-bars"></div>
       </nav>
@@ -115,7 +115,7 @@
             <div class="box">
                 <div class="fa-solid fa-user-plus" style="color: #3867d6;"></div>
                 <!-- <div class="fas fa-teacher"></div> -->
-                <a href="/signup1"><h3>New <span>User</span></h3></a>
+                <a href="/signup1/<%= data._id.valueOf() %>"><h3>New <span>User</span></h3></a>
                 <p>Register for the conference</p>
             </div>
             <div class="box">

@@ -77,6 +77,7 @@ const userschema = new mongoose.Schema({
   password: String,
   name: String,
   role: String,
+  conference: String,
   paperid: {
     type: String,
     default: null,
@@ -110,6 +111,8 @@ app.get("/", (req, res) => {
 
   findData()
       .then((result) => {
+          // console.log(result.date);
+          // console.log(result.date.split("T")[0]);
           res.render("index.ejs", { data: result });
       })
       .catch((error) => {
@@ -190,10 +193,10 @@ app.get("/committee", (req, res) => {
   res.render("committee");
 });
 
-app.get("/admin", (req, res) => {
+app.get("/admin/:conf", (req, res) => {
   if (req.isAuthenticated()) {
-    res.render("admin-dashboard.ejs");
-  } else res.redirect("/login1");
+    res.render("admin-dashboard.ejs" , {data : req.params.conf});
+  } else res.redirect("/login1/"+req.params.conf);
 });
 
 app.get("/reviewer", (req, res) => {
@@ -203,7 +206,7 @@ app.route("/create-event")
 .get((req, res) => {
   res.render("create-event");
 })
-.post(multipleUpload,(req,res) => {
+.post(multipleUpload,async (req,res) => {
 
   // to access each object in an array
   
@@ -213,8 +216,6 @@ app.route("/create-event")
   let memimg = await  processFiles(req.files.memberimages);
   let sponimg = await processFiles(req.files.sponserimage);
 
-
- 
 
   const data = new homemodel({
     eventname : _.upperCase(req.body.eventname).replace(/\s/g,''),
@@ -253,7 +254,7 @@ app.route("/create-event")
     twitterconnect : req.body.twitterconnect,
   });
 
-    data.save();
+    // data.save();
 
     res.redirect("/create-event");
   });
@@ -265,11 +266,11 @@ app
   })
   .post(signup);
 app
-  .route("/login1")
+  .route("/login1/:conf")
   .get((req, res) => {
     if (req.isAuthenticated()) {
       res.redirect("/admin");
-    } else res.render("login1.ejs", { error: "" });
+    } else res.render("login1.ejs", { data : req.params.conf });
   })
   .post((req, res) => {
     const user = new usermodel({
@@ -284,9 +285,9 @@ app
         passport.authenticate("local", function (err, user, info) {
           if (err) console.log(err);
           if (!user) {
-            res.render("login1.ejs", { error: "Invalid User ID or Password" });
+            res.render("login1.ejs", { data: req.params.conf });
           } else {
-            res.redirect("/admin");
+            res.redirect("/admin/conf");
           }
         })(req, res);
       }
@@ -294,18 +295,22 @@ app
   });
 
 app
-  .route("/signup1")
+  .route("/signup1/:conf")
   .get((req, res) => {
-    if (req.isAuthenticated()) {
-      res.redirect("/signup1");
-    } else res.render("signup1.ejs");
+
+    // if (req.isAuthenticated()) {
+    //   res.redirect("/signup1");
+    // } else res.render("signup1.ejs");
+    res.render("signup1.ejs",{data : req.params.conf});
   })
   .post((req, res) => {
-    console.log(req.body.password);
+
+    let a = req.params.conf;
     usermodel.register(
       {
         name: req.body.name,
         username: req.body.username,
+        conference : a,    
         role: req.body.role,
       },
       req.body.password,
@@ -326,7 +331,9 @@ app.get("/edit-event", (req, res) => {
   } else res.redirect("/login1");
 });
 
-app.get("/logout", (req, res) => {
+app.get("/logout/:conf", (req, res) => {
+  let a = req.params.conf;
+  console.log(req.params.conf);
   if (req.isAuthenticated()) {
     // Destroy the session to log out the user
     req.session.destroy((err) => {
@@ -334,10 +341,10 @@ app.get("/logout", (req, res) => {
         console.error("Error destroying session:", err);
         res.status(500).send("Internal Server Error");
       } else {
-        res.redirect("/login1"); // Redirect to the login page after logout
+        res.redirect("/login1/"+a); // Redirect to the login page after logout
       }
     });
-  } else res.redirect("/login1");
+  } else res.redirect("/login1"+a);
 });
 
 app.listen(8000, () => {

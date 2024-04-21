@@ -26,10 +26,10 @@
 
       <!-- nav bar -->
       <nav class="navbar">
-        <a href="/home">Home</a>
+        <a href="/">Home</a>
         <a href="/committee">Committees</a>
-        <a href="/home">Speakers</a>
-        <a href="/home">Contact Us</a>
+        <a href="/">Speakers</a>
+        <a href="/">Contact Us</a>
         <a href="/login1">Login</a>
 
         <div id="menu-bar" class="fas fa-bars"></div>
@@ -43,7 +43,7 @@
       <div class="form login">
         <div class="form-content">
           <header>SignUp</header>
-          <form action="/signup1" method="post">
+          <form action="/signup1/<%=data%>" method="post">
             <div class="field input-field">
               <input name="name" type="text" class="input" placeholder="name" />
             </div>
@@ -118,7 +118,7 @@
           <div class="form-link">
             <span
               >Already have an account
-              <a href="/login1" class="link login-link">Login</a></span
+              <a href="/login1/<%=data%>" class="link login-link">Login</a></span
             >
           </div>
         </div>
