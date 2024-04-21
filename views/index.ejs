@@ -49,7 +49,7 @@
         <h3>Photo <span>Gallery</span></h3>
         <div class="home-slider swiper mySwiper swiper-container">
           <div class="swiper-wrapper">
-            <div class="swiper-slide first-photo">
+            <!-- <div class="swiper-slide first-photo">
               <img
                 src="/image/confo8.jpg"
               />
@@ -58,12 +58,12 @@
                 <span>Abu Dhabi, UAE</span>
                 <p>9-20 DEC.</p>
               </div>
-            </div>
+            </div> -->
 
             <% for(let i = 0; i < data.conferenceimages.length; i++) { %>
               <div class="swiper-slide">
                 <img
-                  src="data:image/jpeg;base64,<%= data.conferenceimages[i] %>"
+                  src="<%= data.conferenceimages[i] %>"
                 />
               </div>
             <% } %>
@@ -172,7 +172,7 @@
 
           <% for(let i=0;i<data.speakerimages.length;i++) {%>
             <div class="box">
-              <img src="data:image/jpeg;base64,<%= data.speakerimages[i] %>">
+              <img src="<%= data.speakerimages[i] %>">
               <h4><%= data.speakername[i] %></h4>
               <h6><%= data.speakeroccupation[i] %></h6>
             </div>
@@ -199,7 +199,7 @@
                   <% for(let i = 0; i < data.venueimages.length; i++) { %>
                     <div class="swiper-slide">
                       <img
-                        src="data:image/jpeg;base64,<%= data.venueimages[i] %>"
+                        src="<%= data.venueimages[i] %>"
                       />
                     </div>
                   <% } %>
@@ -219,13 +219,13 @@
 
     <!-- sponsers sections -->
     <div class="sponsers" id="sponsers">
-        <h2>Our <span>Sponsers</span></h2>
+        <h2>Our <span>Sponsors</span></h2>
     </div>
     <div class="sponsers-list">
       <% for(let i = 0; i < data.sponsorimage.length; i++) { %>
         <div class="sponser-container">
           <img
-            src="data:image/jpeg;base64,<%= data.sponsorimage[i] %>"
+            src="<%= data.sponsorimage[i] %>"
           />
         </div>
         <% } %>
@@ -274,7 +274,10 @@
             <div class="box">
                 <h3>Contact info</h3>
                 <% for(let i=0;i<data.mobilenumber.length;i++){ %>
-                  <a href="#"><i class="fas fa-map-marker-alt"></i><%=data.mobilenumber[i]%></a>
+                  <a href="#"><i class="fa-solid fa-phone"></i><%=data.mobilenumber[i]%></a>
+                <%}%>
+                <% for(let i=0;i<data.email.length;i++){ %>
+                  <a href="#"><i class="fa-solid fa-envelope"></i><%=data.email[i]%></a>
                 <%}%>
             </div>
 

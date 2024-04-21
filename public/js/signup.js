@@ -44,9 +44,11 @@ confirm.addEventListener("keyup", (e) => {
     if (confirmvalue === passvalue.value && passvalue.value.length != 0) {
       message.textContent = "Password Matched";
       message.classList.add("valid");
+      document.getElementById("register").disabled = false;
     } else {
       message.textContent = "Password MisMatch";
       message.classList.remove("valid");
+      document.getElementById("register").disabled = true;
     }
   } else {
     message.textContent = " ";
@@ -59,9 +61,11 @@ passvalue.addEventListener("keyup", (e) => {
     if (confirmvalue === confirm.value) {
       message.textContent = "Password Matched";
       message.classList.add("valid");
+      document.getElementById("register").disabled = false;
     } else {
       message.textContent = "Password MisMatch";
       message.classList.remove("valid");
+      document.getElementById("register").disabled = true;
     }
   } else {
     message.textContent = " ";

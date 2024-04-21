@@ -10,7 +10,7 @@ const homeschema = new Schema({
     aim : String,
     topic : String,
     guidelines : String,
-    preparesubmission : String,
+    papersubmission : String,
     contact : String,
     workshopaim : String,
     workshopproposal : String,

@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const bodyparser = require("body-parser");
+const _ = require("lodash");
 
 const {signup} = require("./public/js/mail");
 const {processFiles} = require("./utils/utils");
@@ -65,12 +66,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// mongoose
-//   .connect(
-//     "mongodb+srv://deepaknagda:deepaknagda285@cluster0.odlpsag.mongodb.net/MiniProject?retryWrites=true&w=majority&appName=Cluster0"
-//   )
-//   .then(() => console.log("mongo connected"))
-//   .catch((err) => console.log(err.message));
 mongoose
   .connect(
     "mongodb+srv://kartik:kartik123@cluster0.8ou8ajo.mongodb.net/?retryWrites=true&w=majority"
@@ -109,6 +104,55 @@ app.get("/", (req, res) => {
     try {
         const result = await homemodel.findOne({ eventname: "CONFOEASE" });
         return result;
+        } catch (error) {
+            console.error("Error:", error);
+            throw error;
+        }
+    }
+
+  findData()
+      .then((result) => {
+          res.render("index.ejs", { data: result });
+      })
+      .catch((error) => {
+          res.status(500).send("Internal Server Error");
+      });
+  
+});
+
+// variable front page 
+
+app.get("/conference/:newpage", (req, res) => {
+  var name = req.params.newpage;
+  name = _.upperCase(name).replace(/\s/g,'');
+  async function findData() {
+    try {
+        const result = await homemodel.findOne({ eventname: name });
+        return result;
+        } catch (error) {
+            console.error("Error:", error);
+            throw error;
+        }
+    }
+
+  findData()
+      .then((result) => {
+          res.render("index.ejs", { data: result });
+      })
+      .catch((error) => {
+          res.status(500).send("Internal Server Error");
+      });
+  
+});
+
+
+/////////////////////////////////
+app.get("/call-for-paper", (req, res) => {
+
+  async function findData() {
+    try {
+        const result = await homemodel.findOne({ eventname: "CONFOEASE" });
+        return result;
     } catch (error) {
         console.error("Error:", error);
         throw error;
@@ -117,18 +161,31 @@ app.get("/", (req, res) => {
 
 findData()
     .then((result) => {
-        res.render("index.ejs", { data: result });
+        res.render("call-for-paper.ejs", { data: result });
     })
     .catch((error) => {
         res.status(500).send("Internal Server Error");
     });
-  
 });
-app.get("/call-for-paper", (req, res) => {
-  res.render("call-for-paper");
-});
+
 app.get("/call-for-workshop", (req, res) => {
-  res.render("call-for-workshop");
+  async function findData() {
+    try {
+        const result = await homemodel.findOne({ eventname: "CONFOEASE" });
+        return result;
+    } catch (error) {
+        console.error("Error:", error);
+        throw error;
+    }
+}
+
+findData()
+    .then((result) => {
+        res.render("call-for-workshop.ejs", { data: result });
+    })
+    .catch((error) => {
+        res.status(500).send("Internal Server Error");
+    });
 });
 
 app.get("/committee", (req, res) => {
@@ -153,7 +210,6 @@ app.route("/create-event")
 .post(multipleUpload,async(req,res) => {
 
   // to access each object in an array
-  // console.log(req.body);
   
   let confimg = await processFiles(req.files.conferenceimages);
   let venueimg = await processFiles(req.files.venueimages);
@@ -162,8 +218,10 @@ app.route("/create-event")
   let sponimg = await processFiles(req.files.sponserimage);
 
 
+ 
+
   const data = new homemodel({
-    eventname : req.body.eventname,
+    eventname : _.upperCase(req.body.eventname).replace(/\s/g,''),
     conferenceimages : confimg,
     conferencedescription : req.body.conferencedescription,
     date : req.body.date,
@@ -171,7 +229,7 @@ app.route("/create-event")
     aim : req.body.aim,
     topic : req.body.topic,
     guidelines : req.body.guidelines,
-    preparesubmission : req.body.preparesubmission,
+    papersubmission : req.body.papersubmission,
     contact : req.body.contact,
     workshopaim : req.body.workshopaim,
     workshopproposal : req.body.workshopproposal,
