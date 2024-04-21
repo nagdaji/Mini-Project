@@ -100,89 +100,85 @@ passport.use(usermodel.createStrategy());
 app.get("/", (req, res) => {
   async function findData() {
     try {
-        const result = await homemodel.findOne({ eventname: "CONFOEASE" });
-        return result;
-        } catch (error) {
-            console.error("Error:", error);
-            throw error;
-        }
+      const result = await homemodel.findOne({ eventname: "CONFOEASE" });
+      return result;
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
     }
+  }
 
   findData()
-      .then((result) => {
-          res.render("index.ejs", { data: result });
-      })
-      .catch((error) => {
-          res.status(500).send("Internal Server Error");
-      });
-  
+    .then((result) => {
+      res.render("index.ejs", { data: result });
+    })
+    .catch((error) => {
+      res.status(500).send("Internal Server Error");
+    });
 });
 
-// variable front page 
+// variable front page
 
 app.get("/conference/:newpage", (req, res) => {
   var name = req.params.newpage;
-  name = _.upperCase(name).replace(/\s/g,'');
+  name = _.upperCase(name).replace(/\s/g, "");
   async function findData() {
     try {
-        const result = await homemodel.findOne({ eventname: name });
-        return result;
-        } catch (error) {
-            console.error("Error:", error);
-            throw error;
-        }
+      const result = await homemodel.findOne({ eventname: name });
+      return result;
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
     }
+  }
 
   findData()
-      .then((result) => {
-          res.render("index.ejs", { data: result });
-      })
-      .catch((error) => {
-          res.status(500).send("Internal Server Error");
-      });
-  
+    .then((result) => {
+      res.render("index.ejs", { data: result });
+    })
+    .catch((error) => {
+      res.status(500).send("Internal Server Error");
+    });
 });
-
 
 /////////////////////////////////
 app.get("/call-for-paper", (req, res) => {
-
   async function findData() {
     try {
-        const result = await homemodel.findOne({ eventname: "CONFOEASE" });
-        return result;
+      const result = await homemodel.findOne({ eventname: "CONFOEASE" });
+      return result;
     } catch (error) {
-        console.error("Error:", error);
-        throw error;
+      console.error("Error:", error);
+      throw error;
     }
-}
+  }
 
-findData()
+  findData()
     .then((result) => {
-        res.render("call-for-paper.ejs", { data: result });
+      res.render("call-for-paper.ejs", { data: result });
     })
     .catch((error) => {
-        res.status(500).send("Internal Server Error");
+      res.status(500).send("Internal Server Error");
     });
 });
 
 app.get("/call-for-workshop", (req, res) => {
   async function findData() {
     try {
-        const result = await homemodel.findOne({ eventname: "CONFOEASE" });
-        return result;
+      const result = await homemodel.findOne({ eventname: "CONFOEASE" });
+      return result;
     } catch (error) {
-        console.error("Error:", error);
-        throw error;
+      console.error("Error:", error);
+      throw error;
     }
-}
+  }
 
-findData()
+  findData()
     .then((result) => {
-        res.render("call-for-workshop.ejs", { data: result });
+      res.render("call-for-workshop.ejs", { data: result });
     })
     .catch((error) => {
-        res.status(500).send("Internal Server Error");
+      res.status(500).send("Internal Server Error");
     });
 });
 
@@ -199,59 +195,56 @@ app.get("/admin", (req, res) => {
 app.get("/reviewer", (req, res) => {
   res.render("reviewer-dashboard");
 });
-app.route("/create-event")
-.get((req, res) => {
-  res.render("create-event");
-})
-.post(multipleUpload,(req,res) => {
+app
+  .route("/create-event")
+  .get((req, res) => {
+    res.render("create-event");
+  })
+  .post(multipleUpload, async (req, res) => {
+    // to access each object in an array
 
-  // to access each object in an array
-  
-  let confimg = await processFiles(req.files.conferenceimages);
-  let venueimg = await processFiles(req.files.venueimages);
-  let speakerimg = await processFiles(req.files.speakerimages);
-  let memimg = await  processFiles(req.files.memberimages);
-  let sponimg = await processFiles(req.files.sponserimage);
+    let confimg = await processFiles(req.files.conferenceimages);
+    let venueimg = await processFiles(req.files.venueimages);
+    let speakerimg = await processFiles(req.files.speakerimages);
+    let memimg = await processFiles(req.files.memberimages);
+    let sponimg = await processFiles(req.files.sponserimage);
 
-
- 
-
-  const data = new homemodel({
-    eventname : _.upperCase(req.body.eventname).replace(/\s/g,''),
-    conferenceimages : confimg,
-    conferencedescription : req.body.conferencedescription,
-    date : req.body.date,
-    description : req.body.description,
-    aim : req.body.aim,
-    topic : req.body.topic,
-    guidelines : req.body.guidelines,
-    papersubmission : req.body.papersubmission,
-    contact : req.body.contact,
-    workshopaim : req.body.workshopaim,
-    workshopproposal : req.body.workshopproposal,
-    venue : req.body.venue,
-    venueimages : venueimg,
-    venuedescription : req.body.venuedescription,
-    speakername : req.body.speakername,
-    speakerimages : speakerimg,
-    speakeroccupation : req.body.speakeroccupation,
-    committeename : req.body.committeename,
-    membername : req.body.membername,
-    memberimages : memimg,
-    facebooklink : req.body.facebooklink,
-    twitterlink : req.body.twitterlink,
-    instagramlink : req.body.instagramlink,
-    sponsorname : req.body.sponsorname,
-    sponsorimage : sponimg,
-    headquartername : req.body.headquartername,
-    headquarterlink : req.body.headquarterlink,
-    mobilenumber : req.body.mobilenumber,
-    email : req.body.email,
-    facebookconnect : req.body.facebookconnect,
-    instagramconnect : req.body.instagramconnect,
-    linkedinconnect : req.body.linkedinconnect,
-    twitterconnect : req.body.twitterconnect,
-  });
+    const data = new homemodel({
+      eventname: _.upperCase(req.body.eventname).replace(/\s/g, ""),
+      conferenceimages: confimg,
+      conferencedescription: req.body.conferencedescription,
+      date: req.body.date,
+      description: req.body.description,
+      aim: req.body.aim,
+      topic: req.body.topic,
+      guidelines: req.body.guidelines,
+      papersubmission: req.body.papersubmission,
+      contact: req.body.contact,
+      workshopaim: req.body.workshopaim,
+      workshopproposal: req.body.workshopproposal,
+      venue: req.body.venue,
+      venueimages: venueimg,
+      venuedescription: req.body.venuedescription,
+      speakername: req.body.speakername,
+      speakerimages: speakerimg,
+      speakeroccupation: req.body.speakeroccupation,
+      committeename: req.body.committeename,
+      membername: req.body.membername,
+      memberimages: memimg,
+      facebooklink: req.body.facebooklink,
+      twitterlink: req.body.twitterlink,
+      instagramlink: req.body.instagramlink,
+      sponsorname: req.body.sponsorname,
+      sponsorimage: sponimg,
+      headquartername: req.body.headquartername,
+      headquarterlink: req.body.headquarterlink,
+      mobilenumber: req.body.mobilenumber,
+      email: req.body.email,
+      facebookconnect: req.body.facebookconnect,
+      instagramconnect: req.body.instagramconnect,
+      linkedinconnect: req.body.linkedinconnect,
+      twitterconnect: req.body.twitterconnect,
+    });
 
     data.save();
 
