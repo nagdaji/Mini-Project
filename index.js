@@ -251,6 +251,10 @@ app
     res.redirect("/create-event");
   });
 
+app.get("/otp", (req, res) => {
+  res.render("otp");
+});
+
 app
   .route("/mail")
   .get(function (req, res) {
