@@ -28,8 +28,7 @@ function addField() {
   var formContainer = document.getElementById("key-dates-insert");
   var newField = document.createElement("div");
   newField.className = "input-box view1";
-  newField.innerHTML =
-    `
+  newField.innerHTML = `
     <input name="date[]" type="date" class="view1" placeholder="Date" />
     <input name="description[]" type="text" class="view1" placeholder="Description" />
     <button class="remove-btn btn view1" onclick="removeField(this)">Remove</button>
@@ -86,88 +85,64 @@ create.addEventListener("click", () => {
 });
 
 //adding the new committee member
-function addCommitteeMember(ele) {
-  //   console.log(ele.parentNode.childnode);
-  var siblings = Array.from(ele.parentNode.childNodes).filter(
-    (child) => child.nodeType === 1 && child !== ele
-  );
+// function addCommitteeMember(ele) {
+//   //   console.log(ele.parentNode.childnode);
+//   var siblings = Array.from(ele.parentNode.childNodes).filter(
+//     (child) => child.nodeType === 1 && child !== ele
+//   );
+//   // console.log();
+//   var newField = document.createElement("div");
+//   newField.className = "each-user";
+//   newField.innerHTML = `<div class="input-box">
+//   <label for="user-name">Member Name:</label>
+//   <label for="images">Member Images</label>
+// </div>
+// <div class="input-box">
+//   <input name = "membername" type="text" placeholder="Member Name" />
+//   <input type="file" name="memberimages" />
+// </div>
+// <div class="input-box view">
+//   <label for="facebool">Facebook:</label>
+//   <label for="facebool">Twitter:</label>
+//   <label for="facebool">LinkedIn:</label>
+// </div>
+// <div class="input-box view">
+//   <input name="facebooklink" type="text" placeholder="Facebook" />
+//   <input name="twitterlink" type="text" placeholder="Twitter" />
+//   <input name="linkedinlink" type="text" placeholder="LinkedIn" />
+// </div>
+// <button
+//   class="remove-btn btn"
+//   onclick="removeCommitteeMember(this)"
+// >
+//   Remove User
+// </button>`;
+//   siblings[2].appendChild(newField);
+// }
 
-  var newField = document.createElement("div");
-  newField.className = "each-user";
-  newField.innerHTML = `<div class="input-box">
-  <label for="user-name">Member Name:</label>
-  <label for="images">Member Images</label>
-</div>
-<div class="input-box">
-  <input name = "membername" type="text" placeholder="Member Name" />
-  <input type="file" name="memberimages" />
-</div>
-<div class="input-box view">
-  <label for="facebool">Facebook:</label>
-  <label for="facebool">Twitter:</label>
-  <label for="facebool">LinkedIn:</label>
-</div>
-<div class="input-box view">
-  <input name="facebooklink" type="text" placeholder="Facebook" />
-  <input name="twitterlink" type="text" placeholder="Twitter" />
-  <input name="linkedinlink" type="text" placeholder="LinkedIn" />
-</div>
-<button
-  class="remove-btn btn"
-  onclick="removeCommitteeMember(this)"
->
-  Remove User
-</button>`;
-  siblings[2].appendChild(newField);
-}
+// //deleting the existing date field
+// function removeCommitteeMember(btn) {
+//   btn.parentNode.parentNode.removeChild(btn.parentNode);
+// }
 
-//deleting the existing date field
-function removeCommitteeMember(btn) {
-  btn.parentNode.parentNode.removeChild(btn.parentNode);
-}
-
-//adding a new committee with one memeber
+//adding a new committee with zero memeber
 function addCommittee() {
   var formContainer = document.getElementById("committee-list");
   var newField = document.createElement("div");
   newField.className = "each-committee";
   newField.innerHTML = `<div class="input-box">
   <label for="committee-name">Committee Name:</label>
+  <label for="committee-member">Number of Members:</label>
 </div>
 <div class="input-box">
   <input name="committeename" type="text" placeholder="Committee Name" />
+  
+  <input type="number" id="numMembers" min="1" value="1" placeholder="Number of Members" onkeydown="addMemberFields(this)"
+  onkeyup="addMemberFields(this)"/>
 </div>
 <div class="committee-member-list" id="committee-member-list">
-  <div class="each-user">
-    <div class="input-box">
-      <label for="user-name">Member Name:</label>
-      <label for="images">Member Images</label>
-    </div>
-    <div class="input-box">
-      <input name="membername" type="text" placeholder="Member Name" />
-      <input type="file" name="memberimages" />
-    </div>
-    <div class="input-box view">
-      <label for="facebool">Facebook:</label>
-      <label for="facebool">Twitter:</label>
-      <label for="facebool">LinkedIn:</label>
-    </div>
-    <div class="input-box view">
-      <input name="facebooklink" type="text" placeholder="Facebook" />
-      <input name="twitterlink" type="text" placeholder="Twitter" />
-      <input name="linkedinlink" type="text" placeholder="LinkedIn" />
-    </div>
-    <button
-      class="remove-btn btn"
-      onclick="removeCommitteeMember(this)"
-    >
-      Remove User
-    </button>
-  </div>
+  
 </div>
-<button class="add-btn btn" onclick="addCommitteeMember(this); return false;">
-  Add User</button
-><br />
 <button
   class="remove-btn btn"
   onclick="removeCommittee(this)"
@@ -181,6 +156,100 @@ function addCommittee() {
 function removeCommittee(btn) {
   var formContainer = document.getElementById("committee-list");
   formContainer.removeChild(btn.parentNode);
+}
+
+//function for appending committee members according to the user needs
+//adding or appending the new members all at one time according to the user needs
+function addMemberFields(ele) {
+  var siblings = ele.parentNode.parentNode.childNodes[4];
+  // console.log(siblings);
+  siblings.innerHTML = `  `;
+  for (let i = 0; i < ele.value; i++) {
+    var newField = document.createElement("div");
+    newField.className = "each-user";
+    newField.innerHTML = `<div class="input-box">
+    <label for="user-name">Member Name:</label>
+    <label for="images">Member Images</label>
+  </div>
+  <div class="input-box">
+    <input name = "membername" type="text" placeholder="Member Name" />
+    <input type="file" name="memberimages" />
+  </div>
+  <div class="input-box view">
+    <label for="facebool">Facebook:</label>
+    <label for="facebool">Twitter:</label>
+    <label for="facebool">LinkedIn:</label>
+  </div>
+  <div class="input-box view">
+    <input name="facebooklink" type="text" placeholder="Facebook" />
+    <input name="twitterlink" type="text" placeholder="Twitter" />
+    <input name="linkedinlink" type="text" placeholder="LinkedIn" />
+  </div>`;
+    siblings.appendChild(newField);
+  }
+}
+//adding a new committee with zero memeber
+function addTracks() {
+  var formContainer = document.getElementById("tracks-list");
+  var newField = document.createElement("div");
+  newField.className = "each-tracks";
+  newField.innerHTML = `<div class="input-box">
+  <label for="tracks-name">Tracks Name:</label>
+  <label for="tracks-member">Number of Members:</label>
+</div>
+<div class="input-box">
+  <input name="tracksname" type="text" placeholder="Tracks Name" />
+  
+  <input type="number"  min="1" value="1" placeholder="Number of Members" onkeydown="addTracksFields(this)"
+  onkeyup="addTracksFields(this)"/>
+</div>
+<div class="tracks-member-list" id="tracks-member-list">
+  
+</div>
+<button
+  class="remove-btn btn"
+  onclick="removeTracks(this)"
+>
+  Remove Tracks
+</button>`;
+  formContainer.appendChild(newField);
+}
+
+//deleting the existing committee
+function removeTracks(btn) {
+  var formContainer = document.getElementById("tracks-list");
+  formContainer.removeChild(btn.parentNode);
+}
+
+//function for appending committee members according to the user needs
+//adding or appending the new members all at one time according to the user needs
+function addTracksFields(ele) {
+  var siblings = ele.parentNode.parentNode.childNodes[4];
+  // console.log(siblings);
+  siblings.innerHTML = `  `;
+  for (let i = 0; i < ele.value; i++) {
+    var newField = document.createElement("div");
+    newField.className = "each-tracks-member";
+    newField.innerHTML = `<div class="input-box">
+    <label for="user-name">Member Name:</label>
+    <label for="images">Member Images</label>
+  </div>
+  <div class="input-box">
+    <input name = "tracksmembername" type="text" placeholder="Member Name" />
+    <input type="file" name="tracksmemberimages" />
+  </div>
+  <div class="input-box view">
+    <label for="facebool">Facebook:</label>
+    <label for="facebool">Twitter:</label>
+    <label for="facebool">LinkedIn:</label>
+  </div>
+  <div class="input-box view">
+    <input name="tracksfacebooklink" type="text" placeholder="Facebook" />
+    <input name="trackstwitterlink" type="text" placeholder="Twitter" />
+    <input name="trackslinkedinlink" type="text" placeholder="LinkedIn" />
+  </div>`;
+    siblings.appendChild(newField);
+  }
 }
 
 //adding the new sponser to the list
@@ -265,4 +334,3 @@ function removeContact(btn) {
   var formContainer = document.getElementById("contact-list");
   formContainer.removeChild(btn.parentNode.parentNode);
 }
-

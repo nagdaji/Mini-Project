@@ -350,7 +350,7 @@
                   >
                 </div>
                 <div class="committee-list" id="committee-list">
-                  <div class="each-committee">
+                  <!-- <div class="each-committee">
                     <div class="input-box">
                       <label for="committee-name">Committee Name:</label>
                       <label for="committee-member">Number of Members:</label>
@@ -363,8 +363,12 @@
                       />
                       <input
                         type="number"
-                        name="no-of-members"
+                        id="numMembers"
+                        min="1"
+                        value="1"
                         placeholder="Number of Members"
+                        onkeydown="addMemberFields(this)"
+                        onkeyup="addMemberFields(this)"
                       />
                     </div>
                     <div
@@ -426,7 +430,7 @@
                     >
                       Remove Committee
                     </button>
-                  </div>
+                  </div> -->
                 </div>
                 <button
                   class="add-btn btn"
@@ -436,6 +440,24 @@
                 </button>
               </div>
               <!-- Committee Details -->
+              <br />
+
+              <!-- Tracks Details -->
+              <div class="tracks-details">
+                <div class="input-box">
+                  <label for="committee" class="heading"
+                    >Tracks <span>Detail</span></label
+                  >
+                </div>
+                <div class="tracks-list" id="tracks-list"></div>
+                <button
+                  class="add-btn btn"
+                  onclick="addTracks(); return false;"
+                >
+                  Add Tracks
+                </button>
+              </div>
+              <!-- Tracks Details -->
               <br />
 
               <!-- Sponser Details -->
