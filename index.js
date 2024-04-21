@@ -3,9 +3,8 @@ const express = require("express");
 const bodyparser = require("body-parser");
 const _ = require("lodash");
 
-const {signup} = require("./public/js/mail");
-const {processFiles} = require("./utils/utils");
-
+const { signup } = require("./public/js/mail");
+const { processFiles } = require("./utils/utils");
 
 const homemodel = require("./schema/homeschema");
 const multer = require("multer");
@@ -51,7 +50,7 @@ var multipleUpload = upload.fields([
   { name: "conferenceimages", maxCount: 10 },
   { name: "venueimages", maxCount: 10 },
   { name: "speakerimages", maxCount: 10 },
-  { name: "memberimages", maxCount: 10 },
+  { name: "memberimages", maxCount: 15 },
   { name: "sponserimage", maxCount: 10 },
 ]);
 
@@ -99,7 +98,6 @@ passport.deserializeUser(function (user, done) {
 passport.use(usermodel.createStrategy());
 
 app.get("/", (req, res) => {
-  
   async function findData() {
     try {
         const result = await homemodel.findOne({ eventname: "CONFOEASE" });
@@ -203,11 +201,9 @@ app.get("/reviewer", (req, res) => {
 });
 app.route("/create-event")
 .get((req, res) => {
-  // if (req.isAuthenticated()) {
-    res.render("create-event.ejs");
-  // } else res.redirect("/login1");  
+  res.render("create-event");
 })
-.post(multipleUpload,async(req,res) => {
+.post(multipleUpload,(req,res) => {
 
   // to access each object in an array
   
@@ -305,7 +301,6 @@ app
     } else res.render("signup1.ejs");
   })
   .post((req, res) => {
-
     console.log(req.body.password);
     usermodel.register(
       {
@@ -325,31 +320,25 @@ app
     );
   });
 
-
-  app.get("/edit-event", (req, res) => {
-    if (req.isAuthenticated()) {
-      res.render("edit-event.ejs");
-    } else res.redirect("/login1");
-  });
-  
-
-app.get("/logout", (req, res) => {  
-
-    if (req.isAuthenticated()) {
-      // Destroy the session to log out the user
-      req.session.destroy((err) => {
-        if (err) {
-          console.error("Error destroying session:", err);
-          res.status(500).send("Internal Server Error");
-        } else {
-          res.redirect("/login1"); // Redirect to the login page after logout
-        }
-      });
-      
-    } else res.redirect("/login1");
-  
+app.get("/edit-event", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("edit-event.ejs");
+  } else res.redirect("/login1");
 });
 
+app.get("/logout", (req, res) => {
+  if (req.isAuthenticated()) {
+    // Destroy the session to log out the user
+    req.session.destroy((err) => {
+      if (err) {
+        console.error("Error destroying session:", err);
+        res.status(500).send("Internal Server Error");
+      } else {
+        res.redirect("/login1"); // Redirect to the login page after logout
+      }
+    });
+  } else res.redirect("/login1");
+});
 
 app.listen(8000, () => {
   console.log("Server running on port 8000!!");
