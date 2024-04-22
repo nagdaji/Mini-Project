@@ -32,10 +32,10 @@ body {
 }
 
 button {
-	background-color: #4CAF50;
-	color: #fff;
+	background-color: white;
+	color: #222;
 	padding: 10px;
-	border: none;
+	border: 1px solid #222;
 	border-radius: 5px;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
@@ -102,4 +102,15 @@ input:disabled {
 .timer {
 	margin-top: 10px;
 	font-size: 14px;
+}
+
+.btn{
+	transition: all 0.3 ease;
+    cursor: pointer;
+	
+}
+
+.btn:hover{
+	background-color: #1e15c3;
+    color: #fff;
 }

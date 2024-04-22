@@ -27,7 +27,9 @@
           <h1 style="color: #fff">OTP Verification</h1>
         </div>
         <div class="content" id="content">
-          <button id="generateBtn" onclick="OTPFn()">Generate OTP</button>
+          <button id="generateBtn" onclick="OTPFn()" class="btn">
+            Generate OTP
+          </button>
           <div id="otpForm" class="otp-form">
             <input
               type="text"
@@ -35,7 +37,7 @@
               name="otp"
               placeholder="Enter OTP"
             />
-            <button onclick="OTPVerifyFn()">Verify</button>
+            <button onclick="OTPVerifyFn()" class="btn">Verify</button>
           </div>
           <div id="successMessage" class="success-message">
             <i class="fas fa-check"></i>

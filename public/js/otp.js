@@ -3,7 +3,7 @@ let timer;
 let secondsRemaining = 300;
 function OTPFn() {
   const btn = document.getElementById("generateBtn");
-  btn.disabled = true;
+  btn.disabled = false;
   clearFn();
   otpGen = Math.floor(1000 + Math.random() * 9000);
   const temp = document.getElementById("content");
