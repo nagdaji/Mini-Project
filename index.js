@@ -260,6 +260,10 @@ app.get("/tracks", (req, res) => {
   res.render("tracks");
 });
 
+app.get("/paper_submission", (req, res) => {
+  res.render("paper_submission");
+});
+
 app
   .route("/mail")
   .get(function (req, res) {
