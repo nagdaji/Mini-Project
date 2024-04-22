@@ -198,7 +198,6 @@ app.get("/committee/:conf", (req, res) => {
 
   findData()
     .then((result) => {
-      console.log(result);
       res.render("committee.ejs", { data: result });
     })
     .catch((error) => {
@@ -212,8 +211,8 @@ app.get("/admin/:conf", (req, res) => {
   } else res.redirect("/login1/" + req.params.conf);
 });
 
-app.get("/reviewer", (req, res) => {
-  res.render("reviewer-dashboard");
+app.get("/reviewer/:conf", (req, res) => {
+  res.render("reviewer-dashboard.ejs",{data : req.params.conf});
 });
 app
   .route("/create-event/:conf")
@@ -277,21 +276,28 @@ app
       twitterconnect: req.body.twitterconnect,
     });
 
-    // data.save();
+    data.save();
 
-    res.redirect("/create-event");
+    res.redirect("/create-event/"+req.params.conf);
   });
+
+
+app.route("/attendee/:conf")
+.get((req,res) => {
+  res.render("attendee.ejs",{data : req.params.conf});
+});
+
 
 app.get("/otp", (req, res) => {
   res.render("otp");
 });
 
-app.get("/tracks", (req, res) => {
-  res.render("tracks");
+app.get("/tracks/:conf", (req, res) => {
+  res.render("tracks" ,{ data : req.params.conf});
 });
 
-app.get("/paper_submission", (req, res) => {
-  res.render("paper_submission");
+app.get("/paper_submission/:conf", (req, res) => {
+  res.render("paper_submission.ejs",{data : req.params.conf});
 });
 
 app
@@ -303,8 +309,6 @@ app
 app
   .route("/login1/:conf")
   .get((req, res) => {
-
-    console.log(req.body.params);
 
     if (req.isAuthenticated()) {
       res.redirect("/admin/"+req.params.conf);
@@ -325,7 +329,25 @@ app
           if (!user) {
             res.render("login1.ejs", { data: req.params.conf });
           } else {
-            res.redirect("/admin/"+req.params.conf);
+            usermodel.find({username : req.user.username}).then((result)=>{
+          
+              if(result[0].role === "author")
+              {
+                res.redirect("/paper_submission/"+req.params.conf);
+              }
+              else if(result[0].role === "admin")
+              {
+                res.redirect("/admin/"+req.params.conf);
+              }
+              else if(result[0].role === "reviewer")
+              {
+                res.redirect("/reviewer/"+req.params.conf);
+              }
+              else
+              {
+                res.redirect("/attendee/"+req.params.conf);
+              }
+            });    
           }
         })(req, res);
       }
@@ -338,6 +360,7 @@ app
     // if (req.isAuthenticated()) {
     //   res.redirect("/signup1");
     // } else res.render("signup1.ejs");
+    
     res.render("signup1.ejs", { data: req.params.conf });
   })
   .post((req, res) => {
@@ -353,9 +376,9 @@ app
       function (err, user) {
         if (err) {
           console.log(err);
-          res.redirect("/signup1");
+          res.redirect("/signup1/"+req.params.conf);
         } else {
-          res.redirect("/login1");
+          res.redirect("/login1/"+req.params.conf);
         }
       }
     );
@@ -364,12 +387,11 @@ app
 app.get("/edit-event", (req, res) => {
   if (req.isAuthenticated()) {
     res.render("edit-event.ejs");
-  } else res.redirect("/login1");
+  } else res.redirect("/login1/"+req.params.conf);
 });
 
 app.get("/logout/:conf", (req, res) => {
   let a = req.params.conf;
-  console.log(req.params.conf);
   if (req.isAuthenticated()) {
     // Destroy the session to log out the user
     req.session.destroy((err) => {
@@ -380,7 +402,7 @@ app.get("/logout/:conf", (req, res) => {
         res.redirect("/login1/" + a); // Redirect to the login page after logout
       }
     });
-  } else res.redirect("/login1" + a);
+  } else res.redirect("/login1/" + a);
 });
 
 app.listen(8000, () => {
