@@ -17,17 +17,21 @@
     <!-- font awesome link -->
   </head>
   <body>
+    
     <!-- header Section -->
     <header class="header">
       <a href="#" class="logo"><span>C</span>onfoEase</a>
 
       <!-- nav bar -->
       <nav class="navbar">
-        <a href="/">Home</a>
-        <a href="/committee">Committees</a>
+
+        
+        <a href="/conference/<%=data.eventname%>">Home</a>
+        <a href="/committee/<%=data.eventname%>">Committees</a>
         <a href="#speakers">Speakers</a>
         <a href="#contact-us">Contact Us</a>
         <a href="/login1/<%= data._id.valueOf() %>">Login</a>
+        
 
         <div id="menu-bar" class="fas fa-bars"></div>
       </nav>

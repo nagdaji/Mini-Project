@@ -137,7 +137,7 @@ function addCommittee() {
 <div class="input-box">
   <input name="committeename" type="text" placeholder="Committee Name" />
   
-  <input type="number" id="numMembers" min="1" value="1" placeholder="Number of Members" onkeydown="addMemberFields(this)"
+  <input name="noofmembers" type="number" id="numMembers" min="1" value="1" placeholder="Number of Members" onkeydown="addMemberFields(this)"
   onkeyup="addMemberFields(this)"/>
 </div>
 <div class="committee-member-list" id="committee-member-list">
@@ -200,7 +200,7 @@ function addTracks() {
 <div class="input-box">
   <input name="tracksname" type="text" placeholder="Tracks Name" />
   
-  <input type="number"  min="1" value="1" placeholder="Number of Members" onkeydown="addTracksFields(this)"
+  <input name="nooftracks" type="number"  min="1" value="1" placeholder="Number of Members" onkeydown="addTracksFields(this)"
   onkeyup="addTracksFields(this)"/>
 </div>
 <div class="tracks-member-list" id="tracks-member-list">

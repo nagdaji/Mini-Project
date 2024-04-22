@@ -121,6 +121,7 @@ app.get("/", (req, res) => {
 // variable front page
 
 app.get("/conference/:newpage", (req, res) => {
+  
   var name = req.params.newpage;
   name = _.upperCase(name).replace(/\s/g, "");
   async function findData() {
@@ -183,8 +184,26 @@ app.get("/call-for-workshop", (req, res) => {
     });
 });
 
-app.get("/committee", (req, res) => {
-  res.render("committee");
+app.get("/committee/:conf", (req, res) => {
+  var a = req.params.conf;
+  async function findData() {
+    try {
+      const result = await homemodel.findOne({ eventname: _.upperCase(a).replace(/\s/g, "") });
+      return result;
+    } catch (error) {
+      console.error("Error:", error);
+      throw error;
+    }
+  }
+
+  findData()
+    .then((result) => {
+      console.log(result);
+      res.render("committee.ejs", { data: result });
+    })
+    .catch((error) => {
+      res.status(500).send("Internal Server Error");
+    });
 });
 
 app.get("/admin/:conf", (req, res) => {
@@ -197,12 +216,15 @@ app.get("/reviewer", (req, res) => {
   res.render("reviewer-dashboard");
 });
 app
-  .route("/create-event")
+  .route("/create-event/:conf")
   .get((req, res) => {
-    res.render("create-event");
+    res.render("create-event.ejs" , {data : req.params.conf});
+    // res.render("create-event");
   })
   .post(multipleUpload, async (req, res) => {
     // to access each object in an array
+
+    // console.log(req.body);
 
     let confimg = await processFiles(req.files.conferenceimages);
     let venueimg = await processFiles(req.files.venueimages);
@@ -230,11 +252,19 @@ app
       speakerimages: speakerimg,
       speakeroccupation: req.body.speakeroccupation,
       committeename: req.body.committeename,
+      numberofmembers : req.body.noofmembers,
       membername: req.body.membername,
       memberimages: memimg,
       facebooklink: req.body.facebooklink,
       twitterlink: req.body.twitterlink,
       instagramlink: req.body.instagramlink,
+      tracksname : req.body.tracksname,
+      nooftracks : req.body.nooftracks,
+      tracksmembername : req.body.tracksmembername,
+      tracksmemberimages : req.body.tracksmemberimages,
+      tracksfacebooklink : req.body.tracksfacebooklink,
+      trackstwitterlink : req.body.trackstwitterlink,
+      trackslinkedinlink : req.body.trackslinkedinlink,
       sponsorname: req.body.sponsorname,
       sponsorimage: sponimg,
       headquartername: req.body.headquartername,
@@ -265,8 +295,11 @@ app
 app
   .route("/login1/:conf")
   .get((req, res) => {
+
+    console.log(req.body.params);
+
     if (req.isAuthenticated()) {
-      res.redirect("/admin");
+      res.redirect("/admin/"+req.params.conf);
     } else res.render("login1.ejs", { data : req.params.conf });
   })
   .post((req, res) => {
@@ -284,7 +317,7 @@ app
           if (!user) {
             res.render("login1.ejs", { data: req.params.conf });
           } else {
-            res.redirect("/admin/conf");
+            res.redirect("/admin/"+req.params.conf);
           }
         })(req, res);
       }
