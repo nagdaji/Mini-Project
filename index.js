@@ -256,6 +256,10 @@ app.get("/otp", (req, res) => {
   res.render("otp");
 });
 
+app.get("/tracks", (req, res) => {
+  res.render("tracks");
+});
+
 app
   .route("/mail")
   .get(function (req, res) {

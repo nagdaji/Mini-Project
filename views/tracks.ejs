@@ -4,7 +4,13 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ConfoEase</title>
-    <link rel="stylesheet" href="/css/call-for-workshop.css" />
+    <link rel="stylesheet" href="/css/tracks.css" />
+    <!-- swiper css -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <!-- swipper css link -->
 
     <!-- font awesome link -->
     <link
@@ -37,32 +43,38 @@
     <!-- Section for displaying the heading -->
     <section class="home" id="home">
       <div class="content">
-        <h3>Call For Workshop <span>Proposal</span></h3>
+        <h3>Organizing <span>Committee</span></h3>
       </div>
     </section>
     <!-- Section for heading closed -->
 
+    <!-- organisation committee -->
     <div class="container">
-      <div class="aims-scope">
-        <h3>Aims and <span>Scope</span></h3>
-        <p><%= data.workshopaim%></p>
+      <!-- honary Committee -->
+      <div class="tracks">
+        <h4>Power and <span>Energy</span></h4>
+        <div class="track">
+          <div class="person">
+            <img src="/image/girl1.jpg" />
+            <h4>Dr. Emily <span>Smith</span></h4>
+            <!-- <h6>CEO BOAT</h6> -->
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+          <div class="person">
+            <img src="/image/boy1.jpg" />
+            <h4>Prof. David <span>Wong</span></h4>
+            <!-- <h6>CEO BOAT</h6> -->
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
       </div>
-      <div class="workshop-proposal">
-        <h3>Preparing Your <span>Workshop Proposal</span></h3>
-        <p><%= data.workshopproposal%></p>
-      </div>
-      <!-- <div class="keydates">
-        <h3>Key <span>Dates</span></h3>
-        <p>
-          April 10, 2024: Workshop proposals deadline May 15, <br />2024:
-          Workshop proposals notification September 10, <br />2024: Workshop
-          papers submission October 7, <br />2024: Notification of workshop
-          papers acceptance to authors October 11,<br />
-          2024: Camera-ready deadline and copyright form December 9,<br />
-          2024: Workshops date
-        </p>
-      </div> -->
+      <!-- honary Committee -->
     </div>
+    <!-- organisation committee -->
 
     <!-- Footer Section -->
     <section class="footer" id="footer">
@@ -86,7 +98,7 @@
             ><i class="fas fa-arrow-right"></i>Call for Papers</a
           >
           <a href="/"><i class="fas fa-arrow-right"></i>Contact Us</a>
-          <a href="/login"><i class="fas fa-arrow-right"></i>Login</a>
+          <a href="/login1"><i class="fas fa-arrow-right"></i>Login</a>
         </div>
         <div class="box">
           <h3>Contact info</h3>
@@ -108,9 +120,9 @@
           <a href="#"><i class="fab fa-instagram"></i>instagram</a>
           <a href="#"><i class="fab fa-linkedin-in"></i>linkedin</a>
         </div>
-        <div class="credit">
-          Created by <span>Group 23</span>| All Rights Reserved
-        </div>
+      </div>
+      <div class="credit">
+        Created by <span>Group 23</span>| All Rights Reserved
       </div>
     </section>
     <!-- Footer Section -->
