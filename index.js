@@ -189,8 +189,8 @@ app.get("/committee", (req, res) => {
 
 app.get("/admin/:conf", (req, res) => {
   if (req.isAuthenticated()) {
-    res.render("admin-dashboard.ejs" , {data : req.params.conf});
-  } else res.redirect("/login1/"+req.params.conf);
+    res.render("admin-dashboard.ejs", { data: req.params.conf });
+  } else res.redirect("/login1/" + req.params.conf);
 });
 
 app.get("/reviewer", (req, res) => {
@@ -267,7 +267,7 @@ app
   .get((req, res) => {
     if (req.isAuthenticated()) {
       res.redirect("/admin");
-    } else res.render("login1.ejs", { data : req.params.conf });
+    } else res.render("login1.ejs", { data: req.params.conf });
   })
   .post((req, res) => {
     const user = new usermodel({
@@ -294,20 +294,18 @@ app
 app
   .route("/signup1/:conf")
   .get((req, res) => {
-
     // if (req.isAuthenticated()) {
     //   res.redirect("/signup1");
     // } else res.render("signup1.ejs");
-    res.render("signup1.ejs",{data : req.params.conf});
+    res.render("signup1.ejs", { data: req.params.conf });
   })
   .post((req, res) => {
-
     let a = req.params.conf;
     usermodel.register(
       {
         name: req.body.name,
         username: req.body.username,
-        conference : a,    
+        conference: a,
         role: req.body.role,
       },
       req.body.password,
@@ -338,10 +336,10 @@ app.get("/logout/:conf", (req, res) => {
         console.error("Error destroying session:", err);
         res.status(500).send("Internal Server Error");
       } else {
-        res.redirect("/login1/"+a); // Redirect to the login page after logout
+        res.redirect("/login1/" + a); // Redirect to the login page after logout
       }
     });
-  } else res.redirect("/login1"+a);
+  } else res.redirect("/login1" + a);
 });
 
 app.listen(8000, () => {
