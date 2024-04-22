@@ -28,9 +28,11 @@
       <nav class="navbar">
         <a href="/conference/<%=data%>">Home</a>
         <a href="/committee/<%=data%>">Committees</a>
+        <a href="/tracks">Tracks</a>
         <a href="/">Speakers</a>
         <a href="/">Contact Us</a>
-        <a href="/login1/<%=data%>">Login</a>
+        <a href="/signup1/<%= data._id.valueOf() %>">Register</a>
+        <a href="/login1/<%= data._id.valueOf() %>">Login</a>
 
         <div id="menu-bar" class="fas fa-bars"></div>
       </nav>
@@ -74,7 +76,9 @@
           <div class="form-link">
             <span
               >Don't have an account
-              <a href="/signup1/<%= data %>" class="signup-link">SignUp</a></span
+              <a href="/signup1/<%= data %>" class="signup-link"
+                >SignUp</a
+              ></span
             >
           </div>
         </div>

@@ -94,24 +94,24 @@ body{
 }
 
 
-/* Code here for the committee section */
+/* Code here for the track section */
 .container{
     width: 80%;
     margin: 0 10% 0 10%;
 }
 
-.container .committees h4{
+.container .tracks h4{
     color:#fff;
     font-size: 3rem;
     text-transform: uppercase;
 }
 
-.container .committees h4 span{
+.container .tracks h4 span{
     color: #3867d6;
     text-transform: uppercase;
 }
 
-.container .committee{
+.container .track{
     margin-top: 2rem;
     margin-bottom: 8rem;
     display: flex;
@@ -141,7 +141,7 @@ body{
     font-size: 2rem;
 }
 
-.container .committee img{
+.container .track img{
     height: 15rem;
     width: 15rem;
     border-radius: 50%;
@@ -149,15 +149,15 @@ body{
     /* margin: 2rem 2rem 2rem 2rem; */
 }
 
-.container .committee .person{
+.container .track .person{
     text-align: center;
 }
 
-.container .committee .person h4{
+.container .track .person h4{
     font-size: 2.5rem;
 }
 
-.container .committee p h4{
+.container .track p h4{
     font-size: 1.5rem;
 }
 

@@ -11,11 +11,15 @@ const signup = async (req, res) => {
   });
 
   await transporter.sendMail({
-    from: process.env.USER,
-    to: "kartik.2022ca043@mnnit.ac.in",
-    subject: "otp validation",
+    from: `⭐ ConfoEase ⭐ ${process.env.USER}`,
+    to: "deepak.2022ca025@mnnit.ac.in",
+    subject: "Otp Validation",
     text: "hello world",
-    html: "<b>HELLO WORLD</b>",
+    html: ` <div style="background-color: #222; color: #fff; text-align: center; padding: 20px; border-radius: 10px; width: 60%; box-shadow:  0 4px 8px 0 #3867d6, 0 2px 8px 0 #3867d6; margin: auto;">
+    <h1 style="color: #3867d6;">ConfoEase</h1>
+    <h3>Otp Validation</h3>
+    <p>Your OTP for ConfoEase is <b style="color: #3867d6">4568</b>.<br>It is valid for 5 minutes.</p>
+  </div>`,
   });
 };
 module.exports = { signup };
