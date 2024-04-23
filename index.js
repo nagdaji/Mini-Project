@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const bodyparser = require("body-parser");
 const _ = require("lodash");
+const { format } = require('date-fns');
 
 const { signup } = require("./public/js/mail");
 const { processFiles } = require("./utils/utils");
@@ -52,6 +53,7 @@ var multipleUpload = upload.fields([
   { name: "speakerimages", maxCount: 10 },
   { name: "memberimages", maxCount: 15 },
   { name: "sponserimage", maxCount: 10 },
+  { name: "files", maxCount : 1}
 ]);
 
 app.use(
@@ -135,7 +137,17 @@ app.get("/conference/:newpage", (req, res) => {
   }
 
   findData()
-    .then((result) => {
+    .then(async (result) => {
+      async function formatDate(date) {
+        
+        for(let i=0;i<date.length;i++)
+        {
+          const newdate = format(date[i], 'dd/MM/yyyy');  
+          date[i] = newdate;
+        }
+      }
+      await formatDate(result.date);
+
       res.render("index.ejs", { data: result });
     })
     .catch((error) => {
@@ -296,8 +308,17 @@ app.get("/tracks/:conf", (req, res) => {
   res.render("tracks" ,{ data : req.params.conf});
 });
 
-app.get("/paper_submission/:conf", (req, res) => {
-  res.render("paper_submission.ejs",{data : req.params.conf});
+app.route("/paper_submission/:conf")
+.get((req, res) => {
+  // if (req.isAuthenticated()) {
+    res.render("paper_submission.ejs",{data : req.params.conf});
+  // } else res.redirect("/login1/" + req.params.conf);
+})
+.post((req,res) => {
+  var a = req.file;
+  console.log(a);
+  console.log(req.body.files);
+  res.redirect("/paper_submission/"+req.params.conf);
 });
 
 app
