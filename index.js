@@ -309,10 +309,7 @@ app
 app
   .route("/login1/:conf")
   .get((req, res) => {
-
-    if (req.isAuthenticated()) {
-      res.redirect("/admin/"+req.params.conf);
-    } else res.render("login1.ejs", { data : req.params.conf });
+     res.render("login1.ejs", { data : req.params.conf ,error : ""});
   })
   .post((req, res) => {
     const user = new usermodel({
@@ -327,25 +324,28 @@ app
         passport.authenticate("local", function (err, user, info) {
           if (err) console.log(err);
           if (!user) {
-            res.render("login1.ejs", { data: req.params.conf });
+            res.render("login1.ejs", { data: req.params.conf , error : "user does not exists"});
           } else {
             usermodel.find({username : req.user.username}).then((result)=>{
-          
-              if(result[0].role === "author")
+              if(result[0].role === "author" && result[0].conference === req.params.conf)
               {
                 res.redirect("/paper_submission/"+req.params.conf);
               }
-              else if(result[0].role === "admin")
+              else if(result[0].role === "admin" && result[0].conference === req.params.conf)
               {
                 res.redirect("/admin/"+req.params.conf);
               }
-              else if(result[0].role === "reviewer")
+              else if(result[0].role === "reviewer" && result[0].conference === req.params.conf)
               {
                 res.redirect("/reviewer/"+req.params.conf);
               }
-              else
+              else if(result[0].role === "attendee" && result[0].conference === req.params.conf)
               {
                 res.redirect("/attendee/"+req.params.conf);
+              }
+              else
+              {
+                res.render("login1.ejs" , {data : req.params.conf , error : "user does not exists"});
               }
             });    
           }
