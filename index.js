@@ -10,6 +10,9 @@ const { processFiles } = require("./utils/utils");
 const homemodel = require("./schema/homeschema");
 const multer = require("multer");
 
+const { GridFsStorage } = require('multer-gridfs-storage');
+const { Readable } = require('stream');
+
 const app = express();
 app.use(express.static("public"));
 const path = require("path");
@@ -52,8 +55,7 @@ var multipleUpload = upload.fields([
   { name: "venueimages", maxCount: 10 },
   { name: "speakerimages", maxCount: 10 },
   { name: "memberimages", maxCount: 15 },
-  { name: "sponserimage", maxCount: 10 },
-  { name: "files", maxCount : 1}
+  { name: "sponserimage", maxCount: 10 }
 ]);
 
 app.use(
@@ -81,8 +83,9 @@ const userschema = new mongoose.Schema({
   role: String,
   conference: String,
   paperid: {
-    type: String,
-    default: null,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'PDF',
+    default : null
   },
 });
 
@@ -99,6 +102,16 @@ passport.deserializeUser(function (user, done) {
 });
 
 passport.use(usermodel.createStrategy());
+
+// pdf upload logic
+const pdfSchema = new mongoose.Schema({
+  name: String,
+});
+
+const PDF = mongoose.model('PDF', pdfSchema);
+
+
+//////////////////////////////
 
 app.get("/", (req, res) => {
   async function findData() {
@@ -234,9 +247,6 @@ app
   })
   .post(multipleUpload, async (req, res) => {
     // to access each object in an array
-
-    // console.log(req.body);
-
     let confimg = await processFiles(req.files.conferenceimages);
     let venueimg = await processFiles(req.files.venueimages);
     let speakerimg = await processFiles(req.files.speakerimages);
@@ -310,14 +320,20 @@ app.get("/tracks/:conf", (req, res) => {
 
 app.route("/paper_submission/:conf")
 .get((req, res) => {
-  // if (req.isAuthenticated()) {
+  if (req.isAuthenticated()) {
     res.render("paper_submission.ejs",{data : req.params.conf});
-  // } else res.redirect("/login1/" + req.params.conf);
+  } else res.redirect("/login1/" + req.params.conf);
 })
-.post((req,res) => {
-  var a = req.file;
-  console.log(a);
-  console.log(req.body.files);
+.post(upload.single('files'),async(req,res) => {
+
+  const pdf = new PDF({
+    name : req.file.originalname
+  });
+
+  const savepdf = await pdf.save();
+
+  await usermodel.findOneAndUpdate({username : req.user.username},{paperid : savepdf._id});
+
   res.redirect("/paper_submission/"+req.params.conf);
 });
 
