@@ -20,6 +20,7 @@
     "express": "^4.19.2",
     "express-session": "^1.18.0",
     "fs": "^0.0.1-security",
+    "fullcalendar": "^6.1.11",
     "lodash": "^4.17.21",
     "mongodb": "^6.5.0",
     "mongoose": "^8.2.4",

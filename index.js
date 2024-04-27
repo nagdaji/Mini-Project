@@ -223,9 +223,14 @@ app.get("/admin/:conf", (req, res) => {
   } else res.redirect("/login1/" + req.params.conf);
 });
 
+app.get("/admin-schedule/:conf", (req, res) => {
+  res.render("admin-schedule.ejs",{data : req.params.conf});
+});
+
 app.get("/reviewer/:conf", (req, res) => {
   res.render("reviewer-dashboard.ejs",{data : req.params.conf});
 });
+
 app
   .route("/create-event/:conf")
   .get((req, res) => {
