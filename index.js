@@ -449,6 +449,12 @@ app.get("/logout/:conf", (req, res) => {
   } else res.redirect("/login1/" + a);
 });
 
+app.route("/check-status/:conf").get((req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("check-status.ejs", { data: req.params.conf });
+  } else res.redirect("/check-status/" + req.params.conf);
+});
+
 app.listen(8000, () => {
   console.log("Server running on port 8000!!");
 });
