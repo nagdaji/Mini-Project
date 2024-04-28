@@ -12,6 +12,7 @@
   "dependencies": {
     "@fullcalendar/core": "^6.1.11",
     "@fullcalendar/daygrid": "^6.1.11",
+    "axios": "^1.6.8",
     "body-parser": "^1.20.2",
     "cloudinary": "^2.1.0",
     "date-fns": "^3.6.0",
@@ -27,6 +28,7 @@
     "multer-gridfs-storage": "^5.0.2",
     "nodemailer": "^6.9.13",
     "nodemon": "^3.1.0",
+    "otp-generator": "^4.0.1",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^8.0.0",

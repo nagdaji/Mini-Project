@@ -1,7 +1,10 @@
+
+let conf;
 let otpGen;
+let username;
 let timer;
 let secondsRemaining = 300;
-function OTPFn() {
+async function OTPFn() {
   const btn = document.getElementById("generateBtn");
   btn.disabled = false;
   clearFn();
@@ -13,7 +16,32 @@ function OTPFn() {
   document.getElementById("otpForm").style.display = "flex";
   console.log(otpGen);
   startTimer();
+  username = document.getElementById("email").value;
+  conf = document.getElementById("conf").value;
+  await sendOTPToBackend(otpGen,username);
 }
+
+// send otp to backend
+function sendOTPToBackend(otp,username) {
+  fetch('/otp/'+conf, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ otp , username})
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to send OTP to backend');
+    }
+    console.log('OTP sent to backend successfully');
+  })
+  .catch(error => {
+    console.error('Error sending OTP to backend:', error.message);
+  });
+}
+/////////////////////////////////
+
 function clearFn() {
   const prevOtp = document.querySelector(".otp-display");
   if (prevOtp) {
@@ -37,6 +65,12 @@ function OTPVerifyFn() {
         document.getElementById("generateBtn").disabled = false;
         resetTimer();
         enableInputField();
+
+        ///////////////////// otp verified and redirect to signup page
+        const url = `/signup1/${conf}?conf=${conf}&username=${username}`;
+        window.location.href = url;
+        /////////////////////
+
       } else {
         document.getElementById("errorMessage").innerText =
           "Invalid OTP. Please try again.";
@@ -90,3 +124,4 @@ function clearFields() {
   document.getElementById("userOTP").value = "";
   clearFn();
 }
+
