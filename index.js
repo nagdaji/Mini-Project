@@ -4,7 +4,6 @@ const bodyparser = require("body-parser");
 const _ = require("lodash");
 const { format } = require("date-fns");
 
-const { format } = require('date-fns');
 const data = [];
 const { signup } = require("./public/js/mail");
 const { processFiles } = require("./utils/utils");
@@ -12,11 +11,9 @@ const axios = require('axios');
 const homemodel = require("./schema/homeschema");
 const multer = require("multer");
 
-// const { GridFsStorage } = require('multer-gridfs-storage');
-const { Readable } = require("stream");
-
 const app = express();
-app.use(express.static("public"));
+// app.use(express.static("public"));
+app.use("/public/uploads",express.static("/public/uploads"));
 const path = require("path");
 
 const mongoose = require("mongoose");
@@ -359,11 +356,14 @@ app
     res.render("login1.ejs", { data: req.params.conf, error: "" });
   })
   .post((req, res) => {
+    const conf = _.upperCase(req.params.conf).replace(/\s/g, "");
+    
+    // var u = req.body.username + conf;
     const user = new usermodel({
       username: req.body.username,
       password: req.body.password,
     });
-
+    console.log(user);
     req.login(user, function (err) {
      
       if (err) {
@@ -378,6 +378,7 @@ app
             });
           } else {
             usermodel.find({ username: req.user.username }).then((result) => {
+              console.log(result);
               if (
                 result[0].role === "author" &&
                 result[0].conference === req.params.conf
@@ -416,12 +417,12 @@ app
   .get((req, res) => {
     const conf = _.upperCase(req.query.conf).replace(/\s/g, "");
     const username = req.query.username;
-    console.log(username);
     res.render("signup1.ejs", { data: req.params.conf , user : username , error : "" });
   })
   .post((req, res) => {
 
       let a = req.params.conf;
+      // const u = req.body.username+a;
       usermodel.register(
         {
           name: req.body.name,
