@@ -96,7 +96,11 @@
 
           <!-- Paper Viewer -->
           <div id="pdf-viewer">
-            <iframe id="pdf-frame" src="/public/uploads/prize-winners.pdf" width="100%" height="500px"></iframe>
+            <% if(pdfname == "") {%>
+              <h1>no pdf available</h1>
+            <% } else {%>
+              <iframe id="pdf-frame" src="/uploads/<%= pdfname %>" width="100%" height="500px"></iframe>
+            <% } %>
           </div>
 
           <!-- Paper Status -->
