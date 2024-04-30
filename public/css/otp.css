@@ -27,6 +27,27 @@ body {
 	text-align: center;
 }
 
+.mailinput{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.mail{
+	margin-top: 2rem;
+	justify-content: center;
+	background-color: #ddd;
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #222;
+	border-radius: 5px;
+	outline: none;
+}
+
+.mail:hover{
+	background-color: #ffe;
+}
+
 .content {
 	padding: 20px;
 }
