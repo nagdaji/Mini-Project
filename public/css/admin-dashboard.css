@@ -314,3 +314,56 @@ body{
 .container .main .cardbox .card:hover .icon i{
     color: #fff;
 }
+
+
+.hidden {
+    display: none;
+}
+
+.table{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 5rem;
+}
+
+thead{
+    background-color: #3867d6;
+    color: #222;
+    border: 3px solid #fff;
+    font-size: 2rem;
+}
+
+#info-table {
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 80%;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+#info-table th, #info-table td {
+    border: 3px solid #3867d6;
+    padding: 10px;
+}
+
+.delete-button {
+    background: none;
+    border: none;
+    color: red;
+    cursor: pointer;
+}
+
+#pagination {
+    color: #fff;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#next-btn, #prev-btn{
+    cursor: pointer;
+}

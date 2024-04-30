@@ -98,7 +98,18 @@
 
         <!-- cards  -->
         <div class="cardbox">
-          <div class="card">
+          <div
+            class="card"
+            data-heading="User Registered"
+            data-card-type="user"
+            data-users='[
+            {"id": 1, "name": "John Doe", "email": "john@example.com", "role": "Admin"},
+            {"id": 2, "name": "Jane Smith", "email": "jane@example.com", "role": "User"},
+            {"id": 3, "name": "Alice Johnson", "email": "alice@example.com", "role": "User"},
+            {"id": 4, "name": "Bob Brown", "email": "bob@example.com", "role": "Manager"},
+            {"id": 5, "name": "Charlie Black", "email": "charlie@example.com", "role": "Admin"}
+        ]'
+          >
             <div>
               <div class="numbers">1504</div>
               <a href="#" class="cardname">User Registered</a>
@@ -107,7 +118,15 @@
               <i class="fa-solid fa-user" style="color: #3687d6"></i>
             </div>
           </div>
-          <div class="card">
+          <div
+            class="card"
+            data-heading="Reviewer"
+            data-card-type="user"
+            data-users='[
+          {"id": 3, "name": "Alice Johnson", "email": "alice@example.com", "role": "Reviewer"},
+          {"id": 4, "name": "Bob Brown", "email": "bob@example.com", "role": "Reviewer"}
+      ]'
+          >
             <div>
               <div class="numbers">120</div>
               <a href="#" class="cardname">Reviewer</a>
@@ -116,7 +135,15 @@
               <i class="fa-solid fa-chalkboard-user" style="color: #3687d6"></i>
             </div>
           </div>
-          <div class="card">
+          <div
+            class="card"
+            data-heading="Authors"
+            data-card-type="user"
+            data-users='[
+        {"id": 3, "name": "Alice Johnson", "email": "alice@example.com", "role": "Reviewer"},
+        {"id": 4, "name": "Bob Brown", "email": "bob@example.com", "role": "Reviewer"}
+    ]'
+          >
             <div>
               <div class="numbers">360</div>
               <a href="#" class="cardname">Authors Registered</a>
@@ -128,7 +155,15 @@
               ></i>
             </div>
           </div>
-          <div class="card">
+          <div
+            class="card"
+            data-heading="Attendee"
+            data-card-type="user"
+            data-users='[
+        {"id": 3, "name": "Alice Johnson", "email": "alice@example.com", "role": "Reviewer"},
+        {"id": 4, "name": "Bob Brown", "email": "bob@example.com", "role": "Reviewer"}
+    ]'
+          >
             <div>
               <div class="numbers">1024</div>
               <a href="#" class="cardname">Attendees</a>
@@ -137,7 +172,14 @@
               <i class="fa-solid fa-users" style="color: #3687d6"></i>
             </div>
           </div>
-          <div class="card">
+          <div
+            class="card"
+            data-card-type="paper"
+            data-papers='[
+          {"id": 101, "author": "Dr. Smith", "tracks": "Science", "status": "Accepted"},
+          {"id": 102, "author": "Ms. Johnson", "tracks": "Technology", "status": "Under Review"}
+      ]'
+          >
             <div>
               <div class="numbers">102</div>
               <a href="#" class="cardname">Paper Submitted</a>
@@ -146,7 +188,14 @@
               <i class="fa-solid fa-book" style="color: #3687d6"></i>
             </div>
           </div>
-          <div class="card">
+          <div
+            class="card"
+            data-card-type="speaker"
+            data-speakers='[
+          {"serial": 1, "name": "Prof. Green"},
+          {"serial": 2, "name": "Dr. Blue"}
+      ]'
+          >
             <div>
               <div class="numbers">10</div>
               <a href="#" class="cardname">Speaker</a>
@@ -157,6 +206,26 @@
           </div>
         </div>
         <!-- cards  -->
+
+        <!-- dynamic content of the table -->
+        <div class="table">
+          <table id="info-table" class="hidden">
+            <thead>
+              <tr id="table-head">
+                <!-- This will be dynamically populated -->
+              </tr>
+            </thead>
+            <tbody id="table-body">
+              <!-- Data will be inserted here -->
+            </tbody>
+          </table>
+        </div>
+        <!-- dynamic content of the table -->
+        <div id="pagination" class="hidden">
+          <button id="prev-btn" disabled>&lt; Prev</button>
+          <span id="current-page">1</span> / <span id="total-pages">1</span>
+          <button id="next-btn" disabled>Next &gt;</button>
+        </div>
       </div>
       <!-- main content -->
     </div>

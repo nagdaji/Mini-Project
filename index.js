@@ -7,7 +7,7 @@ const { format } = require("date-fns");
 const data = [];
 const { signup } = require("./public/js/mail");
 const { processFiles } = require("./utils/utils");
-const axios = require('axios');
+// const axios = require("axios");
 const homemodel = require("./schema/homeschema");
 const multer = require("multer");
 
@@ -304,16 +304,16 @@ app.route("/attendee/:conf").get((req, res) => {
   res.render("attendee.ejs", { data: req.params.conf });
 });
 
-
-app.route("/otp/:conf")
-.get((req, res) => {
-  res.render("otp.ejs" , {data : req.params.conf});
-})
-.post(async (req, res) => {
-  console.log(req.body.otp);
-  await signup(req.body.otp,req.body.username);
-  res.redirect("/otp"+req.params.conf);
-});
+app
+  .route("/otp/:conf")
+  .get((req, res) => {
+    res.render("otp.ejs", { data: req.params.conf });
+  })
+  .post(async (req, res) => {
+    console.log(req.body.otp);
+    await signup(req.body.otp, req.body.username);
+    res.redirect("/otp" + req.params.conf);
+  });
 
 /////////////////////////
 app.get("/tracks/:conf", (req, res) => {
@@ -349,7 +349,6 @@ app
   })
   .post(signup);
 
-
 app
   .route("/login1/:conf")
   .get((req, res) => {
@@ -365,7 +364,6 @@ app
     });
     console.log(user);
     req.login(user, function (err) {
-     
       if (err) {
         console.log(err);
       } else {
@@ -417,29 +415,36 @@ app
   .get((req, res) => {
     const conf = _.upperCase(req.query.conf).replace(/\s/g, "");
     const username = req.query.username;
-    res.render("signup1.ejs", { data: req.params.conf , user : username , error : "" });
+    console.log(username);
+    res.render("signup1.ejs", {
+      data: req.params.conf,
+      user: username,
+      error: "",
+    });
   })
   .post((req, res) => {
-
-      let a = req.params.conf;
-      // const u = req.body.username+a;
-      usermodel.register(
-        {
-          name: req.body.name,
-          username: req.body.username,
-          conference: a,
-          role: req.body.role,
-        },
-        req.body.password,
-        function (err, user) {
-          if (err) {
-            console.log(err);
-            res.render("signup1.ejs" , {data : req.params.conf , user : req.body.username , error : "User already exists"});
-          } else {
-            res.redirect("/login1/"+req.params.conf);
-          }
+    let a = req.params.conf;
+    usermodel.register(
+      {
+        name: req.body.name,
+        username: req.body.username,
+        conference: a,
+        role: req.body.role,
+      },
+      req.body.password,
+      function (err, user) {
+        if (err) {
+          console.log(err);
+          res.render("signup1.ejs", {
+            data: req.params.conf,
+            user: req.body.username,
+            error: "User already exists",
+          });
+        } else {
+          res.redirect("/login1/" + req.params.conf);
         }
-      );
+      }
+    );
   });
 
 app.get("/edit-event/:conf", (req, res) => {
