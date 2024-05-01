@@ -4,16 +4,19 @@ const bodyparser = require("body-parser");
 const _ = require("lodash");
 const { format } = require('date-fns');
 
-
+const data = [];
 const { signup } = require("./public/js/mail");
 const { processFiles } = require("./utils/utils");
-
+// const axios = require("axios");
 const homemodel = require("./schema/homeschema");
 const multer = require("multer");
 
 const app = express();
 app.use(express.static("public"));
+
 const path = require("path");
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 const mongoose = require("mongoose");
 const session = require("express-session");
@@ -54,7 +57,6 @@ var multipleUpload = upload.fields([
   { name: "speakerimages", maxCount: 10 },
   { name: "memberimages", maxCount: 15 },
   { name: "sponserimage", maxCount: 10 },
-  { name: "files", maxCount : 1}
 ]);
 
 app.use(
@@ -82,7 +84,8 @@ const userschema = new mongoose.Schema({
   role: String,
   conference: String,
   paperid: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "PDF",
     default: null,
   },
 });
@@ -100,6 +103,15 @@ passport.deserializeUser(function (user, done) {
 });
 
 passport.use(usermodel.createStrategy());
+
+// pdf upload logic
+const pdfSchema = new mongoose.Schema({
+  name: String,
+});
+
+const PDF = mongoose.model("PDF", pdfSchema);
+
+//////////////////////////////
 
 app.get("/", (req, res) => {
   async function findData() {
@@ -124,7 +136,6 @@ app.get("/", (req, res) => {
 // variable front page
 
 app.get("/conference/:newpage", (req, res) => {
-  
   var name = req.params.newpage;
   name = _.upperCase(name).replace(/\s/g, "");
   async function findData() {
@@ -140,10 +151,8 @@ app.get("/conference/:newpage", (req, res) => {
   findData()
     .then(async (result) => {
       async function formatDate(date) {
-        
-        for(let i=0;i<date.length;i++)
-        {
-          const newdate = format(date[i], 'dd/MM/yyyy');  
+        for (let i = 0; i < date.length; i++) {
+          const newdate = format(date[i], "dd/MM/yyyy");
           date[i] = newdate;
         }
       }
@@ -201,7 +210,9 @@ app.get("/committee/:conf", (req, res) => {
   var a = req.params.conf;
   async function findData() {
     try {
-      const result = await homemodel.findOne({ eventname: _.upperCase(a).replace(/\s/g, "") });
+      const result = await homemodel.findOne({
+        eventname: _.upperCase(a).replace(/\s/g, ""),
+      });
       return result;
     } catch (error) {
       console.error("Error:", error);
@@ -229,20 +240,17 @@ app.get("/admin-schedule/:conf", (req, res) => {
 });
 
 app.get("/reviewer/:conf", (req, res) => {
-  res.render("reviewer-dashboard.ejs",{data : req.params.conf});
+  res.render("reviewer-dashboard.ejs", { data: req.params.conf });
 });
 
 app
   .route("/create-event/:conf")
   .get((req, res) => {
-    res.render("create-event.ejs" , {data : req.params.conf});
+    res.render("create-event.ejs", { data: req.params.conf });
     // res.render("create-event");
   })
   .post(multipleUpload, async (req, res) => {
     // to access each object in an array
-
-    // console.log(req.body);
-
     let confimg = await processFiles(req.files.conferenceimages);
     let venueimg = await processFiles(req.files.venueimages);
     let speakerimg = await processFiles(req.files.speakerimages);
@@ -269,19 +277,19 @@ app
       speakerimages: speakerimg,
       speakeroccupation: req.body.speakeroccupation,
       committeename: req.body.committeename,
-      numberofmembers : req.body.noofmembers,
+      numberofmembers: req.body.noofmembers,
       membername: req.body.membername,
       memberimages: memimg,
       facebooklink: req.body.facebooklink,
       twitterlink: req.body.twitterlink,
       instagramlink: req.body.instagramlink,
-      tracksname : req.body.tracksname,
-      nooftracks : req.body.nooftracks,
-      tracksmembername : req.body.tracksmembername,
-      tracksmemberimages : req.body.tracksmemberimages,
-      tracksfacebooklink : req.body.tracksfacebooklink,
-      trackstwitterlink : req.body.trackstwitterlink,
-      trackslinkedinlink : req.body.trackslinkedinlink,
+      tracksname: req.body.tracksname,
+      nooftracks: req.body.nooftracks,
+      tracksmembername: req.body.tracksmembername,
+      tracksmemberimages: req.body.tracksmemberimages,
+      tracksfacebooklink: req.body.tracksfacebooklink,
+      trackstwitterlink: req.body.trackstwitterlink,
+      trackslinkedinlink: req.body.trackslinkedinlink,
       sponsorname: req.body.sponsorname,
       sponsorimage: sponimg,
       headquartername: req.body.headquartername,
@@ -296,36 +304,50 @@ app
 
     data.save();
 
-    res.redirect("/create-event/"+req.params.conf);
+    res.redirect("/create-event/" + req.params.conf);
   });
 
-
-app.route("/attendee/:conf")
-.get((req,res) => {
-  res.render("attendee.ejs",{data : req.params.conf});
+app.route("/attendee/:conf").get((req, res) => {
+  res.render("attendee.ejs", { data: req.params.conf });
 });
 
+app
+  .route("/otp/:conf")
+  .get((req, res) => {
+    res.render("otp.ejs", { data: req.params.conf });
+  })
+  .post(async (req, res) => {
+    console.log(req.body.otp);
+    await signup(req.body.otp, req.body.username);
+    res.redirect("/otp" + req.params.conf);
+  });
 
-app.get("/otp", (req, res) => {
-  res.render("otp");
-});
-
+/////////////////////////
 app.get("/tracks/:conf", (req, res) => {
-  res.render("tracks" ,{ data : req.params.conf});
+  res.render("tracks", { data: req.params.conf });
 });
 
-app.route("/paper_submission/:conf")
-.get((req, res) => {
-  // if (req.isAuthenticated()) {
-    res.render("paper_submission.ejs",{data : req.params.conf});
-  // } else res.redirect("/login1/" + req.params.conf);
-})
-.post((req,res) => {
-  var a = req.file;
-  console.log(a);
-  console.log(req.body.files);
-  res.redirect("/paper_submission/"+req.params.conf);
-});
+app
+  .route("/paper_submission/:conf")
+  .get((req, res) => {
+    if (req.isAuthenticated()) {
+      res.render("paper_submission.ejs", { data: req.params.conf });
+    } else res.redirect("/login1/" + req.params.conf);
+  })
+  .post(upload.single("files"), async (req, res) => {
+    const pdf = new PDF({
+      name: req.file.originalname,
+    });
+
+    const savepdf = await pdf.save();
+
+    await usermodel.findOneAndUpdate(
+      { username: req.user.username },
+      { paperid: savepdf._id }
+    );
+
+    res.redirect("/paper_submission/" + req.params.conf);
+  });
 
 app
   .route("/mail")
@@ -333,17 +355,20 @@ app
     res.render("mail.ejs");
   })
   .post(signup);
+
 app
   .route("/login1/:conf")
   .get((req, res) => {
-     res.render("login1.ejs", { data : req.params.conf ,error : ""});
+    res.render("login1.ejs", { data: req.params.conf, error: "" });
   })
   .post((req, res) => {
+    const conf = _.upperCase(req.params.conf).replace(/\s/g, "");
+    
+    // var u = req.body.username + conf;
     const user = new usermodel({
       username: req.body.username,
       password: req.body.password,
     });
-
     req.login(user, function (err) {
       if (err) {
         console.log(err);
@@ -351,30 +376,39 @@ app
         passport.authenticate("local", function (err, user, info) {
           if (err) console.log(err);
           if (!user) {
-            res.render("login1.ejs", { data: req.params.conf , error : "user does not exists"});
+            res.render("login1.ejs", {
+              data: req.params.conf,
+              error: "user does not exists",
+            });
           } else {
-            usermodel.find({username : req.user.username}).then((result)=>{
-              if(result[0].role === "author" && result[0].conference === req.params.conf)
-              {
-                res.redirect("/paper_submission/"+req.params.conf);
+            usermodel.find({ username: req.user.username }).then((result) => {
+              if (
+                result[0].role === "author" &&
+                result[0].conference === req.params.conf
+              ) {
+                res.redirect("/paper_submission/" + req.params.conf);
+              } else if (
+                result[0].role === "admin" &&
+                result[0].conference === req.params.conf
+              ) {
+                res.redirect("/admin/" + req.params.conf);
+              } else if (
+                result[0].role === "reviewer" &&
+                result[0].conference === req.params.conf
+              ) {
+                res.redirect("/reviewer/" + req.params.conf);
+              } else if (
+                result[0].role === "attendee" &&
+                result[0].conference === req.params.conf
+              ) {
+                res.redirect("/attendee/" + req.params.conf);
+              } else {
+                res.render("login1.ejs", {
+                  data: req.params.conf,
+                  error: "user does not exists",
+                });
               }
-              else if(result[0].role === "admin" && result[0].conference === req.params.conf)
-              {
-                res.redirect("/admin/"+req.params.conf);
-              }
-              else if(result[0].role === "reviewer" && result[0].conference === req.params.conf)
-              {
-                res.redirect("/reviewer/"+req.params.conf);
-              }
-              else if(result[0].role === "attendee" && result[0].conference === req.params.conf)
-              {
-                res.redirect("/attendee/"+req.params.conf);
-              }
-              else
-              {
-                res.render("login1.ejs" , {data : req.params.conf , error : "user does not exists"});
-              }
-            });    
+            });
           }
         })(req, res);
       }
@@ -384,11 +418,13 @@ app
 app
   .route("/signup1/:conf")
   .get((req, res) => {
-    // if (req.isAuthenticated()) {
-    //   res.redirect("/signup1");
-    // } else res.render("signup1.ejs");
-    
-    res.render("signup1.ejs", { data: req.params.conf });
+    const conf = _.upperCase(req.query.conf).replace(/\s/g, "");
+    const username = req.query.username;
+    res.render("signup1.ejs", {
+      data: req.params.conf,
+      user: username,
+      error: "",
+    });
   })
   .post((req, res) => {
     let a = req.params.conf;
@@ -403,18 +439,22 @@ app
       function (err, user) {
         if (err) {
           console.log(err);
-          res.redirect("/signup1/"+req.params.conf);
+          res.render("signup1.ejs", {
+            data: req.params.conf,
+            user: req.body.username,
+            error: "User already exists",
+          });
         } else {
-          res.redirect("/login1/"+req.params.conf);
+          res.redirect("/login1/" + req.params.conf);
         }
       }
     );
   });
 
-app.get("/edit-event", (req, res) => {
+app.get("/edit-event/:conf", (req, res) => {
   if (req.isAuthenticated()) {
-    res.render("edit-event.ejs");
-  } else res.redirect("/login1/"+req.params.conf);
+    res.render("edit-event.ejs", { data: req.params.conf });
+  } else res.redirect("/login1/" + req.params.conf);
 });
 
 app.get("/logout/:conf", (req, res) => {
@@ -430,6 +470,31 @@ app.get("/logout/:conf", (req, res) => {
       }
     });
   } else res.redirect("/login1/" + a);
+});
+
+app.route("/check-status/:conf").get((req, res) => {
+  if (req.isAuthenticated()) {
+
+    usermodel.findOne({username : req.user.username}).then((result) => {
+      if(result)
+      {
+        if(result.paperid != null)
+        {
+          PDF.findOne({_id : result.paperid}).then((r)=>{
+            if(r)
+            {
+              res.render("check-status.ejs", { data: req.params.conf , pdfname : r.name});
+            }
+          });
+        }
+        else
+        {
+          res.render("check-status.ejs", { data: req.params.conf , pdfname : ""});
+        }
+      }
+    });
+    
+  } else res.redirect("/login1/" + req.params.conf);
 });
 
 app.listen(8000, () => {

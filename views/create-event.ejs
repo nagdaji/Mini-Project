@@ -39,7 +39,7 @@
             </a>
           </li>
           <li>
-            <a href="/edit-event">
+            <a href="/edit-event/<%=data%>">
               <span class="icon"
                 ><i class="fa-solid fa-pen-to-square"></i
               ></span>
@@ -47,7 +47,7 @@
             </a>
           </li>
           <li>
-            <a href="/manage-reviewer">
+            <a href="/manage-reviewer/<%=data%>">
               <span class="icon"><i class="fa-solid fa-list-check"></i></span>
               <span class="title">Manage Reviewer</span>
             </a>
@@ -91,7 +91,7 @@
         <!-- heading for event creation -->
         <section class="home" id="home">
           <div class="content">
-            <h3>Create an <span>Event</span></h3>
+            <h3>Create an <span>Conference</span></h3>
           </div>
         </section>
         <!-- heading for event creation -->
@@ -479,7 +479,7 @@
                         name="sponsername[]"
                         placeholder="Sponser Name"
                       />
-                      <input type="file" name="sponserimage"  />
+                      <input type="file" name="sponserimage" />
                     </div>
                     <button
                       class="remove-btn btn"

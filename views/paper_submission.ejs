@@ -35,13 +35,13 @@
         <ul>
           <li></li>
           <li class="hovered">
-            <a href="/paper-submission">
+            <a href="/paper_submission/<%=data%>">
               <span class="icon"><i class="fa-regular fa-newspaper"></i></span>
               <span class="title">Submit Papers</span>
             </a>
           </li>
           <li>
-            <a href="/check-status">
+            <a href="/check-status/<%=data%>">
               <span class="icon"
                 ><i class="fa-solid fa-check-to-slot"></i
               ></span>
@@ -88,7 +88,16 @@
         <!-- file upload box -->
         <div class="upload-box">
           <div class="upload">
+            <label for="tracks" class="tracks">Choose Track:</label>
+
+            <select name="track" id="track">
+              <option value="track1">Track1</option>
+              <option value="saab">Track2</option>
+              <option value="mercedes">Track3</option>
+              <option value="audi">Track4</option>
+            </select>
             <h1>Upload Your Papers</h1>
+
             <form
               id="upload-form"
               action="/paper_submission/<%= data %>"

@@ -360,36 +360,41 @@ body{
     color: #3867d6;
 }
 
-form{
+/* form{
     border: 5px solid #eee;
     border-radius: 10px;
-}
+} */
 
 .event-creation form .view input{
     width: 32%;
 }
 
-.event-creation form .event, .call-for-paper-details, .venue-details, .headquarters, .follow-us{
-    border: 3px solid #3867d6;
+
+.event-creation form .event, .key-dates-insert, .call-for-paper-details, .call-for-workshop-proposal, .speakers-details, .contact-info, .organization-committee-details, .tracks-details, .sponsers, .venue-details, .headquarters, .follow-us{
+    /* border: 3px solid #3867d6; */
+    background-color: #222;
+    box-shadow:  0 4px 8px 0 #3867d6, 0 6px 20px 0 #3867d6;
+    /* border-bottom-width: 5px; */
     border-radius: 5px;
     padding: 10px;
-    margin-bottom: 20px;
-    margin-top: 10px;
+    margin-bottom: 30px;
+    margin-top: 50px;
 }
+
 
 .event-creation form .each-speaker{
-    border: 3px solid #fff;
+    box-shadow:  0 4px 8px 0 #eee, 0 2px 8px 0 #eee;
     border-radius: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 30px;
+    margin-bottom: 30px;
     padding: 10px;
 }
 
-.event-creation form .each-committee{
-    border: 3px solid #fff;
+.event-creation form .each-committee, .each-tracks{
+    box-shadow:  0 4px 8px 0 #eee, 0 2px 8px 0 #eee;
     border-radius: 5px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 30px;
+    margin-bottom: 30px;
     padding: 10px;
 }
 
@@ -409,7 +414,7 @@ form{
     margin-left: -180px;
 }
 
-.event-creation form .organization-committee-details{
+.event-creation form .organization-committee-details, .tracks-details{
 
     border: 3px solid #3867d6;
     padding: 10px;
@@ -420,10 +425,10 @@ form{
 }
 
 
-.event-creation form .each-committee .each-user{
-    border: 2px solid #3867d6;
-    margin-top: 10px;
-    margin-bottom: 10px;
+.event-creation form .each-committee .each-user, .event-creation form .each-tracks .each-tracks-member{
+    box-shadow:  0 4px 8px 0 #3867d6, 0 2px 8px 0 #3867d6;
+    margin-top: 20px;
+    margin-bottom: 20px;
     padding: 10px;
     border-radius: 5px;
 }

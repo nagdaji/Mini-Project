@@ -268,6 +268,25 @@ body{
     border: 1px solid #ccc;
     border-radius: 10px;
   }
+
+  .upload .tracks{
+    display: block;
+    font-size: 1.5rem;
+  }
+
+  .upload #track{
+    border-radius: 5px;
+    width: 100px;
+    display:-ms-grid;
+    background-color: #fff;
+    color: #222;
+    border: #222;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    margin-bottom: 2rem;
+  }
+
   
   h1 {
     margin-bottom: 20px;
