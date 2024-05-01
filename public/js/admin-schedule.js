@@ -1,4 +1,5 @@
 //for selecting the hovered list item from the menu bar
+
 let list = document.querySelectorAll(".navigation li");
 
 function activeLink() {
@@ -22,3 +23,7 @@ toggle.onclick = function () {
   main.classList.toggle("active");
   bar.classList.toggle("active");
 };
+
+
+
+//calendar

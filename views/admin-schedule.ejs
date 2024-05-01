@@ -18,6 +18,45 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
     <!-- font awesome link -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth',
+          // initialDate: '2024-03-07',
+          headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+          },
+          events: []
+        });
+        calendar.render();
+
+        // Function to fetch data from form and update calendar events
+        function updateCalendar() {
+          const form = document.querySelector('#event-info');
+          const formData = new FormData(form);
+          const data = {};
+          for (let [key, value] of formData.entries()) {
+            data[key] = value;
+          }
+          const eventTime = data['event-time'];
+          const [hours, minutes] = eventTime.split(':');
+          const date = new Date(data.date);
+          date.setHours(hours, minutes);
+          calendar.addEvent({ title: data.description, start: date});
+        }
+
+        // Event listener for form submission
+          document.querySelector('#event-info').addEventListener('submit', (event) => {
+          event.preventDefault(); // Prevent form submission
+          updateCalendar(); // Update calendar events
+          event.target.reset(); // Reset the form
+        });
+      });
+    </script>
   </head>
   <body>
     
@@ -110,76 +149,65 @@
 
         <div class="form-container">
             <section class="event-creation" id="event-creation">
-              <form
-                method="post"
-                action="/create-event/<%=data %>"
-                enctype="multipart/form-data"
-              >
+              <form id="event-info" method="post" action="/create-event/<%=data %>" enctype="multipart/form-data">
                 <!-- Event Details -->
-              <div class="schedule-details" id="schedule-details">
-                <div class="input-box">
-                  <label for="schedule-details" class="heading"
-                    >Event <span>Details</span></label
-                  >
-                </div>
-                <div id="schedule-list">
-                  <div class="each-schedule">
-                    <div class="input-box">
-                        <label for="event-date">Event Date</label>
-                        <label for="appt">Event Time</label>
-                    </div>
-                    <div class="input-box">
-                      <input type="date" id="event-date" name="date[]" min="2024-01-01" placeholder="Date" required/>
-                      <input
-                        type="time"
-                        id="appt"
-                        name="event-time"
-                        placeholder="Event time"
-                      />
-                    </div>
-                    <div class="input-box">
-                        <label for="event-description">Description</label>
-                    </div>
-                    <div class="input-box">
-                      <input
-                        type="text"                        
-                        name="description[]"
-                        id="event-description"
-                        placeholder="Description"
-                        required
-                      />
-                    </div>
-
-                    <button
-                      class="remove-btn btn"
-                      onclick="removeSchedule(this)"
-                    >
-                      Remove Event
-                    </button>
+                <div class="schedule-details" id="schedule-details">
+                  <div class="input-box">
+                    <label for="schedule-details" class="heading">Event <span>Details</span></label>
                   </div>
-                </div>
-                <button
+                  <div id="schedule-list">
+                    <div class="each-schedule">
+                      <div class="input-box">
+                          <label for="event-date">Event Date</label>
+                          <label for="appt">Event Time</label>
+                      </div>
+                      <div class="input-box">
+                        <input type="date" id="event-date" name="date" min="2024-01-01" placeholder="Date" required/>
+                        <input type="time" id="appt" name="event-time" placeholder="Event time" />
+                      </div>
+                      <div class="input-box">
+                          <label for="event-description">Description</label>
+                      </div>
+                      <div class="input-box">
+                        <input type="text" name="description" id="event-description" placeholder="Description" required/>
+                      </div>
+
+                      <!-- <button
+                        class="remove-btn btn"
+                        onclick="removeSchedule(this)"
+                      >
+                        Remove Event
+                      </button> -->
+                    </div>
+                  </div>
+                <!-- <button
                   class="add-btn btn"
                   onclick="addSchedule(); return false;"
                 >
                   Add Event
-                </button>
+                </button> -->
+                <input
+                  type="submit"
+                  id="create-event-submission"
+                  value="Add Event"
+                  class="btn"
+                />
               </div>
               <!-- Event Details -->
               <br />
 
   
-              <input
-                  type="submit"
-                  id="create-event-submission"
-                  value="Send Message"
-                  class="btn"
-                />
+              
               </form>
             </section>
-          </div>
-          <!-- form for taking user input for conference creation -->
+            <section class="event-creation" id="event-creation">
+                <!-- <div class="schedule-details" id="schedule-details"> -->
+                    <div id='calendar'></div>
+                <!-- </div> -->
+            </section>
         </div>
+          <!-- form for taking user input for conference creation -->
+      </div>
 
 
 
