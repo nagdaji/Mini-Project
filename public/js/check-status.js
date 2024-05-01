@@ -23,91 +23,31 @@ toggle.onclick = function () {
   bar.classList.toggle("active");
 };
 
-// upload file function
-
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("upload-form");
-  const uploadBtn = document.getElementById("upload-btn");
-  const fileInput = document.querySelector(".file-input");
-  const progressArea = document.querySelector(".progress-area");
-  const uploadedArea = document.querySelector(".uploaded-area");
-
-  uploadBtn.addEventListener("click", () => {
-    fileInput.click();
-  });
-
-  fileInput.addEventListener("change", (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const fileName = file.name;
-      uploadFile(fileName, file);
-    }
-  });
-
-  function uploadFile(name, file) {
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", "/upload");
-    xhr.upload.addEventListener("progress", (e) => {
-      const loaded = Math.floor((e.loaded / e.total) * 100);
-      const progressHTML = `<div class="progress-bar">
-          <div class="progress" style="width: ${loaded}%"></div>
-        </div>`;
-      progressArea.innerHTML = progressHTML;
-    });
-
-    xhr.addEventListener("load", () => {
-      const fileSize =
-        file.size < 1024 * 1024
-          ? `${Math.floor(file.size / 1024)} KB`
-          : `${(file.size / (1024 * 1024)).toFixed(2)} MB`;
-      const uploadedHTML = `<div class="row">
-          <i class="fas fa-file-alt"></i>
-          <div class="content">
-            <div class="details">
-              <span class="name">${name} • Uploaded</span>
-              <span class="size">${fileSize}</span>
-            </div>
-          </div>
-          <i class="fas fa-check"></i>
-        </div>`;
-      progressArea.innerHTML = "";
-      uploadedArea.insertAdjacentHTML("beforeend", uploadedHTML);
-    });
-
-    const formData = new FormData();
-    formData.append("file", file);
-    xhr.send(formData);
-  }
-});
-
-
-// script.js
-
 // Get references to the button and modal
-var deleteButton = document.getElementById('delete-button');
-var modal = document.getElementById('exampleModalCenter');
-var closeButton = modal.querySelector('.close');
-var yesButton = modal.querySelector('.btn-secondary');
-var noButton = modal.querySelector('.btn-primary');
+var deleteButton = document.getElementById("delete-button");
+var modal = document.getElementById("exampleModalCenter");
+var closeButton = modal.querySelector(".close");
+var yesButton = modal.querySelector(".btn-secondary");
+var noButton = modal.querySelector(".btn-primary");
 
 // Function to show the modal
 function showModal() {
-    modal.style.display = 'block';
+  modal.style.display = "block";
 }
 
 // Function to hide the modal
 function hideModal() {
-    modal.style.display = 'none';
+  modal.style.display = "none";
 }
 
 // Event listener for button click to show modal
-deleteButton.addEventListener('click', showModal);
+deleteButton.addEventListener("click", showModal);
 
 // Event listener for close button click to hide modal
-closeButton.addEventListener('click', hideModal);
+closeButton.addEventListener("click", hideModal);
 
 // Event listener for "Yes" button click to hide modal
-yesButton.addEventListener('click', hideModal);
+yesButton.addEventListener("click", hideModal);
 
 // Event listener for "No" button click to hide modal
-noButton.addEventListener('click', hideModal);
+noButton.addEventListener("click", hideModal);
