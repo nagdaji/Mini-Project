@@ -12,9 +12,11 @@ const homemodel = require("./schema/homeschema");
 const multer = require("multer");
 
 const app = express();
-// app.use(express.static("public"));
-app.use("/public/uploads",express.static("/public/uploads"));
+app.use(express.static("public"));
+
 const path = require("path");
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 const mongoose = require("mongoose");
 const session = require("express-session");
@@ -362,7 +364,6 @@ app
       username: req.body.username,
       password: req.body.password,
     });
-    console.log(user);
     req.login(user, function (err) {
       if (err) {
         console.log(err);
@@ -376,7 +377,6 @@ app
             });
           } else {
             usermodel.find({ username: req.user.username }).then((result) => {
-              console.log(result);
               if (
                 result[0].role === "author" &&
                 result[0].conference === req.params.conf
@@ -415,7 +415,6 @@ app
   .get((req, res) => {
     const conf = _.upperCase(req.query.conf).replace(/\s/g, "");
     const username = req.query.username;
-    console.log(username);
     res.render("signup1.ejs", {
       data: req.params.conf,
       user: username,
@@ -470,8 +469,27 @@ app.get("/logout/:conf", (req, res) => {
 
 app.route("/check-status/:conf").get((req, res) => {
   if (req.isAuthenticated()) {
-    res.render("check-status.ejs", { data: req.params.conf });
-  } else res.redirect("/check-status/" + req.params.conf);
+
+    usermodel.findOne({username : req.user.username}).then((result) => {
+      if(result)
+      {
+        if(result.paperid != null)
+        {
+          PDF.findOne({_id : result.paperid}).then((r)=>{
+            if(r)
+            {
+              res.render("check-status.ejs", { data: req.params.conf , pdfname : r.name});
+            }
+          });
+        }
+        else
+        {
+          res.render("check-status.ejs", { data: req.params.conf , pdfname : ""});
+        }
+      }
+    });
+    
+  } else res.redirect("/login1/" + req.params.conf);
 });
 
 app.listen(8000, () => {
