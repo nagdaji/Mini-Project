@@ -2,7 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const bodyparser = require("body-parser");
 const _ = require("lodash");
-const { format } = require("date-fns");
+const { format } = require('date-fns');
 
 const data = [];
 const { signup } = require("./public/js/mail");
@@ -239,10 +239,14 @@ app.get("/admin/:conf", (req, res) => {
   } else res.redirect("/login1/" + req.params.conf);
 });
 
-///////////////////////////////////////
+app.get("/admin-schedule/:conf", (req, res) => {
+  res.render("admin-schedule.ejs",{data : req.params.conf});
+});
+
 app.get("/reviewer/:conf", (req, res) => {
   res.render("reviewer-dashboard.ejs", { data: req.params.conf });
 });
+
 
 ////////////////////////////////////////
 app

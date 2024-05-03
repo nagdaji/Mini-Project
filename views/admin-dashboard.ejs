@@ -61,7 +61,7 @@
             </a>
           </li>
           <li>
-            <a href="/schedule/<%=data%>">
+            <a href="/admin-schedule/<%=data%>">
               <span class="icon"><i class="fa-regular fa-calendar"></i></span>
               <span class="title">Schedule</span>
             </a>
@@ -176,8 +176,9 @@
             class="card"
             data-card-type="paper"
             data-papers='[
-          {"id": 101, "author": "Dr. Smith", "tracks": "Science", "status": "Accepted"},
-          {"id": 102, "author": "Ms. Johnson", "tracks": "Technology", "status": "Under Review"}
+            {"id": 101, "author": "Dr. Smith", "tracks": "Science", "status": "Accepted"},
+            {"id": 102, "author": "Ms. Johnson", "tracks": "Technology", "status": "Under Review"},
+            {"id": 103, "author": "Mr. Brown", "tracks": "Engineering", "status": "Rejected"}
       ]'
           >
             <div>
@@ -206,6 +207,18 @@
           </div>
         </div>
         <!-- cards  -->
+
+        <!-- filter button -->
+        <div id="track-filter" class="hidden">
+          <label for="track-select">Filter by Track: </label>
+          <select id="track-select">
+            <option value="">All</option>
+            <option value="Science">Science</option>
+            <option value="Technology">Technology</option>
+            <option value="Engineering">Engineering</option>
+          </select>
+        </div>
+        <!-- filter button -->
 
         <!-- dynamic content of the table -->
         <div class="table">

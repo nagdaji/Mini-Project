@@ -29,6 +29,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const infoTable = document.getElementById("info-table");
   const tableHead = document.getElementById("table-head");
   const tableBody = document.getElementById("table-body");
+  const trackFilter = document.getElementById("track-filter");
+  const trackSelect = document.getElementById("track-select");
   const pagination = document.getElementById("pagination");
   const prevBtn = document.getElementById("prev-btn");
   const nextBtn = document.getElementById("next-btn");
@@ -39,16 +41,15 @@ document.addEventListener("DOMContentLoaded", () => {
   let currentPage = 1;
   let data = [];
 
-  const updateTable = () => {
+  const updateTable = (filteredData = null) => {
+    const dataSource = filteredData || data;
     const start = (currentPage - 1) * itemsPerPage;
     const end = start + itemsPerPage;
 
-    // Clear the previous table content
     tableBody.innerHTML = "";
 
-    const paginatedData = data.slice(start, end);
+    const paginatedData = dataSource.slice(start, end);
 
-    // Update the table based on card type
     if (data[0].hasOwnProperty("id")) {
       // User/Paper table
       paginatedData.forEach((item) => {
@@ -57,9 +58,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         row.innerHTML = `
                   <td>${item.id}</td>
-                  <td>${item.name}</td>
-                  <td>${item.email || item.author || ""}</td>
-                  <td>${item.role || item.tracks || item.status || ""}</td>
+                  <td>${item.author || item.name}</td>
+                  <td>${item.email || item.tracks}</td>
+                  <td>${item.role || item.status}</td>
                   <td>${deleteButton}</td>
               `;
 
@@ -77,12 +78,12 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
 
-    // Update pagination controls
     currentPageElem.textContent = currentPage;
-    totalPagesElem.textContent = Math.ceil(data.length / itemsPerPage);
+    totalPagesElem.textContent = Math.ceil(dataSource.length / itemsPerPage);
 
     prevBtn.disabled = currentPage === 1;
-    nextBtn.disabled = currentPage === Math.ceil(data.length / itemsPerPage);
+    nextBtn.disabled =
+      currentPage === Math.ceil(dataSource.length / itemsPerPage);
   };
 
   prevBtn.addEventListener("click", () => {
@@ -100,14 +101,28 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  trackSelect.addEventListener("change", (event) => {
+    const selectedTrack = event.target.value;
+    if (selectedTrack) {
+      const filteredData = data.filter((item) => item.tracks === selectedTrack);
+      currentPage = 1; // Reset to the first page when applying filter
+      updateTable(filteredData);
+    } else {
+      currentPage = 1;
+      updateTable(); // Reset filter to show all
+    }
+  });
+
   cards.forEach((card) => {
     card.addEventListener("click", () => {
       const cardType = card.dataset.cardType;
+
       let tableHeaders = [];
 
       if (cardType === "user") {
         data = JSON.parse(card.dataset.users);
         tableHeaders = ["User ID", "Name", "Email", "Role", "Actions"];
+        trackFilter.classList.add("hidden"); // Hide filter when not required
       } else if (cardType === "paper") {
         data = JSON.parse(card.dataset.papers);
         tableHeaders = [
@@ -117,12 +132,14 @@ document.addEventListener("DOMContentLoaded", () => {
           "Current Status",
           "Actions",
         ];
+        trackFilter.classList.remove("hidden"); // Show filter when needed
       } else if (cardType === "speaker") {
         data = JSON.parse(card.dataset.speakers);
         tableHeaders = ["Serial Number", "Speaker Name"];
+        trackFilter.classList.add("hidden"); // Hide filter
       }
 
-      // Update table header
+      // Update the table header
       tableHead.innerHTML = "";
       tableHeaders.forEach((header) => {
         const th = document.createElement("th");
@@ -130,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
         tableHead.appendChild(th);
       });
 
-      currentPage = 1; // Reset the page when a different card is clicked
+      currentPage = 1; // Reset to the first page when switching data
       updateTable();
 
       // Make the table and pagination visible
@@ -142,10 +159,9 @@ document.addEventListener("DOMContentLoaded", () => {
         button.addEventListener("click", (event) => {
           const itemId = event.target.dataset.itemId;
           console.log(`Item with ID ${itemId} deleted.`);
-          event.target.closest("tr").remove(); // Remove the row
-          // Update data array to reflect deletion
-          data = data.filter((item) => item.id != itemId);
-          updateTable(); // Re-render the table
+          event.target.closest("tr").remove(); // Remove row from table
+          data = data.filter((item) => item.id != itemId); // Update data array
+          updateTable(); // Re-render table after deletion
         });
       });
     });

@@ -367,3 +367,19 @@ thead{
 #next-btn, #prev-btn{
     cursor: pointer;
 }
+
+#track-filter {
+    font-size: 1.5rem;
+    display: flex;
+    margin-top: 2rem;
+    margin-left: 80%;
+    color: #fff;
+    /* border-radius: 5px; */
+}
+
+#track-filter select{
+    border-radius: 5px;
+    margin-left: 1rem;
+    padding-left: 0.5rem;
+}
+
