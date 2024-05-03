@@ -95,18 +95,22 @@ userschema.plugin(passportlocalmongoose);
 
 const usermodel = mongoose.model("records", userschema);
 
-passport.serializeUser(function (user, done) {
-  done(null, user);
-});
+passport.serializeUser(usermodel.serializeUser());
+passport.deserializeUser(usermodel.deserializeUser());
 
-passport.deserializeUser(function (user, done) {
-  done(null, user);
-});
 
 passport.use(usermodel.createStrategy());
+
 // pdf upload logic
 const pdfSchema = new mongoose.Schema({
   name: String,
+  track: String,
+  status: {
+    type : String,
+    default : "Not Assigned"
+  },
+  author : String,
+  conference : String
 });
 
 const PDF = mongoose.model("PDF", pdfSchema);
@@ -233,8 +237,20 @@ app.get("/committee/:conf", (req, res) => {
 });
 
 //////////////////////////////////////
-app.get("/admin/:conf", (req, res) => {
+app.get("/admin/:conf", async(req, res) => {
   if (req.isAuthenticated()) {
+
+    var x = await usermodel.findOne({username : req.user.username});
+    console.log(x);
+    var author = await usermodel.find({ conference_enrolled: x.conference_created });
+    var speaker = await homemodel.findOne({eventname : x.conference_created});
+    var paper = await PDF.find({ conference : x.conference_created });
+
+    
+    // console.log("author : ",author);
+    // console.log("speaker : ",speaker.speakername);
+    // console.log("paper : ",paper);
+
     res.render("admin-dashboard.ejs", { data: req.params.conf });
   } else res.redirect("/login1/" + req.params.conf);
 });
@@ -434,12 +450,13 @@ app
     {
       x = req.params.conf;
     }
+    console.log(x);
     const user = new usermodel({
       username: req.body.username,
       password: req.body.password,
       conference_enrolled : x
     });
-      
+    console.log(user);
     req.login(user, function (err) {
       if (err) {
         console.log(err);
@@ -460,7 +477,6 @@ app
               }
               else 
               {
-                
                 if(result.role == "author" && result.conference_enrolled == req.params.conf)
                 {
                   res.redirect("/paper_submission/"+req.params.conf);
