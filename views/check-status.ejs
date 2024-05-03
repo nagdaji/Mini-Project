@@ -109,7 +109,7 @@
           </div>
 
           <!-- Delete Button -->
-          <button id="delete-button" type="button">Delete Paper</button>
+            <button id="delete-button" type="button">Delete Paper</button>
 
 <!-- Model confirmation code -->
 <div class="modal" id="exampleModalCenter">
@@ -125,8 +125,11 @@
                 Do you want to delete the papers
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Yes</button>
-                <button type="button" class="btn btn-primary">No</button>
+              <form action="/delete_paper/<%=data%>" method="post">
+                <input type="hidden" name="pdfid" value="<%=pdfid%>">
+                <button type="submit" class="btn btn-secondary" data-dismiss="modal" name="action" value="yes">Yes</button>  
+              </form>
+              <button type="button" class="btn btn-primary">No</button>
             </div>
         </div>
     </div>

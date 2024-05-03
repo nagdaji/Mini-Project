@@ -116,6 +116,10 @@ const pdfSchema = new mongoose.Schema({
     default : "Not Assigned"
   },
   author : String,
+  reviewer : {
+    type : String,
+    default : "Not Assigned"
+  },
   conference : String
 });
 
@@ -375,8 +379,12 @@ app
     } else res.redirect("/login1/" + req.params.conf);
   })
   .post(upload.single("files"), async (req, res) => {
+
     const pdf = new PDF({
       name: req.file.originalname,
+      track: req.body.track,
+      author : req.user.username,
+      conference : req.params.conf
     });
 
     const savepdf = await pdf.save();
@@ -390,6 +398,18 @@ app
   });
 
 ////////////////////////////////////
+
+app.route("/delete_paper/:conf")
+.post(async(req,res)=>{
+  if(req.body.action == "yes")
+  {
+    await usermodel.findOneAndUpdate({username : req.user.username},{paperid : null});
+
+    await PDF.findByIdAndDelete({_id : req.body.pdfid});
+  }
+  res.redirect("/check-status/"+req.params.conf);
+});
+
 
 app
   .route("/mail")
@@ -529,7 +549,6 @@ app.get("/logout/:conf", (req, res) => {
 
 app.route("/check-status/:conf").get((req, res) => {
   if (req.isAuthenticated()) {
-
     usermodel.findOne({username : req.user.username}).then((result) => {
       if(result)
       {
@@ -538,13 +557,13 @@ app.route("/check-status/:conf").get((req, res) => {
           PDF.findOne({_id : result.paperid}).then((r)=>{
             if(r)
             {
-              res.render("check-status.ejs", { data: req.params.conf , pdfname : r.name});
+              res.render("check-status.ejs", { data: req.params.conf , pdfname : r.name , pdfid : r._id});
             }
           });
         }
         else
         {
-          res.render("check-status.ejs", { data: req.params.conf , pdfname : ""});
+          res.render("check-status.ejs", { data: req.params.conf , pdfname : "" , pdfid : null});
         }
       }
     });
