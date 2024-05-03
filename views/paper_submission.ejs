@@ -89,21 +89,20 @@
         <div class="upload-box">
           <div class="upload">
             <label for="tracks" class="tracks">Choose Track:</label>
-
+            
             <select name="track" id="track">
-              <option value="track1">Track1</option>
-              <option value="saab">Track2</option>
-              <option value="mercedes">Track3</option>
-              <option value="audi">Track4</option>
-            </select>
-            <h1>Upload Your Papers</h1>
+              <% for(let i=0;i<tracks.tracksname.length;i++) { %>
+                <option value="<%= tracks.tracksname[i] %>"><%= tracks.tracksname[i] %></option>
+                <% } %>
+              </select>
+              <h1>Upload Your Papers</h1>
+              <form
+                id="upload-form"
+                action="/paper_submission/<%= data %>"
+                method="post"
+                enctype="multipart/form-data"
+              >
 
-            <form
-              id="upload-form"
-              action="/paper_submission/<%= data %>"
-              method="post"
-              enctype="multipart/form-data"
-            >
               <input type="file" class="file-input" name="files" hidden />
               <button type="button" id="upload-btn">Choose File</button>
               <button type="submit">Upload</button>

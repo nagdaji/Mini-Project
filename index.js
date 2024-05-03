@@ -346,9 +346,10 @@ app.get("/tracks/:conf", (req, res) => {
 //////////////////////////////////
 app
   .route("/paper_submission/:conf")
-  .get((req, res) => {
+  .get(async (req, res) => {
     if (req.isAuthenticated()) {
-      res.render("paper_submission.ejs", { data: req.params.conf });
+      var t = await homemodel.findOne({eventname: req.params.conf});
+      res.render("paper_submission.ejs", { data: req.params.conf , tracks : t});
     } else res.redirect("/login1/" + req.params.conf);
   })
   .post(upload.single("files"), async (req, res) => {
@@ -439,7 +440,6 @@ app
       conference_enrolled : x
     });
       
-    console.log(user);
     req.login(user, function (err) {
       if (err) {
         console.log(err);
@@ -447,12 +447,12 @@ app
         passport.authenticate("local", function (err, user, info) {
           if (err) console.log(err);
           if (!user) {
+            console.log("not user");
             res.render("login1.ejs", {
               data: req.params.conf,
               error: "user does not exists",
             });
           } else {
-            console.log("hello there");
             usermodel.findOne({ username: req.body.username }).then((result) => {
               if(result.role == "admin" && req.params.conf == "CONFOEASE")
               {
@@ -460,7 +460,7 @@ app
               }
               else 
               {
-                console.log(req.params.conf);
+                
                 if(result.role == "author" && result.conference_enrolled == req.params.conf)
                 {
                   res.redirect("/paper_submission/"+req.params.conf);
@@ -475,7 +475,7 @@ app
                 }
                 else
                 {
-                  res.render("login1.ejs", {data : req.body.conf , error : "user does not exists"});
+                  res.render("login1.ejs", {data : req.params.conf , error : "user does not exists"});
                 }          
               }
             });
