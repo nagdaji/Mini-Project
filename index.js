@@ -82,7 +82,8 @@ const userschema = new mongoose.Schema({
   password: String,
   name: String,
   role: String,
-  conference: String,
+  conference_created: String,
+  conference_enrolled: String,
   paperid: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "PDF",
@@ -103,7 +104,6 @@ passport.deserializeUser(function (user, done) {
 });
 
 passport.use(usermodel.createStrategy());
-
 // pdf upload logic
 const pdfSchema = new mongoose.Schema({
   name: String,
@@ -111,8 +111,8 @@ const pdfSchema = new mongoose.Schema({
 
 const PDF = mongoose.model("PDF", pdfSchema);
 
-//////////////////////////////
-
+////////////////////////////////////
+// for home page
 app.get("/", (req, res) => {
   async function findData() {
     try {
@@ -133,8 +133,8 @@ app.get("/", (req, res) => {
     });
 });
 
-// variable front page
 
+////for new conferences
 app.get("/conference/:newpage", (req, res) => {
   var name = req.params.newpage;
   name = _.upperCase(name).replace(/\s/g, "");
@@ -166,6 +166,7 @@ app.get("/conference/:newpage", (req, res) => {
 });
 
 /////////////////////////////////
+
 app.get("/call-for-paper", (req, res) => {
   async function findData() {
     try {
@@ -186,6 +187,8 @@ app.get("/call-for-paper", (req, res) => {
     });
 });
 
+///////////////////////////////////////////////
+
 app.get("/call-for-workshop", (req, res) => {
   async function findData() {
     try {
@@ -205,7 +208,7 @@ app.get("/call-for-workshop", (req, res) => {
       res.status(500).send("Internal Server Error");
     });
 });
-
+//////////////////////////////////////////////////////////
 app.get("/committee/:conf", (req, res) => {
   var a = req.params.conf;
   async function findData() {
@@ -229,6 +232,7 @@ app.get("/committee/:conf", (req, res) => {
     });
 });
 
+//////////////////////////////////////
 app.get("/admin/:conf", (req, res) => {
   if (req.isAuthenticated()) {
     res.render("admin-dashboard.ejs", { data: req.params.conf });
@@ -243,6 +247,8 @@ app.get("/reviewer/:conf", (req, res) => {
   res.render("reviewer-dashboard.ejs", { data: req.params.conf });
 });
 
+
+////////////////////////////////////////
 app
   .route("/create-event/:conf")
   .get((req, res) => {
@@ -302,14 +308,23 @@ app
       twitterconnect: req.body.twitterconnect,
     });
 
-    data.save();
+    await data.save();
+
+    console.log(req.user);
 
     res.redirect("/create-event/" + req.params.conf);
   });
 
 app.route("/attendee/:conf").get((req, res) => {
-  res.render("attendee.ejs", { data: req.params.conf });
+  if(req.isAuthenticated())
+  {
+    res.render("attendee.ejs", { data: req.params.conf });
+  }
+  else 
+    res.render("login1.ejs",{data : req.params.conf});
 });
+
+////////////////////////////////
 
 app
   .route("/otp/:conf")
@@ -327,6 +342,8 @@ app.get("/tracks/:conf", (req, res) => {
   res.render("tracks", { data: req.params.conf });
 });
 
+
+//////////////////////////////////
 app
   .route("/paper_submission/:conf")
   .get((req, res) => {
@@ -349,6 +366,8 @@ app
     res.redirect("/paper_submission/" + req.params.conf);
   });
 
+////////////////////////////////////
+
 app
   .route("/mail")
   .get(function (req, res) {
@@ -356,85 +375,34 @@ app
   })
   .post(signup);
 
-app
-  .route("/login1/:conf")
-  .get((req, res) => {
-    res.render("login1.ejs", { data: req.params.conf, error: "" });
-  })
-  .post((req, res) => {
-    const conf = _.upperCase(req.params.conf).replace(/\s/g, "");
-    
-    // var u = req.body.username + conf;
-    const user = new usermodel({
-      username: req.body.username,
-      password: req.body.password,
-    });
-    req.login(user, function (err) {
-      if (err) {
-        console.log(err);
-      } else {
-        passport.authenticate("local", function (err, user, info) {
-          if (err) console.log(err);
-          if (!user) {
-            res.render("login1.ejs", {
-              data: req.params.conf,
-              error: "user does not exists",
-            });
-          } else {
-            usermodel.find({ username: req.user.username }).then((result) => {
-             
-              if (
-                result[0].role === "author" &&
-                result[0].conference === req.params.conf
-              ) {
-                res.redirect("/paper_submission/" + req.params.conf);
-              } else if (
-                result[0].role === "admin" &&
-                result[0].conference === req.params.conf
-              ) {
-                res.redirect("/admin/" + req.params.conf);
-              } else if (
-                result[0].role === "reviewer" &&
-                result[0].conference === req.params.conf
-              ) {
-                res.redirect("/reviewer/" + req.params.conf);
-              } else if (
-                result[0].role === "attendee" &&
-                result[0].conference === req.params.conf
-              ) {
-                res.redirect("/attendee/" + req.params.conf);
-              } else {
-                res.render("login1.ejs", {
-                  data: req.params.conf,
-                  error: "user does not exists",
-                });
-              }
-            });
-          }
-        })(req, res);
-      }
-    });
-  });
-
+  ////////////////////////////////////////////////
+ 
 app
   .route("/signup1/:conf")
   .get((req, res) => {
-    const conf = _.upperCase(req.query.conf).replace(/\s/g, "");
-    const username = req.query.username;
+
     res.render("signup1.ejs", {
       data: req.params.conf,
-      user: username,
+      user: req.query.username,
       error: "",
     });
   })
   .post((req, res) => {
-    let a = req.params.conf;
+    var r = req.body.role;
+    var c = null;
+    var e = req.params.conf;
+    if(req.params.conf == "CONFOEASE")
+    {
+      r = "admin";
+      e = null;
+    }
     usermodel.register(
       {
         name: req.body.name,
         username: req.body.username,
-        conference: a,
-        role: req.body.role,
+        conference_enrolled : e,
+        conference_created: c,
+        role: r,
       },
       req.body.password,
       function (err, user) {
@@ -451,12 +419,81 @@ app
       }
     );
   });
+  
+  /////////////////////////////////////////////////
+
+app
+  .route("/login1/:conf")
+  .get((req, res) => {
+    res.render("login1.ejs", { data: req.params.conf, error: "" });
+  })
+  .post(async (req, res) => {
+    var x = null;
+    if(req.params.conf != "CONFOEASE")
+    {
+      x = req.params.conf;
+    }
+    const user = new usermodel({
+      username: req.body.username,
+      password: req.body.password,
+      conference_enrolled : x
+    });
+      
+    console.log(user);
+    req.login(user, function (err) {
+      if (err) {
+        console.log(err);
+      } else {
+        passport.authenticate("local", function (err, user, info) {
+          if (err) console.log(err);
+          if (!user) {
+            res.render("login1.ejs", {
+              data: req.params.conf,
+              error: "user does not exists",
+            });
+          } else {
+            console.log("hello there");
+            usermodel.findOne({ username: req.body.username }).then((result) => {
+              if(result.role == "admin" && req.params.conf == "CONFOEASE")
+              {
+                res.redirect("/admin/"+req.params.conf);
+              }
+              else 
+              {
+                console.log(req.params.conf);
+                if(result.role == "author" && result.conference_enrolled == req.params.conf)
+                {
+                  res.redirect("/paper_submission/"+req.params.conf);
+                }
+                else if(result.role == "attendee" && result.conference_enrolled == req.params.conf)
+                {
+                  res.redirect("/attendee/"+req.params.conf);
+                }
+                else if(result.role == "reviewer" && result.conference_enrolled == req.params.conf)
+                {
+                  res.redirect("/reviewer/"+req.params.conf);
+                }
+                else
+                {
+                  res.render("login1.ejs", {data : req.body.conf , error : "user does not exists"});
+                }          
+              }
+            });
+          }
+        })(req, res);
+      }
+    });
+  });
+
+
 
 app.get("/edit-event/:conf", (req, res) => {
   if (req.isAuthenticated()) {
     res.render("edit-event.ejs", { data: req.params.conf });
   } else res.redirect("/login1/" + req.params.conf);
 });
+
+/////////////////////////////////////////////////
 
 app.get("/logout/:conf", (req, res) => {
   let a = req.params.conf;
@@ -472,6 +509,8 @@ app.get("/logout/:conf", (req, res) => {
     });
   } else res.redirect("/login1/" + a);
 });
+
+/////////////////////////////////////////////////
 
 app.route("/check-status/:conf").get((req, res) => {
   if (req.isAuthenticated()) {
@@ -497,6 +536,7 @@ app.route("/check-status/:conf").get((req, res) => {
     
   } else res.redirect("/login1/" + req.params.conf);
 });
+
 
 app.listen(8000, () => {
   console.log("Server running on port 8000!!");

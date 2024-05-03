@@ -47,7 +47,7 @@
           <header>SignUp</header>
           <form action="/signup1/<%= data %>" method="post">
             <div class="field input-field">
-              <input name="name" type="text" class="input" placeholder="name" />
+              <input name="name" type="text" class="input" placeholder="name" required/>
             </div>
             <div class="field input-field">
               <input
@@ -66,6 +66,7 @@
                 class="password"
                 placeholder="create password"
                 id="password"
+                required
               />
               <!-- <i
                 class="fa-solid fa-eye-slash eye-icon"
@@ -103,6 +104,7 @@
                 class="password"
                 id="confirm-password"
                 placeholder="confirm password"
+                required
               />
               <i
                 class="fa-solid fa-eye-slash eye-icon"
@@ -111,7 +113,7 @@
             </div>
             <p class="message"></p>
             <div class="field input-field">
-              <select name="role" id="role">
+              <select name="role" id="role" >
                 <option value="1" class="choose">Enter As</option>
                 <option value="author">Author</option>
                 <option value="attendee">Attendee</option>

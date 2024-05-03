@@ -26,12 +26,12 @@
 
       <!-- nav bar -->
       <nav class="navbar">
-        <a href="/">Home</a>
-        <a href="/committee">Committees</a>
-        <a href="/tracks">Tracks</a>
+        <a href="/conference/<%= data %>">Home</a>
+        <a href="/committee/<%= data %>">Committees</a>
+        <a href="/tracks/<%= data %>">Tracks</a>
         <a href="/">Speakers</a>
         <a href="/">Contact Us</a>
-        <a href="/signup1/<%= data %>">Register</a>
+        <a href="/otp/<%= data %>">Register</a>
         <a href="/login1/<%= data%>">Login</a>
 
         <div id="menu-bar" class="fas fa-bars"></div>
@@ -92,13 +92,13 @@
         <div class="box">
           <h3>Quick links</h3>
           <a href="/"><i class="fas fa-arrow-right"></i>Home</a>
-          <a href="/committee"><i class="fas fa-arrow-right"></i>Committees</a>
+          <a href="/committee/<%= data %>"><i class="fas fa-arrow-right"></i>Committees</a>
           <a href="/"><i class="fas fa-arrow-right"></i>Key Dates</a>
-          <a href="/call-for-paper"
+          <a href="/call-for-paper/<%= data %>"
             ><i class="fas fa-arrow-right"></i>Call for Papers</a
           >
           <a href="/"><i class="fas fa-arrow-right"></i>Contact Us</a>
-          <a href="/login1"><i class="fas fa-arrow-right"></i>Login</a>
+          <a href="/login1/<%= data %>"><i class="fas fa-arrow-right"></i>Login</a>
         </div>
         <div class="box">
           <h3>Contact info</h3>
