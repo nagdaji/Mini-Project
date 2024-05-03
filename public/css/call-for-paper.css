@@ -156,7 +156,7 @@ body{
 
 
 
-.container .how-to-submit {
+.container .how-to-submit, .tracks {
     font-size: 3rem;
     /* font-style: italic; */
     font-weight: 100;
@@ -164,11 +164,11 @@ body{
     margin-bottom: 5rem;
 }
 
-.container .how-to-submit span{
+.container .how-to-submit span, .tracks span{
     color: #3867d6;
 }
 
-.container .how-to-submit p{
+.container .how-to-submit p, .tacks p{
     font-size: 2rem;
     padding-bottom: 1rem;
     line-height: 3.5rem;

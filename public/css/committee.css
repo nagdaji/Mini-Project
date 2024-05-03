@@ -75,7 +75,7 @@ body{
     display: none;
 }
 
-.home .content {
+.content {
     text-align: center;
     padding-top: 6rem;
     margin: 2rem auto;
@@ -83,12 +83,12 @@ body{
 
 }
 
-.home .content h3{
+.content h3{
     color:#fff;
     font-size: 4.5rem;
     text-transform: uppercase;
 }
-.home .content h3 span {
+.content h3 span {
     color: #3867d6;
     text-transform: uppercase;
 }
