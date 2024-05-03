@@ -82,8 +82,14 @@ const userschema = new mongoose.Schema({
   password: String,
   name: String,
   role: String,
-  conference_created: String,
-  conference_enrolled: String,
+  conference_created: {
+    type : String,
+    default : null
+  },
+  conference_enrolled: {
+    type : String,
+    default : null
+  },
   paperid: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "PDF",
@@ -445,23 +451,15 @@ app
     res.render("login1.ejs", { data: req.params.conf, error: "" });
   })
   .post(async (req, res) => {
-    var x = null;
-    if(req.params.conf != "CONFOEASE")
-    {
-      x = req.params.conf;
-    }
-    console.log(x);
     const user = new usermodel({
       username: req.body.username,
       password: req.body.password,
-      conference_enrolled : x
     });
-    console.log(user);
-    req.login(user, function (err) {
+    await req.login(user, async function (err) {
       if (err) {
         console.log(err);
       } else {
-        passport.authenticate("local", function (err, user, info) {
+        await passport.authenticate("local", function (err, user, info) {
           if (err) console.log(err);
           if (!user) {
             console.log("not user");
@@ -470,7 +468,7 @@ app
               error: "user does not exists",
             });
           } else {
-            usermodel.findOne({ username: req.body.username }).then((result) => {
+              usermodel.findOne({ username: req.body.username }).then(async (result) => {
               if(result.role == "admin" && req.params.conf == "CONFOEASE")
               {
                 res.redirect("/admin/"+req.params.conf);
@@ -491,6 +489,7 @@ app
                 }
                 else
                 {
+                  await req.session.destroy();
                   res.render("login1.ejs", {data : req.params.conf , error : "user does not exists"});
                 }          
               }
