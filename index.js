@@ -382,6 +382,7 @@ app
             });
           } else {
             usermodel.find({ username: req.user.username }).then((result) => {
+             
               if (
                 result[0].role === "author" &&
                 result[0].conference === req.params.conf
