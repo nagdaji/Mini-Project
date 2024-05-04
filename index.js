@@ -83,8 +83,14 @@ const userschema = new mongoose.Schema({
   password: String,
   name: String,
   role: String,
-  conference_created: String,
-  conference_enrolled: String,
+  conference_created: {
+    type: String,
+    default: null,
+  },
+  conference_enrolled: {
+    type: String,
+    default: null,
+  },
   paperid: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "PDF",
@@ -96,18 +102,25 @@ userschema.plugin(passportlocalmongoose);
 
 const usermodel = mongoose.model("records", userschema);
 
-passport.serializeUser(function (user, done) {
-  done(null, user);
-});
-
-passport.deserializeUser(function (user, done) {
-  done(null, user);
-});
+passport.serializeUser(usermodel.serializeUser());
+passport.deserializeUser(usermodel.deserializeUser());
 
 passport.use(usermodel.createStrategy());
+
 // pdf upload logic
 const pdfSchema = new mongoose.Schema({
   name: String,
+  track: String,
+  status: {
+    type: String,
+    default: "Not Assigned",
+  },
+  author: String,
+  reviewer: {
+    type: String,
+    default: "Not Assigned",
+  },
+  conference: String,
 });
 
 const PDF = mongoose.model("PDF", pdfSchema);
@@ -233,8 +246,20 @@ app.get("/committee/:conf", (req, res) => {
 });
 
 //////////////////////////////////////
-app.get("/admin/:conf", (req, res) => {
+app.get("/admin/:conf", async (req, res) => {
   if (req.isAuthenticated()) {
+    var x = await usermodel.findOne({ username: req.user.username });
+    console.log(x);
+    var author = await usermodel.find({
+      conference_enrolled: x.conference_created,
+    });
+    var speaker = await homemodel.findOne({ eventname: x.conference_created });
+    var paper = await PDF.find({ conference: x.conference_created });
+
+    // console.log("author : ",author);
+    // console.log("speaker : ",speaker.speakername);
+    // console.log("paper : ",paper);
+
     res.render("admin-dashboard.ejs", { data: req.params.conf });
   } else res.redirect("/login1/" + req.params.conf);
 });
@@ -350,6 +375,9 @@ app
   .post(upload.single("files"), async (req, res) => {
     const pdf = new PDF({
       name: req.file.originalname,
+      track: req.body.track,
+      author: req.user.username,
+      conference: req.params.conf,
     });
 
     const savepdf = await pdf.save();
@@ -363,6 +391,18 @@ app
   });
 
 ////////////////////////////////////
+
+app.route("/delete_paper/:conf").post(async (req, res) => {
+  if (req.body.action == "yes") {
+    await usermodel.findOneAndUpdate(
+      { username: req.user.username },
+      { paperid: null }
+    );
+
+    await PDF.findByIdAndDelete({ _id: req.body.pdfid });
+  }
+  res.redirect("/check-status/" + req.params.conf);
+});
 
 app
   .route("/mail")
@@ -422,21 +462,15 @@ app
     res.render("login1.ejs", { data: req.params.conf, error: "" });
   })
   .post(async (req, res) => {
-    var x = null;
-    if (req.params.conf != "CONFOEASE") {
-      x = req.params.conf;
-    }
     const user = new usermodel({
       username: req.body.username,
       password: req.body.password,
-      conference_enrolled: x,
     });
-
-    req.login(user, function (err) {
+    await req.login(user, async function (err) {
       if (err) {
         console.log(err);
       } else {
-        passport.authenticate("local", function (err, user, info) {
+        await passport.authenticate("local", function (err, user, info) {
           if (err) console.log(err);
           if (!user) {
             console.log("not user");
@@ -447,7 +481,7 @@ app
           } else {
             usermodel
               .findOne({ username: req.body.username })
-              .then((result) => {
+              .then(async (result) => {
                 if (result.role == "admin" && req.params.conf == "CONFOEASE") {
                   res.redirect("/admin/" + req.params.conf);
                 } else {
@@ -467,6 +501,7 @@ app
                   ) {
                     res.redirect("/reviewer/" + req.params.conf);
                   } else {
+                    await req.session.destroy();
                     res.render("login1.ejs", {
                       data: req.params.conf,
                       error: "user does not exists",
@@ -515,6 +550,7 @@ app.route("/check-status/:conf").get((req, res) => {
               res.render("check-status.ejs", {
                 data: req.params.conf,
                 pdfname: r.name,
+                pdfid: r._id,
               });
             }
           });
@@ -522,6 +558,7 @@ app.route("/check-status/:conf").get((req, res) => {
           res.render("check-status.ejs", {
             data: req.params.conf,
             pdfname: "",
+            pdfid: null,
           });
         }
       }

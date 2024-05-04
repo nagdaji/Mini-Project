@@ -275,16 +275,17 @@ body{
   }
 
   .upload #track{
-    border-radius: 5px;
-    width: 100px;
-    display:-ms-grid;
     background-color: #fff;
     color: #222;
     border: #222;
     border-radius: 5px;
-    padding: 10px 15px;
+    padding: 10px 20px;
     cursor: pointer;
-    margin-bottom: 2rem;
+  }
+
+  .upload #track:hover{
+    background-color: #3867d6;
+    border: 1px solid #fff;
   }
 
   
