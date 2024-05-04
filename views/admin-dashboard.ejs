@@ -55,6 +55,12 @@
             </a>
           </li>
           <li>
+            <a href="/submitted/<%=data%>">
+              <span class="icon"><i class="fa-solid fa-list-check"></i></span>
+              <span class="title">Manage Papers</span>
+            </a>
+          </li>
+          <li>
             <a href="/manage-reviewer/<%=data%>">
               <span class="icon"><i class="fa-solid fa-list-check"></i></span>
               <span class="title">Manage Reviewer</span>
@@ -108,11 +114,11 @@
             {"id": 3, "name": "Alice Johnson", "email": "alice@example.com", "role": "User"},
             {"id": 4, "name": "Bob Brown", "email": "bob@example.com", "role": "Manager"},
             {"id": 5, "name": "Charlie Black", "email": "charlie@example.com", "role": "Admin"}
-        ]'
+            ]'
           >
             <div>
               <div class="numbers">1504</div>
-              <a href="#" class="cardname">User Registered</a>
+              <a href="#info-table" class="cardname">User Registered</a>
             </div>
             <div class="icon">
               <i class="fa-solid fa-user" style="color: #3687d6"></i>
@@ -125,11 +131,11 @@
             data-users='[
           {"id": 3, "name": "Alice Johnson", "email": "alice@example.com", "role": "Reviewer"},
           {"id": 4, "name": "Bob Brown", "email": "bob@example.com", "role": "Reviewer"}
-      ]'
+          ]'
           >
             <div>
               <div class="numbers">120</div>
-              <a href="#" class="cardname">Reviewer</a>
+              <a href="#info-table" class="cardname">Reviewer</a>
             </div>
             <div class="icon">
               <i class="fa-solid fa-chalkboard-user" style="color: #3687d6"></i>
@@ -142,11 +148,11 @@
             data-users='[
         {"id": 3, "name": "Alice Johnson", "email": "alice@example.com", "role": "Reviewer"},
         {"id": 4, "name": "Bob Brown", "email": "bob@example.com", "role": "Reviewer"}
-    ]'
+        ]'
           >
             <div>
               <div class="numbers">360</div>
-              <a href="#" class="cardname">Authors Registered</a>
+              <a href="#info-table" class="cardname">Authors Registered</a>
             </div>
             <div class="icon">
               <i
@@ -162,11 +168,11 @@
             data-users='[
         {"id": 3, "name": "Alice Johnson", "email": "alice@example.com", "role": "Reviewer"},
         {"id": 4, "name": "Bob Brown", "email": "bob@example.com", "role": "Reviewer"}
-    ]'
+        ]'
           >
             <div>
               <div class="numbers">1024</div>
-              <a href="#" class="cardname">Attendees</a>
+              <a href="#info-table" class="cardname">Attendees</a>
             </div>
             <div class="icon">
               <i class="fa-solid fa-users" style="color: #3687d6"></i>
@@ -179,11 +185,13 @@
             {"id": 101, "author": "Dr. Smith", "tracks": "Science", "status": "Accepted"},
             {"id": 102, "author": "Ms. Johnson", "tracks": "Technology", "status": "Under Review"},
             {"id": 103, "author": "Mr. Brown", "tracks": "Engineering", "status": "Rejected"}
-      ]'
+            ]'
           >
             <div>
               <div class="numbers">102</div>
-              <a href="#" class="cardname">Paper Submitted</a>
+              <a href="/submitted/<%=data%>" class="cardname"
+                >Paper Submitted</a
+              >
             </div>
             <div class="icon">
               <i class="fa-solid fa-book" style="color: #3687d6"></i>
@@ -195,11 +203,11 @@
             data-speakers='[
           {"serial": 1, "name": "Prof. Green"},
           {"serial": 2, "name": "Dr. Blue"}
-      ]'
+          ]'
           >
             <div>
               <div class="numbers">10</div>
-              <a href="#" class="cardname">Speaker</a>
+              <a href="#info-table" class="cardname">Speaker</a>
             </div>
             <div class="icon">
               <i class="fa-solid fa-microphone" style="color: #3687d6"></i>

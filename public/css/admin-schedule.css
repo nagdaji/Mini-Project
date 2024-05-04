@@ -431,6 +431,11 @@ body{
     color: #222;
 }
 
+.fc-event-title-container{
+    background-color: #3867d6;
+    color: #fff;
+}
+
 #calendar {
     /* padding-left: 3rem; */
     position: absolute;

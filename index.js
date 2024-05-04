@@ -521,6 +521,18 @@ app.get("/edit-event/:conf", (req, res) => {
   } else res.redirect("/login1/" + req.params.conf);
 });
 
+app.get("/submitted/:conf", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("submitted.ejs", { data: req.params.conf });
+  } else res.redirect("/login1/" + req.params.conf);
+});
+
+app.get("/manage-reviewer/:conf", (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render("reviewer.ejs", { data: req.params.conf });
+  } else res.redirect("/login1/" + req.params.conf);
+});
+
 /////////////////////////////////////////////////
 
 app.get("/logout/:conf", (req, res) => {
