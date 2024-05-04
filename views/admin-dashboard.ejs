@@ -127,7 +127,7 @@
           <div
             class="card"
             data-heading="Reviewer"
-            data-card-type="user"
+            data-card-type=""
             data-users='[
           {"id": 3, "name": "Alice Johnson", "email": "alice@example.com", "role": "Reviewer"},
           {"id": 4, "name": "Bob Brown", "email": "bob@example.com", "role": "Reviewer"}
@@ -135,7 +135,7 @@
           >
             <div>
               <div class="numbers">120</div>
-              <a href="#info-table" class="cardname">Reviewer</a>
+              <a href="/manage-reviewer/<%=data%>" class="cardname">Reviewer</a>
             </div>
             <div class="icon">
               <i class="fa-solid fa-chalkboard-user" style="color: #3687d6"></i>
@@ -178,15 +178,7 @@
               <i class="fa-solid fa-users" style="color: #3687d6"></i>
             </div>
           </div>
-          <div
-            class="card"
-            data-card-type="paper"
-            data-papers='[
-            {"id": 101, "author": "Dr. Smith", "tracks": "Science", "status": "Accepted"},
-            {"id": 102, "author": "Ms. Johnson", "tracks": "Technology", "status": "Under Review"},
-            {"id": 103, "author": "Mr. Brown", "tracks": "Engineering", "status": "Rejected"}
-            ]'
-          >
+          <div class="card" data-card-type="" data-papers="[]">
             <div>
               <div class="numbers">102</div>
               <a href="/submitted/<%=data%>" class="cardname"
