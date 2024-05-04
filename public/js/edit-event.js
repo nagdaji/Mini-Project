@@ -188,6 +188,135 @@ function addMemberFields(ele) {
     siblings.appendChild(newField);
   }
 }
+
+//adding a new advisory committee with zero memeber
+function addAdvisory() {
+  var formContainer = document.getElementById("advisory-list");
+  var newField = document.createElement("div");
+  newField.className = "each-advisory";
+  newField.innerHTML = `<div class="input-box">
+  <label for="advisory-name">Advisory Committee Name:</label>
+  <label for="Advisory-member">Number of Members:</label>
+</div>
+<div class="input-box">
+  <input name="advisoryname" type="text" placeholder="Committee Name" />
+  
+  <input name="noofadvisory" type="number"  min="1" value="1" placeholder="Number of Members" onkeydown="addAdvisoryFields(this)"
+  onkeyup="addAdvisoryFields(this)"/>
+</div>
+<div class="advisory-member-list" id="advisory-member-list">
+  
+</div>
+<button
+  class="remove-btn btn"
+  onclick="removeAdvisory(this)"
+>
+  Remove Advisory Committee
+</button>`;
+  formContainer.appendChild(newField);
+}
+
+//deleting the existing committee
+function removeAdvisory(btn) {
+  var formContainer = document.getElementById("advisory-list");
+  formContainer.removeChild(btn.parentNode);
+}
+
+//function for appending committee members according to the user needs
+//adding or appending the new members all at one time according to the user needs
+function addAdvisoryFields(ele) {
+  var siblings = ele.parentNode.parentNode.childNodes[4];
+  // console.log(siblings);
+  siblings.innerHTML = `  `;
+  for (let i = 0; i < ele.value; i++) {
+    var newField = document.createElement("div");
+    newField.className = "each-advisory-member";
+    newField.innerHTML = `<div class="input-box">
+    <label for="user-name">Member Name:</label>
+    <label for="images">Member Images</label>
+  </div>
+  <div class="input-box">
+    <input name = "advisorymembername" type="text" placeholder="Member Name" />
+    <input type="file" name="advisorymemberimages" />
+  </div>
+  <div class="input-box view">
+    <label for="facebool">Facebook:</label>
+    <label for="facebool">Twitter:</label>
+    <label for="facebool">LinkedIn:</label>
+  </div>
+  <div class="input-box view">
+    <input name="advisoryfacebooklink" type="text" placeholder="Facebook" />
+    <input name="advisorytwitterlink" type="text" placeholder="Twitter" />
+    <input name="advisorylinkedinlink" type="text" placeholder="LinkedIn" />
+  </div>`;
+    siblings.appendChild(newField);
+  }
+}
+
+//adding a new technical committee with zero memeber
+function addTechnical() {
+  var formContainer = document.getElementById("technical-list");
+  var newField = document.createElement("div");
+  newField.className = "each-technical";
+  newField.innerHTML = `<div class="input-box">
+  <label for="technical-name">Technical Committee Name:</label>
+  <label for="Technical-member">Number of Members:</label>
+</div>
+<div class="input-box">
+  <input name="technicalname" type="text" placeholder="Committee Name" />
+  
+  <input name="nooftechnical" type="number"  min="1" value="1" placeholder="Number of Members" onkeydown="addTechnicalFields(this)"
+  onkeyup="addTechnicalFields(this)"/>
+</div>
+<div class="technical-member-list" id="technical-member-list">
+  
+</div>
+<button
+  class="remove-btn btn"
+  onclick="removeTechnical(this)"
+>
+  Remove Technical Committee
+</button>`;
+  formContainer.appendChild(newField);
+}
+
+//deleting the existing committee
+function removeTechnical(btn) {
+  var formContainer = document.getElementById("technical-list");
+  formContainer.removeChild(btn.parentNode);
+}
+
+//function for appending committee members according to the user needs
+//adding or appending the new members all at one time according to the user needs
+function addTechnicalFields(ele) {
+  var siblings = ele.parentNode.parentNode.childNodes[4];
+  // console.log(siblings);
+  siblings.innerHTML = `  `;
+  for (let i = 0; i < ele.value; i++) {
+    var newField = document.createElement("div");
+    newField.className = "each-technical-member";
+    newField.innerHTML = `<div class="input-box">
+    <label for="user-name">Member Name:</label>
+    <label for="images">Member Images</label>
+  </div>
+  <div class="input-box">
+    <input name = "technicalmembername" type="text" placeholder="Member Name" />
+    <input type="file" name="technicalmemberimages" />
+  </div>
+  <div class="input-box view">
+    <label for="facebool">Facebook:</label>
+    <label for="facebool">Twitter:</label>
+    <label for="facebool">LinkedIn:</label>
+  </div>
+  <div class="input-box view">
+    <input name="technicalfacebooklink" type="text" placeholder="Facebook" />
+    <input name="technicaltwitterlink" type="text" placeholder="Twitter" />
+    <input name="technicallinkedinlink" type="text" placeholder="LinkedIn" />
+  </div>`;
+    siblings.appendChild(newField);
+  }
+}
+
 //adding a new committee with zero memeber
 function addTracks() {
   var formContainer = document.getElementById("tracks-list");

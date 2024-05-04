@@ -384,3 +384,101 @@ thead{
     padding-left: 0.5rem;
 }
 
+/* Style the table */
+table {
+    width: 97%;
+    border-collapse: collapse;
+    margin-left: 2rem;
+    font-size: 1.5rem;
+    border-radius: 5px;
+  }
+
+  /* Style the table header */
+  th {
+    background-color: #3867d6;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+  }
+
+  /* Style the table rows */
+  tr {
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px;
+  }
+
+  /* Style the table data cells */
+  td {
+    padding: 10px;
+  }
+
+  td select{
+    color: #fff;
+    background-color: #555;
+    font-size: 1.5rem;
+    border-radius: 5px;
+  }
+
+  /* Style the delete button */
+  .delete-btn {
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+
+  /* Change background color on hover */
+  .delete-btn:hover {
+    background-color: #ff7875;
+  }
+
+  /* Pagination buttons */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .pagination button {
+    background-color: #333;
+    color: #3867d6;
+    border: 5px solid #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 0 5px;
+    font-size: 1.6rem;
+    border-radius: 5px;
+  }
+
+  .pagination button:hover {
+    background-color: #3867d6;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 0 5px;
+  }
+
+  /* Filter buttons */
+  .filter {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    font-size: 1.5rem;
+    color: #fff;
+    margin-left: 2rem;
+  }
+
+
+  .filter select {
+    padding: 5px;
+    font-size: 1.5rem;
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+    margin-right: 10px;
+    border-radius: 5px;
+  }

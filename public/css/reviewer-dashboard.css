@@ -31,64 +31,229 @@ section{
 
 body{
     background: #222;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
-.header{
+.container{
+    position: relative;
+    width: 100%;
+}
+
+.container .navigation{
     position: fixed;
+    width: 300px;
+    height: 100%;
+    background: #3867d6;
+    border-left: 10px solid #3867d6;
+    transition: 0.5s;
+    overflow: hidden;
+}
+
+
+
+.container .navigation .toggle-bar{
+    position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    background: #333;
-    z-index: 1000;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.5rem 9%;
-}
-
-.header .logo{
     color: #fff;
-    font-weight: bolder;
     font-size: 2.5rem;
 }
 
-.header .logo span {
-    color: #3867d6;
+.container .navigation .toggle-bar a{
+    display: flex;
 }
 
-.header .navbar a{
-    font-size: 1.7rem;
-    color: #fff;
-    margin-left: 2rem;
-}
-
-.header .navbar a:hover{
-    color: #3867d6;
-}
-
-#menu-bar{
-    font-size: 3rem;
-    color: #fff;
-    cursor: pointer;
-    display: none;
-}
-
-.home .content {
+.container .navigation .toggle-bar .icon{
+    position: relative;
+    display: block;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
     text-align: center;
-    padding-top: 6rem;
-    margin: 2rem auto;
-    max-width: 70rem;
-
 }
 
-.home .content h3{
-    color:#fff;
-    font-size: 4.5rem;
-    text-transform: uppercase;
+.container .navigation .toggle-bar .title{
+    position: relative;
+    display: block;
+    padding: 10px 10px 10px 10px;
+    min-width: 60px;
+    height: 60px;
+    list-style: 60px;
+    font-size: 2.5rem;
+    color: #fff;
 }
-.home .content h3 span {
+
+.container .navigation.active{
+    width: 80px;
+}
+
+.container .navigation ul{
+    position: absolute;
+    top: 8rem;
+    left: 0;
+    width: 100%;
+}
+
+.container .navigation ul li{
+    position: relative;
+    width: 100%;
+    list-style: none;
+    border-top-left-radius: 3rem;
+    border-bottom-left-radius: 3rem;
+}
+
+.container .navigation ul li:nth-child(1) a{
+    margin-bottom: 40px;
+    pointer-events: none;
+}
+
+
+
+.container .navigation ul li:hover, .container .navigation ul li.hovered{
+    background-color: #222;
+}
+
+.container .navigation ul li a{
+    position: relative;
+    display: block;
+    width: 100%;
+    display: flex;
+    text-decoration: none;
+    color: #fff;
+}
+
+.container .navigation ul li:hover a, .container .navigation ul li.hovered a{
     color: #3867d6;
-    text-transform: uppercase;
+}
+
+.container .navigation ul li:hover a .title, .container .navigation ul li.hovered a .title{
+    color: #fff;
+}
+
+.container .navigation ul li a .icon{
+    position: relative;
+    display: block;
+    min-width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+}
+
+.container .navigation ul li a .icon i{
+    font-size: 2.1rem;
+}
+
+.container .navigation ul li a .title{
+    position: relative;
+    display: block;
+    padding: 10px 10px 10px 10px;
+    height: 60px;
+    list-style: 60px;
+    font-size: 2.1rem;
+}
+
+.container .navigation ul li:hover a::before, .container .navigation ul li.hovered a::before{
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -50px;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: 35px 35px 0 10px #222;
+    pointer-events: none;
+
+}
+
+
+.container .navigation ul li:hover a::after, .container .navigation ul li.hovered
+ a::after{
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -50px;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: 35px -35px 0 10px #222;
+    pointer-events: none;
+
+}
+
+.container .main{
+    position: absolute;
+    width: calc(100% - 300px);
+    left: 300px;
+    min-height: 100vh;
+    transition: 0.5s;
+}
+
+.container .main.active{
+    width: calc(100% - 80px);
+    left: 80px;
+}
+
+.container .main .top-bar {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+
+
+.container .main .top-bar .search{
+    position: relative;
+    width: 350px;
+    margin: 0 15px;
+}
+
+.container .main .top-bar .search label{
+    position: relative;
+    width: 100%;
+}
+
+.container .main .top-bar .search label input{
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    padding: 5px 20px;
+    padding-left: 40px;
+    font-size: 18px;
+    outline: none;
+    border: 1px solid #3867d6;
+}
+
+.container .main .top-bar .search label i{
+    position: absolute;
+    /* top: 0; */
+    margin-top: 0.7rem;
+    font-size: 2.4rem;
+    left: 10px;
+}
+
+.container .main .top-bar .user{
+    margin: 0 10px;
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.container .main .top-bar .user img{
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 
@@ -106,9 +271,9 @@ body{
 }
 
 /* CSS to highlight the active filter button */
-.active {
+/* .active {
     background-color: #f1f1f1;
-}
+} */
 
 .filter-container {
     display: flex;
@@ -172,106 +337,174 @@ tr>th {
     font-size: 1.7rem;
 }
 
-
-
-
-.footer{
-    background-color: #111;
-
-}
-
-.footer .box-conatainer{
+.home{
     display: flex;
-    justify-content:space-around;
-    /* grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr)); */
-    gap: 1.5rem;
-
+    align-items: center;
+    justify-content: center;
 }
 
-.footer .box-conatainer .box h3{
-    font-size: 2.5rem;
-    padding: 1rem 0;
+.home h3{
+    font-size: 4rem;
     color: #fff;
 }
 
-.footer .box-conatainer .box a{
-    display: block;
-    font-size: 1.5rem;
-    padding: 1rem 0;
-    color: #eee;
-}
-
-.footer .box-conatainer .box a i{
-    padding-right: 0.5rem;
+.home span{
     color: #3867d6;
 }
 
-.footer .box-conatainer .box a:hover i{
-    padding-right: 1.5rem;
-    color: #fff;
+
+.table{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 5rem;
 }
 
-.footer .credit{
-    text-align: center;
-    border-top: 0.1rem solid #222;
-    color: #fff;
-    padding-top: 2.5rem;
+thead{
+    background-color: #3867d6;
+    color: #222;
+    border: 3px solid #fff;
     font-size: 2rem;
 }
 
-.footer .credit span{
+#info-table {
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 80%;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+#info-table th, #info-table td {
+    border: 3px solid #3867d6;
+    padding: 10px;
+}
+
+
+
+#pagination {
+    color: #fff;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 2rem;
+}
+
+#next-btn, #prev-btn{
+    cursor: pointer;
+}
+
+#track-filter {
+    font-size: 1.5rem;
+    display: flex;
+    margin-top: 2rem;
+    margin-left: 80%;
+    color: #fff;
+    /* border-radius: 5px; */
+}
+
+#track-filter select{
+    border-radius: 5px;
+    margin-left: 1rem;
+    padding-left: 0.5rem;
+}
+
+/* Style the table */
+table {
+    width: 97%;
+    border-collapse: collapse;
+    margin-left: 2rem;
+    font-size: 1.5rem;
+    border-radius: 5px;
+  }
+
+  /* Style the table header */
+  th {
+    background-color: #3867d6;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+  }
+
+  /* Style the table rows */
+  tr {
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px;
+  }
+
+  /* Style the table data cells */
+  td {
+    padding: 10px;
+  }
+
+  td select{
+    color: #fff;
+    background-color: #555;
+    font-size: 1.5rem;
+    border-radius: 5px;
+  }
+
+
+  /* Pagination buttons */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .pagination button {
+    background-color: #333;
     color: #3867d6;
-}
+    border: 5px solid #fff;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 0 5px;
+    font-size: 1.6rem;
+    border-radius: 5px;
+  }
 
-@media (max-width: 991px){
-    html{
-        font-size: 55%;
-    }
-    .header{
-        padding: 1.5rem 2rem;
-    }
-    section{
-        padding: 2rem;
-    }
-}
+  .pagination button:hover {
+    background-color: #3867d6;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    margin: 0 5px;
+  }
 
-@media (max-width: 768px){
-    #menu-bar{
-        display:initial;
-    }
+  /* Filter buttons */
+  .filter {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+    font-size: 1.5rem;
+    color: #fff;
+    margin-left: 2rem;
+  }
 
-    .header.fa-times{
-        transform: rotate(360deg);
-    }
-    .header .navbar{ 
-        position: absolute;
-        top:100%;
-        left: 0;
-        right: 0;
-        border-top: 0.1rem solid #222;
-        background: #333;
-        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
-    }
 
-    .header .navbar .active{
-        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  .filter select {
+    padding: 5px;
+    font-size: 1.5rem;
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+    margin-right: 10px;
+    border-radius: 5px;
+  }
 
-    }
-    .header .navbar a{
-        display: flex;
-        background: #222;
-        border-radius: 0.5rem;
-        padding: 1.3rem;
-        margin: 1.3rem;
-        font-size: 2rem;
-    }
-    .home .content h3{
-        font-size: 4rem;
-    }
-}
+  .update-btn {
+    background-color: #28a745; /* Green */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
 
-@media (max-width: 450px){
-    html{
-        font-size: 50%;
-    }
-}
+  .update-btn:hover {
+    background-color: #218838; /* Darker green */
+  }

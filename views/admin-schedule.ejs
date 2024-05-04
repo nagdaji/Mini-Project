@@ -20,42 +20,94 @@
     <!-- font awesome link -->
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          initialView: 'dayGridMonth',
-          // initialDate: '2024-03-07',
-          headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
-          },
-          events: []
-        });
-        calendar.render();
+            document.addEventListener('DOMContentLoaded', function() {
+      // Central events array to store all calendar events
+      var events = [{
+        title: 'Mehndi',
+        start: '2024-05-03T09:30',
+        end: '2024-05-04T11:25',
+        color: '#3867d6',
+        textcolor: '#fff'
+      }];
 
-        // Function to fetch data from form and update calendar events
-        function updateCalendar() {
-          const form = document.querySelector('#event-info');
-          const formData = new FormData(form);
-          const data = {};
-          for (let [key, value] of formData.entries()) {
-            data[key] = value;
-          }
-          const eventTime = data['event-time'];
-          const [hours, minutes] = eventTime.split(':');
-          const date = new Date(data.date);
-          date.setHours(hours, minutes);
-          calendar.addEvent({ title: data.description, start: date});
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,listWeek,listDay'
+        },
+        views: {
+            dayGridMonth: {buttonText: 'Month'},
+            listDay: { buttonText: 'Day' },
+            listWeek: { buttonText: 'Week' },
+            today: {buttonText: 'Today'}
+          },
+        events: events, // Use the central events array to populate the calendar
+
+      });
+
+      calendar.render();
+
+      // Function to fetch data from form and update calendar events
+      function updateCalendar() {
+        const form = document.querySelector('#event-info');
+        const formData = new FormData(form);
+        const data = {};
+
+        // Populate data object with form values
+        for (let [key, value] of formData.entries()) {
+          data[key] = value;
         }
 
-        // Event listener for form submission
-          document.querySelector('#event-info').addEventListener('submit', (event) => {
-          event.preventDefault(); // Prevent form submission
-          updateCalendar(); // Update calendar events
-          event.target.reset(); // Reset the form
-        });
+        // Extract relevant data
+        const title = data['title'];
+        const description = data['description'];
+        const startdate = data['startdate'];
+        const starttime = data['eventstarttime'];
+        const enddate = data['enddate'];
+        const endtime = data['eventendtime'];
+
+        // Ensure all date and time values are defined before processing
+        if (startdate && starttime && enddate && endtime) {
+          // Combine date and time into datetime strings
+          const startDatetime = `${startdate}T${starttime}`;
+          const endDatetime = `${enddate}T${endtime}`;
+
+          // Convert to Date objects for comparison
+          const startDateObj = new Date(startDatetime);
+          const endDateObj = new Date(endDatetime);
+
+          // Check if the start datetime is earlier than the end datetime
+          if (startDateObj < endDateObj) {
+            // If valid, add the event to the events array and refresh the calendar
+            events.push({
+              title,
+              description,
+              start: startDatetime,
+              end: endDatetime,
+              color: '#3867d6', // Example color
+              textcolor: '#fff' // Example text color
+            });
+
+            calendar.removeAllEvents(); // Clear existing events
+            calendar.addEventSource(events); // Re-add all events to the calendar
+          } else {
+            alert('Start date/time must be earlier than end date/time.');
+          }
+        } else {
+          console.error('One or more date/time values are missing.');
+        }
+      }
+
+      // Event listener for form submission
+      document.querySelector('#event-info').addEventListener('submit', (event) => {
+        event.preventDefault(); // Prevent form submission
+        updateCalendar(); // Update calendar events
+        event.target.reset(); // Reset the form
       });
+    });
     </script>
   </head>
   <body>
@@ -96,6 +148,12 @@
           </li>
           <li>
             <a href="/manage-reviewer">
+              <span class="icon"><i class="fa-solid fa-list-check"></i></span>
+              <span class="title">Manage Papers</span>
+            </a>
+          </li>
+          <li>
+            <a href="/manage-reviewer/<%=data%>">
               <span class="icon"><i class="fa-solid fa-list-check"></i></span>
               <span class="title">Manage Reviewer</span>
             </a>
@@ -158,19 +216,30 @@
                   <div id="schedule-list">
                     <div class="each-schedule">
                       <div class="input-box">
-                          <label for="event-date">Event Date</label>
-                          <label for="appt">Event Time</label>
+                        <label for="event-title">Event Title</label>
+                        <label for="description">Event Description</label>
                       </div>
                       <div class="input-box">
-                        <input type="date" id="event-date" name="date" min="2024-01-01" placeholder="Date" required/>
-                        <input type="time" id="appt" name="event-time" placeholder="Event time" />
-                      </div>
-                      <div class="input-box">
-                          <label for="event-description">Description</label>
-                      </div>
-                      <div class="input-box">
+                        <input type="text" name="title" id="event-title" placeholder="Event Title" required>
                         <input type="text" name="description" id="event-description" placeholder="Description" required/>
                       </div>
+                      <div class="input-box">
+                          <label for="event-start-date">Start Date</label>
+                          <label for="appt">Start Time</label>
+                      </div>
+                      <div class="input-box">
+                        <input type="date" id="event-date" name="startdate" placeholder="Start Date" required/>
+                        <input type="time" id="appt" name="eventstarttime" placeholder="Event Start time" required/>
+                      </div>
+                      <div class="input-box">
+                        <label for="event-end-date">End Date</label>
+                          <label for="endtime">End Time</label>
+                      </div>
+                      <div class="input-box">
+                        <input type="date" id="event-end-date" name="enddate" placeholder="End Date" required/>
+                        <input type="time" id="endt" name="eventendtime" placeholder="Event End time" required/>
+                      </div>
+                      
 
                       <!-- <button
                         class="remove-btn btn"
@@ -201,7 +270,7 @@
               </form>
             </section>
             <section class="event-creation" id="event-creation">
-                <!-- <div class="schedule-details" id="schedule-details"> -->
+                <!-- <div class="schedule-details" id="schedule-details"> --> 
                     <div id='calendar'></div>
                 <!-- </div> -->
             </section>

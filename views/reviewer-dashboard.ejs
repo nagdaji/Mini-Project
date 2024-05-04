@@ -21,144 +21,148 @@
   </head>
 
   <body>
-    <!-- header Section -->
-    <header class="header">
-      <a href="#" class="logo"><span>C</span>onfoEase</a>
+    <!-- side navigation bar -->
+    <div class="container">
+      <div class="navigation">
+        <div class="toggle-bar">
+          <a href="#">
+            <span class="toggle icon">
+              <i class="fa-solid fa-bars" style="color: #fff"></i>
+            </span>
+            <span class="title">ConfoEase </span>
+          </a>
+        </div>
+        <ul>
+          <li></li>
+          <li class="hovered">
+            <a href="/reviewer/<%=data%>">
+              <span class="icon"><i class="fa-solid fa-house"></i></span>
+              <span class="title">Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="/schedule1/<%=data%>">
+              <span class="icon"><i class="fa-regular fa-calendar"></i></span>
+              <span class="title">Schedule</span>
+            </a>
+          </li>
+          <li>
+            <a href="/logout/<%=data%>">
+              <span class="icon"
+                ><i class="fa-solid fa-right-from-bracket"></i
+              ></span>
+              <span class="title">Logout</span>
+            </a>
+          </li>
+        </ul>
+      </div>
 
-      <!-- nav bar -->
-      <nav class="navbar">
-        <a href="/">Home</a>
-        <a href="/committee/<%=data%>">Committees</a>
-        <a href="/">Speakers</a>
-        <a href="/">Contact Us</a>
-        <a href="/login1/<%=data%>">Login</a>
-
-        <div id="menu-bar" class="fas fa-bars"></div>
-      </nav>
-      <!-- Nav Bar ended -->
-    </header>
-    <!-- header Section -->
+      <!-- main content -->
+      <div class="main">
+        <!-- top navigation bar -->
+        <div class="top-bar">
+          <div class="search">
+            <label for="Search">
+              <input type="text" placeholder="Search User" />
+              <i
+                class="fa-solid fa-magnifying-glass"
+                style="color: #3867d6"
+              ></i>
+            </label>
+          </div>
+          <div class="user">
+            <img src="/image/user.jpg" alt="" />
+          </div>
+        </div>
+        <!-- top navigation bar -->
 
     <!-- Section for displaying the heading -->
     <section class="home" id="home">
       <div class="content">
-        <h3>Reviewer <span>Console</span></h3>
+        <h3>Reviewer <span>Dashboard</span></h3>
       </div>
     </section>
     <!-- Section for heading closed -->
 
-    <div class="filter-container">
-      <!-- Filter buttons -->
-      <select
-        id="filterDropdown"
-        class="filter-dropdown"
-        onchange="filterPapers(this.value)"
-      >
-        <option value="all">All Papers</option>
-        <option value="unchecked">Unchecked Papers</option>
-        <option value="checked">Checked Papers</option>
+    <div class="filter">
+      <label for="statusFilter">Filter by Status:</label>
+      <select id="statusFilter" onchange="filterTable()">
+        <option value="all">All</option>
+        <option value="Submitted">Submitted</option>
+        <option value="Under Review">Under Review</option>
+        <option value="Approved">Approved</option>
+        <option value="Rejected">Rejected</option>
       </select>
-      <!-- <button class="filter-btn" onclick="filterPapers('unchecked')">Unchecked</button>
-        <button class="filter-btn" onclick="filterPapers('checked')">Checked </button>
-        <button class="filter-btn active" onclick="filterPapers('all')">All </button> -->
     </div>
+  
+    <!-- Table with data -->
+    <table id="paperTable">
+      <thead>
+        <tr>
+          <th>Paper ID</th>
+          <th>Author Name</th>
+          <th>Paper Name</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Example data -->
+        <tr data-paper-id="P001">
+          <td>P001</td>
+          <td>John Doe</td>
+          <td>Artificial Intelligence</td>
+          <td>
+            <select>
+              <option value="Submitted">Submitted</option>
+              <option value="Under Review">Under Review</option>
+              <option value="Approved">Approved</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+          </td>
+          <td><button class="update-btn" onclick="updateStatus(this)">Update</button></td>
+        </tr>
+  
+        <tr data-paper-id="P002">
+          <td>P002</td>
+          <td>Jane Smith</td>
+          <td>Blockchain Technologies</td>
+          <td>
+            <select>
+              <option value="Submitted">Submitted</option>
+              <option value="Under Review">Under Review</option>
+              <option value="Approved">Approved</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+          </td>
+          <td><button class="update-btn" onclick="updateStatus(this)">Update</button></td>
+        </tr>
+  
+        <tr data-paper-id="P003">
+          <td>P003</td>
+          <td>Alex Johnson</td>
+          <td>Quantum Computing</td>
+          <td>
+            <select>
+              <option value="Submitted">Submitted</option>
+              <option value="Under Review">Under Review</option>
+              <option value="Approved">Approved</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+          </td>
+          <td><button class="update-btn" onclick="updateStatus(this)">Update</button></td>
+        </tr>
+      </tbody>
+    </table>
+  
+  <!-- Pagination controls -->
+  <div class="pagination">
+      <button onclick="previousPage()">Previous</button>
+      <button onclick="nextPage()">Next</button>
+  </div>
+<!-- table for paper details -->
 
-    <!-- Table for papers -->
-    <div id="table-container">
-      <table>
-        <thead>
-          <tr style="height: 80px">
-            <th style="width: 7%">Paper ID</th>
-            <th style="width: 30%">Title</th>
-            <th style="width: 20%">Subject Areas</th>
-            <th style="width: 13%">Status</th>
-            <th style="width: 40%">Review</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr data-status="checked">
-            <td>1</td>
-            <td>Emerging Technology</td>
-            <td>Data Mining</td>
-            <td>Checked</td>
-            <td>Reviews</td>
-          </tr>
-          <tr data-status="unchecked">
-            <td>2</td>
-            <td>Data Mining in Education</td>
-            <td>Data Mining</td>
-            <td>Unchecked</td>
-            <td>Reviews</td>
-          </tr>
-          <tr data-status="checked">
-            <td>3</td>
-            <td>Data analysis with the SolarSoft system</td>
-            <td>Data Analysis</td>
-            <td>Checked</td>
-            <td>Reviews</td>
-          </tr>
-          <tr data-status="unchecked">
-            <td>4</td>
-            <td>Trends in big data analytics</td>
-            <td>Data Analysis</td>
-            <td>Unchecked</td>
-            <td>Reviews</td>
-          </tr>
-        </tbody>
-      </table>
     </div>
-
-    <!-- Footer Section -->
-    <section class="footer" id="footer">
-      <div class="box-conatainer">
-        <div class="box">
-          <h3>Head Quarters</h3>
-          <a href="#"
-            ><i class="fas fa-map-marker-alt"></i>Washington DC, USA</a
-          >
-          <a href="#"><i class="fas fa-map-marker-alt"></i>Dubai, UAE</a>
-          <a href="#"><i class="fas fa-map-marker-alt"></i>Delhi, INDIA</a>
-          <a href="#"><i class="fas fa-map-marker-alt"></i>Tokiyo, Japan</a>
-          <a href="#"><i class="fas fa-map-marker-alt"></i>Beijing, China</a>
-        </div>
-        <div class="box">
-          <h3>Quick links</h3>
-          <a href="/"><i class="fas fa-arrow-right"></i>Home</a>
-          <a href="/committee/<%=data%>"><i class="fas fa-arrow-right"></i>Committees</a>
-          <a href="/"><i class="fas fa-arrow-right"></i>Key Dates</a>
-          <a href="/call-for-paper"
-            ><i class="fas fa-arrow-right"></i>Call for Papers</a
-          >
-          <a href="/"><i class="fas fa-arrow-right"></i>Contact Us</a>
-          <a href="/login1/<%=data%>"><i class="fas fa-arrow-right"></i>Login</a>
-        </div>
-        <div class="box">
-          <h3>Contact info</h3>
-          <a href="#"><i class="fas fa-phone"></i>+1-1234567890</a>
-          <a href="#"><i class="fas fa-phone"></i>+91-1234567890</a>
-          <a href="#"
-            ><i class="fas fa-envelope"></i>confoease@confo.ease.com</a
-          >
-          <a href="#"><i class="fas fa-envelope"></i>head@confoease.com</a>
-          <a href="#"
-            ><i class="fas fa-map-marker-alt"></i>Washington DC, USA, 753698</a
-          >
-        </div>
-
-        <div class="box">
-          <h3>Follow us</h3>
-          <a href="#"><i class="fab fa-facebook-f"></i>facebook</a>
-          <a href="#"><i class="fab fa-twitter"></i>twitter</a>
-          <a href="#"><i class="fab fa-instagram"></i>instagram</a>
-          <a href="#"><i class="fab fa-linkedin-in"></i>linkedin</a>
-        </div>
-      </div>
-      <div class="credit">
-        Created by <span>Group 23</span>| All Rights Reserved
-      </div>
-    </section>
-    <!-- Footer Section -->
-
     <!-- script file -->
     <script src="/js/reviewer-dashboard.js"></script>
     <!-- script file -->

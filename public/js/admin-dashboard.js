@@ -61,9 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
                   <td>${item.author || item.name}</td>
                   <td>${item.email || item.tracks}</td>
                   <td>${item.role || item.status}</td>
-                  <td><select id="reviewer">
-                  <option value="volvo">Volvo</option>
-                  </select></td>
                   <td>${deleteButton}</td>
               `;
 
@@ -126,21 +123,12 @@ document.addEventListener("DOMContentLoaded", () => {
         data = JSON.parse(card.dataset.users);
         tableHeaders = ["User ID", "Name", "Email", "Role", "Delete"];
         trackFilter.classList.add("hidden"); // Hide filter when not required
-      } else if (cardType === "paper") {
-        data = JSON.parse(card.dataset.papers);
-        tableHeaders = [
-          "Paper ID",
-          "Author Name",
-          "Tracks",
-          "Current Status",
-          "Assign Reviewer",
-          "Delete",
-        ];
-        trackFilter.classList.remove("hidden"); // Show filter when needed
       } else if (cardType === "speaker") {
         data = JSON.parse(card.dataset.speakers);
         tableHeaders = ["Serial Number", "Speaker Name"];
         trackFilter.classList.add("hidden"); // Hide filter
+      } else {
+        tableHeaders = "";
       }
 
       // Update the table header
