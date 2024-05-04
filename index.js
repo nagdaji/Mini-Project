@@ -251,7 +251,7 @@ app.get("/admin/:conf", async(req, res) => {
   if (req.isAuthenticated()) {
 
     var x = await usermodel.findOne({username : req.user.username});
-    console.log(x);
+
     var author = await usermodel.find({ conference_enrolled: x.conference_created });
     var speaker = await homemodel.findOne({eventname : x.conference_created});
     var paper = await PDF.find({ conference : x.conference_created });
@@ -335,9 +335,7 @@ app
     });
 
     await data.save();
-
-    console.log(req.user);
-
+    
     res.redirect("/create-event/" + req.params.conf);
   });
 
@@ -482,7 +480,6 @@ app
         await passport.authenticate("local", function (err, user, info) {
           if (err) console.log(err);
           if (!user) {
-            console.log("not user");
             res.render("login1.ejs", {
               data: req.params.conf,
               error: "user does not exists",
