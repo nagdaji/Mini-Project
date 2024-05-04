@@ -420,12 +420,28 @@ body{
 }
 
 
+.fc-theme-standard .fc-list-day-cushion{
+    background-color: #3867d6;
+    color: #fff;
+}
 
+
+.fc .fc-list-table td, .fc .fc-list-event-time, .fc-list-table .fc-list-event-graphic{
+    background-color: #fff;
+    color: #222;
+}
 
 #calendar {
-    padding-left: 15rem;
-    height: 500px;
-    width: 800px;
+    /* padding-left: 3rem; */
+    position: absolute;
+    margin-left: 2rem;
+    margin-bottom: 5rem;
+    padding-bottom: 2rem;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    height: 650px;
+    width: 90%;
     font-size: 1.5rem;
     color: #eee;
 }

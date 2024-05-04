@@ -61,9 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
                   <td>${item.author || item.name}</td>
                   <td>${item.email || item.tracks}</td>
                   <td>${item.role || item.status}</td>
-                  <td><select id="reviewer">
-                  <option value="volvo">Volvo</option>
-                  </select></td>
                   <td>${deleteButton}</td>
               `;
 
@@ -133,7 +130,6 @@ document.addEventListener("DOMContentLoaded", () => {
           "Author Name",
           "Tracks",
           "Current Status",
-          "Assign Reviewer",
           "Delete",
         ];
         trackFilter.classList.remove("hidden"); // Show filter when needed
