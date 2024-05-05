@@ -34,6 +34,8 @@
         });
         calendar.render();
 
+
+
         // Function to fetch data from form and update calendar events
         function updateCalendar() {
           const form = document.querySelector('#event-info');
@@ -46,12 +48,13 @@
           const [hours, minutes] = eventTime.split(':');
           const date = new Date(data.date);
           date.setHours(hours, minutes);
-          calendar.addEvent({ title: data.description, start: date});
+          calendar.addEvent({ title: data.evname, start: date});
         }
 
         // Event listener for form submission
           document.querySelector('#event-info').addEventListener('submit', (event) => {
           event.preventDefault(); // Prevent form submission
+          // displayData();
           updateCalendar(); // Update calendar events
           event.target.reset(); // Reset the form
         });
@@ -166,17 +169,17 @@
                         <input type="time" id="appt" name="event-time" placeholder="Event time" />
                       </div>
                       <div class="input-box">
-                          <label for="event-description">Description</label>
+                        <label for="event-name">Name</label>
+                        <label for="event-description">Description</label>
                       </div>
                       <div class="input-box">
+                        <input type="text" name="evname" id="event-name"   placeholder="Name" required/>
                         <input type="text" name="description" id="event-description" placeholder="Description" required/>
                       </div>
+                      
 
-                      <!-- <button
-                        class="remove-btn btn"
-                        onclick="removeSchedule(this)"
-                      >
-                        Remove Event
+                      <!-- <button class="remove-btn btn" onclick="removeSchedule(this)">
+                        Remove 
                       </button> -->
                     </div>
                   </div>
@@ -191,6 +194,7 @@
                   id="create-event-submission"
                   value="Add Event"
                   class="btn"
+                  onclick="displayData()"
                 />
               </div>
               <!-- Event Details -->
@@ -207,6 +211,20 @@
             </section>
         </div>
           <!-- form for taking user input for conference creation -->
+
+        <div id="desc-palette" class="event-creation" >
+          <div class="input-box">
+            <label for="schedule-details" class="heading">Description</label>
+          </div>
+          <div id="desc">
+            <li class="each-schedule">
+              adfg
+            </li>
+            <li>
+              dfgg
+            </li>
+          </div>
+        </div>
       </div>
 
 
