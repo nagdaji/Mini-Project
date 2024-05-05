@@ -132,17 +132,20 @@
                 <tbody>
                 <!-- Example data -->
                 <% for (let i=0; i<r.length; i++) {%>
-                <tr>
-                    <td><%= r[i]._id %></td>
-                    <td><%= r[i].name %></td>
-                    <td><%= r[i].track %></td>
-                    <% if(r[i].paperid) {%>
-                      <td><%= r[i].paperid.length %></td>
-                    <% }else { %>
-                      <td>0</td>
-                      <% } %>
-                    <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
-                </tr>
+                <form method="post" action="/delete-reveiwer/<%= data %>">
+                    <tr>
+                        <input name="rid" value="<%= r[i]._id %>" type="hidden"/>
+                        <td><%= r[i]._id %></td>
+                        <td><%= r[i].name %></td>
+                        <td><%= r[i].track %></td>
+                        <% if(r[i].paperid) {%>
+                          <td><%= r[i].paperid.length %></td>
+                        <% }else { %>
+                          <td>0</td>
+                          <% } %>
+                        <td><button class="delete-btn"  type="submit">Delete</button></td>
+                    </tr>
+              </form>
                 <% } %>
                 </tbody>
             </table>

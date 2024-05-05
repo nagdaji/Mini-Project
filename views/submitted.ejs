@@ -148,13 +148,11 @@
                     <td><%= p[i].author %></td>
                     <td><%= p[i].track %></td>
                     <td><%= p[i].status %></td>
-                    <% console.log("paper track"+p[i].track) %>
                     <td>
-                    <select>
+                    <select name="revname">
                     <% for(let j=0;j<r.length;j++) { %>
-                      <% console.log(r[j].track) %>
                       <% if(r[j].track === p[i].track) {%>  
-                        <option value="<%= r[j].name %>"><%= r[j].name %></option>
+                        <option value="<%= r[j].username %>"><%= r[j].name %></option>
                       <% } %>
                     <% } %>
                     </select>

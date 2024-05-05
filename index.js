@@ -126,6 +126,10 @@ const pdfSchema = new mongoose.Schema({
     type: String,
     default: "Not Assigned",
   },
+  reviewername: {
+    type: String,
+    default: "Not Assigned",
+  },
   conference: String,
 });
 
@@ -305,7 +309,7 @@ app
     let memimg = await processFiles(req.files.memberimages);
     let sponimg = await processFiles(req.files.sponserimage);
 
-    console.log(req.body);
+    // console.log(req.body);
 
     const data = new homemodel({
       eventname: _.upperCase(req.body.eventname).replace(/\s/g, ""),
@@ -333,7 +337,7 @@ app
       facebooklink: req.body.facebooklink,
       twitterlink: req.body.twitterlink,
       instagramlink: req.body.instagramlink,
-      
+
       tracksname: req.body.tracksname,
       nooftracks: req.body.nooftracks,
       tracksmembername: req.body.tracksmembername,
@@ -341,6 +345,10 @@ app
       tracksfacebooklink: req.body.tracksfacebooklink,
       trackstwitterlink: req.body.trackstwitterlink,
       trackslinkedinlink: req.body.trackslinkedinlink,
+
+      trackname : req.body.trackname,
+      nooftrack : req.body.nooftrack,
+      trackmembername : req.body.subtrackname,
 
       advcommname : req.body.advisoryname,
       noofadvmembers : req.body.noofadvisory,
@@ -370,7 +378,7 @@ app
       twitterconnect: req.body.twitterconnect,
     });
 
-    // await data.save();
+    await data.save();
     
     res.redirect("/create-event/" + req.params.conf);
   });
@@ -636,12 +644,34 @@ app.route("/update-status/:conf")
 
 app.route("/update-reveiwer/:conf")
 .post(async(req,res)=>{
-  // await usermodel.findOneAndUpdate({username : req.body.author} , {paperstatus : req.body.status});
-  await PDF.findOneAndUpdate({_id : req.body.status}, {status : "Assigned"});
+  console.log(req.body);
+  var paperdetails = await PDF.findById({_id : req.body.status});
+  var revemail = paperdetails.reviewername;
+
+  await usermodel.findOneAndUpdate({ username: revemail },{ $pull: { paperid: req.body.status } });
+
+  await PDF.findOneAndUpdate({_id : req.body.status}, {status : "Assigned" , reviewername : req.body.revname});
+
+  await usermodel.findOneAndUpdate({ username: req.body.revname },{ $push: { paperid: req.body.status } });
+
   res.redirect("/submitted/"+req.params.conf);
 });
 
-
+app.route("/delete-reveiwer/:conf")
+.post(async(req,res)=>{
+  if(req.isAuthenticated())
+  {
+    var p = await usermodel.findById({_id : req.body.rid});
+    for(let i=0;i<p.paperid.length;i++)
+    { 
+      await PDF.findOneAndUpdate({_id : p.paperid[i]}, {reviewer : "Not Assigned"});
+    }
+    await usermodel.findByIdAndUpdate({_id : req.body.rid} , {paperid : []});
+    res.redirect("/manage-reviewer/"+req.params.conf);
+  }
+  else
+    res.redirect("/login1/"+req.params.conf);
+});
 //////////////////////////////////////////////////////////////////
 
 app.listen(8000, () => {

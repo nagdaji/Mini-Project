@@ -168,7 +168,24 @@
       
     </div>
     <!-- key Date Section  -->
-    
+  
+    <!-- displaying tracks  -->
+    <table>
+      <% for(var i=0;i<data.trackname.length;i++) { %> 
+        <tr>
+          <td>
+          <b><h4><%= data.trackname[i] %></h4></b>
+          </td>
+            <% for(var j=0;j<data.nooftrack[i];j++) { %> 
+              <td>
+                <h4><span><%= data.trackmembername[j]%></span></h4>
+              </td>
+            <%}%>
+        </tr>
+      <%}%>
+      </table>
+      <!--  end  -->
+
 
     <!-- Speakers Section -->
     <section class="speakers" id="speakers">
