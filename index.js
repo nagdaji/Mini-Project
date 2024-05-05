@@ -25,6 +25,7 @@ const passport = require("passport");
 const passportlocalmongoose = require("passport-local-mongoose");
 const { stringify } = require("querystring");
 const { resolveObjectURL } = require("buffer");
+const { type } = require("os");
 
 const csspath = path.join(__dirname, "/public/css");
 const jspath = path.join(__dirname, "/public/js");
@@ -91,11 +92,16 @@ const userschema = new mongoose.Schema({
     type: String,
     default: null,
   },
+  track : String,
   paperid: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: [mongoose.Schema.Types.ObjectId],
     ref: "PDF",
     default: null,
   },
+  paperstatus: {
+    type: String,
+    default : "Pending"
+  }
 });
 
 userschema.plugin(passportlocalmongoose);
@@ -268,8 +274,21 @@ app.get("/admin-schedule/:conf", (req, res) => {
   res.render("admin-schedule.ejs", { data: req.params.conf });
 });
 
-app.get("/reviewer/:conf", (req, res) => {
-  res.render("reviewer-dashboard.ejs", { data: req.params.conf });
+app.get("/reviewer/:conf", async (req, res) => {
+  if (req.isAuthenticated()) {
+    var papers = req.user.paperid;
+    var paperdetails = [];
+    if(papers)
+    {
+      for(let i=0;i<papers.length;i++)
+      {
+        var a = await PDF.findOne({_id : papers[i]});
+        paperdetails.push(a);
+      } 
+    }
+    res.render("reviewer-dashboard.ejs", { data: req.params.conf , p : paperdetails});
+
+  } else res.redirect("/login1/" + req.params.conf);
 });
 
 ////////////////////////////////////////
@@ -518,15 +537,25 @@ app.get("/edit-event/:conf", (req, res) => {
   } else res.redirect("/login1/" + req.params.conf);
 });
 
-app.get("/submitted/:conf", (req, res) => {
+app.get("/submitted/:conf", async (req, res) => {
   if (req.isAuthenticated()) {
-    res.render("submitted.ejs", { data: req.params.conf });
+  
+    var x = await usermodel.findOne({username : req.user.username});
+  
+    var reviewer = await usermodel.find({ conference_enrolled: x.conference_created , role : "reviewer" });
+    var paper = await PDF.find({ conference : x.conference_created });
+
+    res.render("submitted.ejs", { data: req.params.conf , r : reviewer , p : paper});
+
   } else res.redirect("/login1/" + req.params.conf);
 });
 
-app.get("/manage-reviewer/:conf", (req, res) => {
+app.get("/manage-reviewer/:conf", async (req, res) => {
   if (req.isAuthenticated()) {
-    res.render("reviewer.ejs", { data: req.params.conf });
+    var reviewer = await usermodel.find({ conference_enrolled: req.user.conference_created , role : "reviewer" });
+
+    res.render("reviewer.ejs", { data: req.params.conf , r : reviewer});
+
   } else res.redirect("/login1/" + req.params.conf);
 });
 
@@ -560,6 +589,7 @@ app.route("/check-status/:conf").get((req, res) => {
                 data: req.params.conf,
                 pdfname: r.name,
                 pdfid: r._id,
+                status : req.user.paperstatus
               });
             }
           });
@@ -568,12 +598,35 @@ app.route("/check-status/:conf").get((req, res) => {
             data: req.params.conf,
             pdfname: "",
             pdfid: null,
+            status : req.user.paperstatus
           });
         }
       }
     });
   } else res.redirect("/login1/" + req.params.conf);
 });
+
+//////////////////////////////////////////////////////////////////
+// update codes
+app.route("/update-status/:conf")
+.post(async(req,res)=>{
+  console.log(req.body);
+  await usermodel.findOneAndUpdate({username : req.body.author} , {paperstatus : req.body.status});
+  res.redirect("/reviewer/"+req.params.conf);
+});
+
+
+app.route("/update-reveiwer/:conf")
+.post(async(req,res)=>{
+  console.log(req.body);
+
+  // await usermodel.findOneAndUpdate({username : req.body.author} , {paperstatus : req.body.status});
+  await PDF.findOneAndUpdate({_id : req.body.status}, {status : "Assigned"});
+  res.redirect("/submitted/"+req.params.conf);
+});
+
+
+//////////////////////////////////////////////////////////////////
 
 app.listen(8000, () => {
   console.log("Server running on port 8000!!");
