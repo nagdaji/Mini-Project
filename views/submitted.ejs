@@ -116,8 +116,13 @@
                 <label for="tracksFilter">Tracks:</label>
                 <select id="tracksFilter" onchange="filterTable()">
                 <option value="all">All</option>
-                <option value="AI, Machine Learning">AI, Machine Learning</option>
-                <option value="Blockchain">Blockchain</option>
+                <% var uniqueNames = []%>
+                <% for(let j=0;j<r.length;j++) { %>
+                  <%  uniqueNames = [...new Set(r.map(obj => obj.track))]; %>
+                <% } %>
+                <% for(let j=0;j<uniqueNames.length;j++) { %>
+                  <option value="<%= uniqueNames[j] %>"><%= uniqueNames[j] %></option>
+                <% } %>
                 </select>
             </div>
 
@@ -126,7 +131,7 @@
                 <thead>
                 <tr>
                     <th>Paper ID</th>
-                    <th>Author Name</th>
+                    <th>Author Email</th>
                     <th>Tracks</th>
                     <th>Status</th>
                     <th>Reviewer</th>
@@ -134,51 +139,31 @@
                 </tr>
                 </thead>
                 <tbody>
-                <!-- Example data -->
-                <tr>
-                    <td>P001</td>
-                    <td>John Doe</td>
-                    <td>AI, Machine Learning</td>
-                    <td>Assigned</td>
+                  <!-- Example data -->
+                  <% for(let i=0;i<p.length;i++) { %>
+                  <form action="/update-reveiwer/<%=data%>" method="post">
+                    <tr>
+                    <input name="status" value="<%= p[i]._id %>" type="hidden"/> 
+                    <td><%= p[i]._id %></td>
+                    <td><%= p[i].author %></td>
+                    <td><%= p[i].track %></td>
+                    <td><%= p[i].status %></td>
+                    <% console.log("paper track"+p[i].track) %>
                     <td>
                     <select>
-                        <option>Reviewer 1</option>
-                        <option>Reviewer 2</option>
-                        <option>Reviewer 3</option>
+                    <% for(let j=0;j<r.length;j++) { %>
+                      <% console.log(r[j].track) %>
+                      <% if(r[j].track === p[i].track) {%>  
+                        <option value="<%= r[j].name %>"><%= r[j].name %></option>
+                      <% } %>
+                    <% } %>
                     </select>
-                    </td>
-                    <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
-                </tr>
-
-                <tr>
-                    <td>P002</td>
-                    <td>Jane Smith</td>
-                    <td>Blockchain</td>
-                    <td>Assigned</td>
-                    <td>
-                    <select>
-                        <option>Reviewer 1</option>
-                        <option>Reviewer 2</option>
-                        <option>Reviewer 3</option>
-                    </select>
-                    </td>
-                    <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
-                </tr>
-
-                <tr>
-                    <td>P003</td>
-                    <td>Alex Johnson</td>
-                    <td>AI, Machine Learning</td>
-                    <td>Not Assigned</td>
-                    <td>
-                    <select>
-                        <option>Reviewer 1</option>
-                        <option>Reviewer 2</option>
-                        <option>Reviewer 3</option>
-                    </select>
-                    </td>
-                    <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
-                </tr>
+                  </td>
+                    <td><button class="update-btn" type="submit">Update</button></td>
+                  </tr>
+                  </form>
+                <% } %>
+                
                 </tbody>
             </table>
 

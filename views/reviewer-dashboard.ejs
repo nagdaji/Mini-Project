@@ -108,7 +108,24 @@
       </thead>
       <tbody>
         <!-- Example data -->
-        <tr data-paper-id="P001">
+        <% for(let i=0;i<p.length;i++){ %>
+          <tr>
+            <form method="post" action="/update-status/<%=data%>">
+            <td><%= p[i]._id %></td>
+            <input type="hidden" name="author" value="<%= p[i].author %>"></input>
+            <td><%= p[i].author %></td>
+            <td><%= p[i].name %></td>
+              <td>
+                <select name="status">
+                  <option value="Approved">Approved</option>
+                  <option value="Rejected">Rejected</option>
+                </select>
+              </td>
+              <td><button class="update-btn" type="submit">Update</button></td>
+            </form>
+          </tr>
+        <% } %>
+        <!-- <tr data-paper-id="P001">
           <td>P001</td>
           <td>John Doe</td>
           <td>Artificial Intelligence</td>
@@ -151,7 +168,7 @@
             </select>
           </td>
           <td><button class="update-btn" onclick="updateStatus(this)">Update</button></td>
-        </tr>
+        </tr> -->
       </tbody>
     </table>
   

@@ -101,25 +101,22 @@
           </div>
         </div>
         <!-- top navigation bar -->
-
+        <!-- filter button -->
+        <div class="filter">
+          <label for="tracksFilter">Tracks:</label>
+          <select id="tracksFilter" onchange="filterTable()">
+          <option value="all">All</option>
+          <% var uniqueNames = []%>
+          <% for(let j=0;j<r.length;j++) { %>
+            <%  uniqueNames = [...new Set(r.map(obj => obj.track))]; %>
+            <% } %>
+            <% for(let j=0;j<uniqueNames.length;j++) { %>
+              <option value="<%= uniqueNames[j] %>"><%= uniqueNames[j] %></option>
+              <% } %>
+          </select>
+        </div>
+            <!-- filter button -->
         <!-- table for paper details -->
-        <!-- Filter section -->
-            <div class="filter">
-                <!-- <label for="statusFilter">Status:</label>
-                <select id="statusFilter" onchange="filterTable()">
-                <option value="all">All</option>
-                <option value="Not Assigned">Not Assigned</option>
-                <option value="Assigned">Assigned</option>
-                <option value="Checked">Checked</option>
-                </select> -->
-
-                <label for="tracksFilter">Tracks:</label>
-                <select id="tracksFilter" onchange="filterTable()">
-                <option value="all">All</option>
-                <option value="AI, Machine Learning">AI, Machine Learning</option>
-                <option value="Blockchain">Blockchain</option>
-                </select>
-            </div>
 
             <!-- Table with data -->
             <table id="paperTable">
@@ -134,29 +131,19 @@
                 </thead>
                 <tbody>
                 <!-- Example data -->
+                <% for (let i=0; i<r.length; i++) {%>
                 <tr>
-                    <td>P001</td>
-                    <td>John Doe</td>
-                    <td>AI, Machine Learning</td>
-                    <td>15</td>
+                    <td><%= r[i]._id %></td>
+                    <td><%= r[i].name %></td>
+                    <td><%= r[i].track %></td>
+                    <% if(r[i].paperid) {%>
+                      <td><%= r[i].paperid.length %></td>
+                    <% }else { %>
+                      <td>0</td>
+                      <% } %>
                     <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
                 </tr>
-
-                <tr>
-                    <td>P002</td>
-                    <td>Jane Smith</td>
-                    <td>Blockchain</td>
-                    <td>20</td>
-                    <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
-                </tr>
-
-                <tr>
-                    <td>P003</td>
-                    <td>Alex Johnson</td>
-                    <td>AI, Machine Learning</td>
-                    <td>48</td>
-                    <td><button class="delete-btn" onclick="deleteRow(this)">Delete</button></td>
-                </tr>
+                <% } %>
                 </tbody>
             </table>
 
