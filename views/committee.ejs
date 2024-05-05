@@ -80,21 +80,21 @@
         <h3>Advisory <span>Committees</span></h3>
       </div>
       <% var k = 0 %>
-      <% for(var i=0;i<data.committeename.length;i++) { %> 
+      <% for(var i=0;i<data.advcommname.length;i++) { %> 
         <div class="committees">
-          <h4><%= data.committeename[i] %></h4>
+          <h4><%= data.advcommname[i] %></h4>
           <div class="committee">
 
-            <% for(var j=k;j<data.numberofmembers[i]+k;j++) { %> 
+            <% for(var j=k;j<data.noofadvmembers[i]+k;j++) { %> 
   
               <div class="person">
-                <img src="<%= data.memberimages[j]%>" />
-                <h4><span><%= data.membername[j]%></span></h4>
+                <img src="<%= data.advmemberimages[j]%>" />
+                <h4><span><%= data.advmembername[j]%></span></h4>
               </div>
     
             <%}%>
             <br>
-            <% k += data.numberofmembers[i]%>
+            <% k += data.noofadvmembers[i]%>
           </div>
         </div>
       <%}%>
@@ -105,21 +105,21 @@
         <h3>Track <span>Chairs</span></h3>
       </div>
       <% var k = 0 %>
-      <% for(var i=0;i<data.committeename.length;i++) { %> 
+      <% for(var i=0;i<data.tracksname.length;i++) { %> 
         <div class="committees">
-          <h4><%= data.committeename[i] %></h4>
+          <h4><%= data.tracksname[i] %></h4>
           <div class="committee">
 
-            <% for(var j=k;j<data.numberofmembers[i]+k;j++) { %> 
+            <% for(var j=k;j<data.nooftracks[i]+k;j++) { %> 
   
               <div class="person">
-                <img src="<%= data.memberimages[j]%>" />
-                <h4><span><%= data.membername[j]%></span></h4>
+                <img src="<%= data.tracksmemberimages[j]%>" />
+                <h4><span><%= data.tracksmembername[j]%></span></h4>
               </div>
     
             <%}%>
             <br>
-            <% k += data.numberofmembers[i]%>
+            <% k += data.nooftracks[i]%>
           </div>
         </div>
       <%}%>
@@ -130,21 +130,21 @@
         <h3>Technical <span>Committees</span></h3>
       </div>
       <% var k = 0 %>
-      <% for(var i=0;i<data.committeename.length;i++) { %> 
+      <% for(var i=0;i<data.techcommname.length;i++) { %> 
         <div class="committees">
-          <h4><%= data.committeename[i] %></h4>
+          <h4><%= data.techcommname[i] %></h4>
           <div class="committee">
 
-            <% for(var j=k;j<data.numberofmembers[i]+k;j++) { %> 
+            <% for(var j=k;j<data.nooftechmembers[i]+k;j++) { %> 
   
               <div class="person">
-                <img src="<%= data.memberimages[j]%>" />
-                <h4><span><%= data.membername[j]%></span></h4>
+                <img src="<%= data.techmemberimages[j]%>" />
+                <h4><span><%= data.techmembername[j]%></span></h4>
               </div>
     
             <%}%>
             <br>
-            <% k += data.numberofmembers[i]%>
+            <% k += data.nooftechmembers[i]%>
           </div>
         </div>
       <%}%>

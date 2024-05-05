@@ -261,11 +261,6 @@ app.get("/admin/:conf", async (req, res) => {
     var speaker = await homemodel.findOne({eventname : x.conference_created});
     var paper = await PDF.find({ conference : x.conference_created });
 
-    
-    // console.log("author : ",author);
-    // console.log("speaker : ",speaker.speakername);
-    // console.log("paper : ",paper);
-
     res.render("admin-dashboard.ejs", { data: req.params.conf });
   } else res.redirect("/login1/" + req.params.conf);
 });
@@ -295,8 +290,12 @@ app.get("/reviewer/:conf", async (req, res) => {
 app
   .route("/create-event/:conf")
   .get((req, res) => {
-    res.render("create-event.ejs", { data: req.params.conf });
-    // res.render("create-event");
+    if(req.isAuthenticated())
+    {
+      res.render("create-event.ejs", { data: req.params.conf });
+    }
+    else
+      res.render("login1.ejs", { data: req.params.conf , error : "" });
   })
   .post(multipleUpload, async (req, res) => {
     // to access each object in an array
@@ -305,6 +304,8 @@ app
     let speakerimg = await processFiles(req.files.speakerimages);
     let memimg = await processFiles(req.files.memberimages);
     let sponimg = await processFiles(req.files.sponserimage);
+
+    console.log(req.body);
 
     const data = new homemodel({
       eventname: _.upperCase(req.body.eventname).replace(/\s/g, ""),
@@ -332,6 +333,7 @@ app
       facebooklink: req.body.facebooklink,
       twitterlink: req.body.twitterlink,
       instagramlink: req.body.instagramlink,
+      
       tracksname: req.body.tracksname,
       nooftracks: req.body.nooftracks,
       tracksmembername: req.body.tracksmembername,
@@ -339,6 +341,23 @@ app
       tracksfacebooklink: req.body.tracksfacebooklink,
       trackstwitterlink: req.body.trackstwitterlink,
       trackslinkedinlink: req.body.trackslinkedinlink,
+
+      advcommname : req.body.advisoryname,
+      noofadvmembers : req.body.noofadvisory,
+      advmembername :req.body.advisorymembername,
+      advmemberimages : req.body.advisorymemberimages,
+      advfacebooklink : req.body.advisoryfacebooklink,
+      advtwitterlink : req.body.advisorytwitterlink,
+      advlinkedinlink : req.body.advisorylinkedinlink,
+
+      techcommname : req.body.technicalname,
+      nooftechmembers : req.body.nooftechnical,
+      techmembername :req.body.technicalmembername,
+      techmemberimages : req.body.technicalmemberimages,
+      techfacebooklink : req.body.technicalfacebooklink,
+      techtwitterlink : req.body.technicaltwitterlink,
+      techlinkedinlink : req.body.technicallinkedinlink,
+
       sponsorname: req.body.sponsorname,
       sponsorimage: sponimg,
       headquartername: req.body.headquartername,
@@ -351,7 +370,7 @@ app
       twitterconnect: req.body.twitterconnect,
     });
 
-    await data.save();
+    // await data.save();
     
     res.redirect("/create-event/" + req.params.conf);
   });
@@ -610,7 +629,6 @@ app.route("/check-status/:conf").get((req, res) => {
 // update codes
 app.route("/update-status/:conf")
 .post(async(req,res)=>{
-  console.log(req.body);
   await usermodel.findOneAndUpdate({username : req.body.author} , {paperstatus : req.body.status});
   res.redirect("/reviewer/"+req.params.conf);
 });
@@ -618,8 +636,6 @@ app.route("/update-status/:conf")
 
 app.route("/update-reveiwer/:conf")
 .post(async(req,res)=>{
-  console.log(req.body);
-
   // await usermodel.findOneAndUpdate({username : req.body.author} , {paperstatus : req.body.status});
   await PDF.findOneAndUpdate({_id : req.body.status}, {status : "Assigned"});
   res.redirect("/submitted/"+req.params.conf);
