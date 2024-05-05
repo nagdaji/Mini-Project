@@ -380,6 +380,57 @@ function addTracksFields(ele) {
     siblings.appendChild(newField);
   }
 }
+//adding a new committee with zero memeber
+function addTrack() {
+  var formContainer = document.getElementById("track-list");
+  var newField = document.createElement("div");
+  newField.className = "each-track";
+  newField.innerHTML = `<div class="input-box">
+  <label for="track-name">Track Name:</label>
+  <label for="track-member">Number of Members:</label>
+</div>
+<div class="input-box">
+  <input name="trackname" type="text" placeholder="Track Name" />
+  
+  <input name="nooftrack" type="number"  min="1" value="1" placeholder="Number of Members" onkeydown="addTrackFields(this)"
+  onkeyup="addTrackFields(this)"/>
+</div>
+<div class="track-member-list" id="track-member-list">
+  
+</div>
+<button
+  class="remove-btn btn"
+  onclick="removeTrack(this)"
+>
+  Remove Track
+</button>`;
+  formContainer.appendChild(newField);
+}
+
+//deleting the existing committee
+function removeTrack(btn) {
+  var formContainer = document.getElementById("track-list");
+  formContainer.removeChild(btn.parentNode);
+}
+
+//function for appending committee members according to the user needs
+//adding or appending the new members all at one time according to the user needs
+function addTrackFields(ele) {
+  var siblings = ele.parentNode.parentNode.childNodes[4];
+  // console.log(siblings);
+  siblings.innerHTML = `  `;
+  for (let i = 0; i < ele.value; i++) {
+    var newField = document.createElement("div");
+    newField.className = "each-track-member";
+    newField.innerHTML = `<div class="input-box">
+    <label for="user-name">Sub Track Name:</label>
+  </div>
+  <div class="input-box">
+    <input name = "subtrackname" type="text" placeholder="Sub Tracks" />
+  </div>`;
+    siblings.appendChild(newField);
+  }
+}
 
 //adding the new sponser to the list
 function addSponser() {
