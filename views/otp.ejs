@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ConfoEase</title>
+    <title><%=data.eventname%></title>
     <link rel="stylesheet" href="/css/otp.css" />
     <!-- swiper css -->
     <link
@@ -23,14 +23,14 @@
   <body>
     <!-- header Section -->
     <header class="header">
-      <a href="#" class="logo"><span><%=data.eventname%></span></a>
+      <a href="/conference/<%= data %>" class="logo"><span><%=data.eventname%></span></a>
 
       <!-- nav bar -->
       <nav class="navbar">
-        <a href="/">Home</a>
-        <a href="/committee">Committees</a>
-        <a href="/signup1/<%= data.eventname %>">Register</a>
-        <a href="/login1/<%= data.eventname %>">Login</a>
+        <a href="/conference/<%= data %>">Home</a>
+        <a href="/committee/<%= data %>">Committees</a>
+        <a href="/otp/<%= data %>">Register</a>
+        <a href="/login1/<%= data %>">Login</a>
 
         <div id="menu-bar" class="fas fa-bars"></div>
       </nav>

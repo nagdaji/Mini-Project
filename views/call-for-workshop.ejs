@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ConfoEase</title>
+    <title><%=data.eventname%></title>
     <link rel="stylesheet" href="/css/call-for-workshop.css" />
 
     <!-- font awesome link -->
@@ -16,7 +16,7 @@
   <body>
     <!-- header Section -->
     <header class="header">
-      <a href="#" class="logo"><span>C</span>onfoEase</a>
+      <a href="/conference/<%= data.eventname %>" class="logo"><span>C</span>onfoEase</a>
 
       <!-- nav bar -->
       <nav class="navbar">
@@ -24,7 +24,7 @@
         <a href="/committee/<%= data.eventname %>">Committees</a>
         <a href="/call-for-paper/<%= data.eventname %>">Call For Papers</a>
         <a href="/call-for-workshop/<%= data.eventname %>">Workshop Proposals</a>
-        <a href="/signup1/<%= data.eventname %>">Register</a>
+        <a href="/otp/<%= data.eventname %>">Register</a>
         <a href="/login1/<%= data.eventname %>">Login</a>
 
         <div id="menu-bar" class="fas fa-bars"></div>
@@ -50,68 +50,6 @@
         <h3>Preparing Your <span>Workshop Proposal</span></h3>
         <p><%= data.workshopproposal%></p>
       </div>
-      <!-- <div class="keydates">
-        <h3>Key <span>Dates</span></h3>
-        <p>
-          April 10, 2024: Workshop proposals deadline May 15, <br />2024:
-          Workshop proposals notification September 10, <br />2024: Workshop
-          papers submission October 7, <br />2024: Notification of workshop
-          papers acceptance to authors October 11,<br />
-          2024: Camera-ready deadline and copyright form December 9,<br />
-          2024: Workshops date
-        </p>
-      </div> -->
     </div>
 
-    <!-- Footer Section -->
-    <section class="footer" id="footer">
-      <div class="box-conatainer">
-        <div class="box">
-          <h3>Head Quarters</h3>
-          <a href="#"
-            ><i class="fas fa-map-marker-alt"></i>Washington DC, USA</a
-          >
-          <a href="#"><i class="fas fa-map-marker-alt"></i>Dubai, UAE</a>
-          <a href="#"><i class="fas fa-map-marker-alt"></i>Delhi, INDIA</a>
-          <a href="#"><i class="fas fa-map-marker-alt"></i>Tokiyo, Japan</a>
-          <a href="#"><i class="fas fa-map-marker-alt"></i>Beijing, China</a>
-        </div>
-        <div class="box">
-          <h3>Quick links</h3>
-          <a href="/conference/<%= data.eventname %>"><i class="fas fa-arrow-right"></i>Home</a>
-          <a href="/committee/<%= data.eventname %>"><i class="fas fa-arrow-right"></i>Committees</a>
-          <a href="/"><i class="fas fa-arrow-right"></i>Key Dates</a>
-          <a href="/call-for-paper/<%= data.eventname %>"
-            ><i class="fas fa-arrow-right"></i>Call for Papers</a
-          >
-          <a href="/conference/<%= data.eventname %>"><i class="fas fa-arrow-right"></i>Contact Us</a>
-          <a href="/login/<%= data.eventname %>"><i class="fas fa-arrow-right"></i>Login</a>
-        </div>
-        <div class="box">
-          <h3>Contact info</h3>
-          <a href="#"><i class="fas fa-phone"></i>+1-1234567890</a>
-          <a href="#"><i class="fas fa-phone"></i>+91-1234567890</a>
-          <a href="#"
-            ><i class="fas fa-envelope"></i>confoease@confo.ease.com</a
-          >
-          <a href="#"><i class="fas fa-envelope"></i>head@confoease.com</a>
-          <a href="#"
-            ><i class="fas fa-map-marker-alt"></i>Washington DC, USA, 753698</a
-          >
-        </div>
-
-        <div class="box">
-          <h3>Follow us</h3>
-          <a href="#"><i class="fab fa-facebook-f"></i>facebook</a>
-          <a href="#"><i class="fab fa-twitter"></i>twitter</a>
-          <a href="#"><i class="fab fa-instagram"></i>instagram</a>
-          <a href="#"><i class="fab fa-linkedin-in"></i>linkedin</a>
-        </div>
-      </div>
-      <div class="credit">
-        Created by <span>Group 23</span>| All Rights Reserved
-      </div>
-    </section>
-    <!-- Footer Section -->
-  </body>
-</html>
+    <%- include("partials/footer.ejs"); -%>
