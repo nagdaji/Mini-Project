@@ -144,17 +144,15 @@
                   <form action="/update-reveiwer/<%=data%>" method="post">
                     <tr>
                     <input name="status" value="<%= p[i]._id %>" type="hidden"/> 
-                    <td><%= p[i]._id %></td>
+                    <td><a href="/uploads/<%= p[i].name %>" target="_blank"><%= p[i]._id %></a></td>
                     <td><%= p[i].author %></td>
                     <td><%= p[i].track %></td>
-                    <td><%= p[i].status %></td>
-                    <% console.log("paper track"+p[i].track) %>
+                    <td><%= p[i].reviewer %></td>
                     <td>
-                    <select>
+                    <select name="revname">
                     <% for(let j=0;j<r.length;j++) { %>
-                      <% console.log(r[j].track) %>
                       <% if(r[j].track === p[i].track) {%>  
-                        <option value="<%= r[j].name %>"><%= r[j].name %></option>
+                        <option value="<%= r[j].username %>"><%= r[j].name %></option>
                       <% } %>
                     <% } %>
                     </select>

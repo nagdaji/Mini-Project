@@ -27,6 +27,7 @@ const homeschema = new Schema({
     facebooklink : [String],
     twitterlink : [String],
     instagramlink : [String],
+
     tracksname : [String],
     nooftracks : [Number],
     tracksmembername :[String],
@@ -34,6 +35,27 @@ const homeschema = new Schema({
     tracksfacebooklink : [String],
     trackstwitterlink : [String],
     trackslinkedinlink : [String],
+
+    trackname : [String],
+    nooftrack : [Number],
+    trackmembername :[String],
+
+    advcommname : [String],
+    noofadvmembers : [Number],
+    advmembername :[String],
+    advmemberimages : [String],
+    advfacebooklink : [String],
+    advtwitterlink : [String],
+    advlinkedinlink : [String],
+
+    techcommname : [String],
+    nooftechmembers : [Number],
+    techmembername :[String],
+    techmemberimages : [String],
+    techfacebooklink : [String],
+    techtwitterlink : [String],
+    techlinkedinlink : [String],
+
     sponsorname : [String],
     sponsorimage : [String],
     headquartername : [String],

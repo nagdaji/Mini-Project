@@ -108,13 +108,13 @@
             <div class="box">
                 <div class="fa-solid fa-envelope-open-text" style="color: #3867d6;"></div>
                 <!-- <div class="fas fa-date"></div> -->
-                <a href="/call-for-paper"><h3>Call for <span>Papers</span></h3></a>
+                <a href="/call-for-paper/<%= data.eventname %>"><h3>Call for <span>Papers</span></h3></a>
                 <p>Please find the submission guidelines and topic overview for the conference</p>
             </div>
             <div class="box">
                 <div class="fa-solid fa-person-chalkboard" style="color: #3867d6;"></div>
                 <!-- <div class="fas fa-letter"></div> -->
-                <a href="/call-for-workshop"><h3>Call for <span>Workshop</span></h3></a>
+                <a href="/call-for-workshop/<%= data.eventname %>"><h3>Call for <span>Workshop</span></h3></a>
                 <p>We warmly invite proposals for workshops on current and emerging topics in data mining</p>
             </div>
             <div class="box">
@@ -132,7 +132,7 @@
             <div class="box">
                 <div class="fa-solid fa-people-group" style="color: #3867d6;"></div>
                 <!-- <div class="fas fa-venue"></div> -->
-                <a href="/committee"><h3>Organization <span>Committees</span></h3></a>
+                <a href="/committee/<%= data.eventname %>"><h3>Organization <span>Committees</span></h3></a>
                 <p>Meet the experts behind the event</p>
             </div>
         </div>
@@ -168,7 +168,24 @@
       
     </div>
     <!-- key Date Section  -->
-    
+  
+    <!-- displaying tracks  -->
+    <table>
+      <% for(var i=0;i<data.trackname.length;i++) { %> 
+        <tr>
+          <td>
+          <b><h4><%= data.trackname[i] %></h4></b>
+          </td>
+            <% for(var j=0;j<data.nooftrack[i];j++) { %> 
+              <td>
+                <h4><span><%= data.trackmembername[j]%></span></h4>
+              </td>
+            <%}%>
+        </tr>
+      <%}%>
+      </table>
+      <!--  end  -->
+
 
     <!-- Speakers Section -->
     <section class="speakers" id="speakers">
@@ -269,12 +286,12 @@
             </div>
             <div class="box">
                 <h3>Quick links</h3>
-                <a href="/"><i class="fas fa-arrow-right"></i>Home</a>
-                <a href="/committee"><i class="fas fa-arrow-right"></i>Committees</a>
+                <a href="/conference/<%= data.eventname %>"><i class="fas fa-arrow-right"></i>Home</a>
+                <a href="/committee/<%= data.eventname %>"><i class="fas fa-arrow-right"></i>Committees</a>
                 <a href="#keydates"><i class="fas fa-arrow-right"></i>Key Dates</a>
-                <a href="/call-for-paper"><i class="fas fa-arrow-right"></i>Call for Papers</a>
+                <a href="/call-for-paper/<%= data.eventname %>"><i class="fas fa-arrow-right"></i>Call for Papers</a>
                 <a href="#contact-us"><i class="fas fa-arrow-right"></i>Contact Us</a>
-                <a href="/login1"><i class="fas fa-arrow-right"></i>Login</a>
+                <a href="/login1/<%= data.eventname %>"><i class="fas fa-arrow-right"></i>Login</a>
             </div>
             <div class="box">
                 <h3>Contact info</h3>
