@@ -25,5 +25,15 @@ toggle.onclick = function () {
 };
 
 
-
 //calendar
+function displayData() {
+  const form = document.getElementById('event-info');
+  const evename = form.elements['evname'].value;
+  const des = form.elements['description'].value;
+  const dt = form.elements['date'].value;
+  const time = form.elements['event-time'].value;
+  const dataList = document.getElementById('desc');
+  const listItem = document.createElement('li');
+  listItem.textContent = `Event: ${name}, Date & Time: ${dt}:${time}, Description: ${email}`;
+  dataList.appendChild(listItem);
+}

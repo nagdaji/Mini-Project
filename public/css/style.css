@@ -310,6 +310,49 @@ body{
 }
 
 
+.tracks h2{
+    margin-top: 1.5rem;
+    text-align: center;
+    color: #fff;
+    font-size: 4rem;
+    /* background-color: bisque; */
+    text-transform: uppercase;
+}
+
+.tracks span{
+    color: #3867d6;
+    text-transform: uppercase;
+}
+
+table {
+    width: 97%;
+    border-collapse: collapse;
+    margin-left: 2rem;
+    font-size: 1.5rem;
+    border-radius: 5px;
+  }
+
+  /* Style the table header */
+  th {
+    background-color: #3867d6;
+    color: #fff;
+    padding: 10px;
+    text-align: left;
+  }
+
+  /* Style the table rows */
+  tr {
+    background-color: #333;
+    color: #fff;
+    border-radius: 5px;
+  }
+
+  /* Style the table data cells */
+  td {
+    padding: 10px;
+  }
+
+
 .speakers{
     text-align: center;
     color: #fff;
