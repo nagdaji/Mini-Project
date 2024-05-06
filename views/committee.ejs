@@ -27,10 +27,10 @@
       <!-- nav bar -->
       <nav class="navbar">
         <a href="/">Home</a>
-        <a href="/committee/<%= data.eventname %>">Committees</a>
-        <a href="/tracks/<%= data.eventname %>">Tracks</a>
-        <a href="/">Speakers</a>
-        <a href="/">Contact Us</a>
+        <a href="#organization">Organization Committees</a>
+        <a href="#advisory">Advisory Committees</a>
+        <a href="#tracks">Track Chairs</a>
+        <a href="#technical">Technical Committees</a>
         <a href="/signup1/<%= data.eventname %>">Register</a>
         <a href="/login1/<%= data.eventname %>">Login</a>
 
@@ -43,18 +43,21 @@
     <!-- Section for displaying the heading -->
     <section class="home" id="home">
       <div class="content">
-        <h3>Organizing <span>Committee</span></h3>
+        <h3>Committee <span>Details</span></h3>
       </div>
     </section>
     <!-- Section for heading closed -->
 
-    <!-- organisation committee -->
+    <!-- committees -->
     <div class="container">
-      <!-- honary Committee -->
+      <!-- Organization Committee -->
+      <div class="content" id="organization">
+        <h3>Organization <span>Committees</span></h3>
+      </div>
       <% var k = 0 %>
       <% for(var i=0;i<data.committeename.length;i++) { %> 
         <div class="committees">
-          <h4><span><%= data.committeename[i] %></span></h4>
+          <h4><%= data.committeename[i] %></h4>
           <div class="committee">
 
             <% for(var j=k;j<data.numberofmembers[i]+k;j++) { %> 
@@ -70,185 +73,84 @@
           </div>
         </div>
       <%}%>
+      <!-- organization Committees -->
+
+      <!-- Advisory Committee -->
+      <div class="content" id="advisory">
+        <h3>Advisory <span>Committees</span></h3>
+      </div>
+      <% var k = 0 %>
+      <% for(var i=0;i<data.committeename.length;i++) { %> 
+        <div class="committees">
+          <h4><%= data.committeename[i] %></h4>
+          <div class="committee">
+
+            <% for(var j=k;j<data.numberofmembers[i]+k;j++) { %> 
+  
+              <div class="person">
+                <img src="<%= data.memberimages[j]%>" />
+                <h4><span><%= data.membername[j]%></span></h4>
+              </div>
+    
+            <%}%>
+            <br>
+            <% k += data.numberofmembers[i]%>
+          </div>
+        </div>
+      <%}%>
+      <!-- Advisory Committees -->
+
+      <!-- Track Chair -->
+      <div class="content" id="tracks">
+        <h3>Track <span>Chairs</span></h3>
+      </div>
+      <% var k = 0 %>
+      <% for(var i=0;i<data.committeename.length;i++) { %> 
+        <div class="committees">
+          <h4><%= data.committeename[i] %></h4>
+          <div class="committee">
+
+            <% for(var j=k;j<data.numberofmembers[i]+k;j++) { %> 
+  
+              <div class="person">
+                <img src="<%= data.memberimages[j]%>" />
+                <h4><span><%= data.membername[j]%></span></h4>
+              </div>
+    
+            <%}%>
+            <br>
+            <% k += data.numberofmembers[i]%>
+          </div>
+        </div>
+      <%}%>
+      <!-- Tracks Chairs -->
+
+      <!-- Technical Program Committee -->
+      <div class="content" id="technical">
+        <h3>Technical <span>Committees</span></h3>
+      </div>
+      <% var k = 0 %>
+      <% for(var i=0;i<data.committeename.length;i++) { %> 
+        <div class="committees">
+          <h4><%= data.committeename[i] %></h4>
+          <div class="committee">
+
+            <% for(var j=k;j<data.numberofmembers[i]+k;j++) { %> 
+  
+              <div class="person">
+                <img src="<%= data.memberimages[j]%>" />
+                <h4><span><%= data.membername[j]%></span></h4>
+              </div>
+    
+            <%}%>
+            <br>
+            <% k += data.numberofmembers[i]%>
+          </div>
+        </div>
+      <%}%>
+      <!-- Technical Program Committees -->
     </div>
-<!--  
-      <div class="honary-committee">
-        <h4>Honary <span>Committee</span></h4>
-        <div class="committee">
-          <div class="person">
-            <img src="/image/girl1.jpg" />
-            <h4>Dr. Emily <span>Smith</span></h4> -->
-            <!-- <h6>CEO BOAT</h6> -->
-            <!-- <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-          <div class="person">
-            <img src="/image/boy1.jpg" /> -->
-            <!-- <h4>Prof. David <span>Wong</span></h4> -->
-            <!-- <h6>CEO BOAT</h6> -->
-            <!-- <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-        </div>
-      </div> -->
-      <!-- honary Committee -->
-
-      <!-- General Committee -->
-      <!-- <div class="general-committee">
-        <h4>General <span>Committee</span></h4>
-        <div class="committee">
-          <div class="person">
-            <img src="/image/girl2.jpg" />
-            <h4>Dr. Maria <span>Rodriguez</span></h4> -->
-            <!-- <h6>CEO BOAT</h6> -->
-            <!-- <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-          <div class="person">
-            <img src="/image/boy2.jpg" />
-            <h4>Prof. John <span>Lee</span></h4> -->
-            <!-- <h6>CEO BOAT</h6> -->
-            <!-- <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-          <div class="person">
-            <img src="/image/girl3.jpg" />
-            <h4>Dr. Sarah <span>Ahmed</span></h4> -->
-            <!-- <h6>CEO BOAT</h6>
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-        </div>
-      </div> -->
-      <!-- General Committee -->
-
-      <!-- program committee -->
-      <!-- <div class="program-committee">
-        <h4>Program <span>Committee</span></h4>
-        <div class="committee">
-          <div class="person">
-            <img src="/image/boy3.jpg" /> -->
-            <!-- <h4>Prof. Michael <span>Chen</span></h4> -->
-            <!-- <h6>CEO BOAT</h6> -->
-            <!-- <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-          <div class="person">
-            <img src="/image/girl4.jpg" />
-            <h4>Dr. Laura <span>Garcia</span></h4> -->
-            <!-- <h6>CEO BOAT</h6> -->
-            <!-- <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-        </div> -->
-      <!-- </div> -->
-      <!-- program committee -->
-
-      <!-- workshop committee -->
-      <!-- <div class="workshop-committee">
-        <h4>Workshop <span>Committee</span></h4>
-        <div class="committee">
-          <div class="person">
-            <img src="/image/boy4.jpg" />
-            <h4>Prof. James <span>Patel</span></h4> -->
-            <!-- <h6>CEO BOAT</h6> -->
-            <!-- <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-          <div class="person">
-            <img src="/image/girl5.jpg" /> -->
-            <!-- <h4>Dr. Jessica <span>Kim</span></h4> -->
-            <!-- <h6>CEO BOAT</h6> -->
-            <!-- <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-        </div>
-      </div> -->
-      <!-- workshop committee -->
-
-      <!-- publicity committee -->
-      <!-- <div class="publicity-committee">
-        <h4>Publicity <span>Committee</span></h4>
-        <div class="committee">
-          <div class="person">
-            <img src="/image/boy5.jpg" />
-            <h4>Prof. Daniel <span>Brown</span></h4> -->
-            <!-- <h6>CEO BOAT</h6> -->
-            <!-- <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-          <div class="person">
-            <img src="/image/girl6.jpg" />
-            <h4>Dr. Rachel <span>Taylor</span></h4> -->
-            <!-- <h6>CEO BOAT</h6> -->
-            <!-- <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-        </div>
-      </div> -->
-      <!-- publicity committee -->
-
-      <!-- web committee -->
-      <!-- <div class="web-committee">
-        <h4>Web <span>Committee</span></h4>
-        <div class="committee">
-          <div class="person">
-            <img src="/image/boy6.jpg" />
-            <h4>Prof. Kevin <span>Nguyen</span></h4> -->
-            <!-- <h6>CEO BOAT</h6> -->
-            <!-- <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-          <div class="person">
-            <img src="/image/girl7.jpg" />
-            <h4>Dr. Jennifer <span>Adams</span></h4> -->
-            <!-- <h6>CEO BOAT</h6> -->
-            <!-- <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-        </div>
-      </div> -->
-      <!-- web committee -->
-
-      <!-- sponsers committee -->
-      <!-- <div class="sponsers-committee">
-        <h4>Sponsers <span>Committee</span></h4>
-        <div class="committee">
-          <div class="person">
-            <img src="/image/boy7.jpg" /> -->
-            <!-- <h4>Prof. Thomas <span>Johnson</span></h4> -->
-            <!-- <h6>CEO BOAT</h6> -->
-            <!-- <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-          <div class="person">
-            <img src="/image/girl8.jpg" />
-            <h4>Dr. Samantha <span>White</span></h4> -->
-            <!-- <h6>CEO BOAT</h6> -->
-            <!-- <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-        </div>
-      </div> -->
-      <!-- sponsers committee -->
-    <!-- </div> -->
-    <!-- organisation committee -->
-
+<!-- committees -->
     <!-- Footer Section -->
     <section class="footer" id="footer">
       <div class="box-conatainer">

@@ -29,8 +29,6 @@
         <a href="/">Home</a>
         <a href="/committee/<%=data%>">Committees</a>
         <a href="/tracks/<%=data%>">Tracks</a>
-        <a href="/">Speakers</a>
-        <a href="/">Contact Us</a>
         <a href="/signup1/<%= data%>">Register</a>
         <a href="/login1/<%= data%>">Login</a>
 
@@ -47,7 +45,13 @@
           <header>SignUp</header>
           <form action="/signup1/<%= data %>" method="post">
             <div class="field input-field">
-              <input name="name" type="text" class="input" placeholder="name" required/>
+              <input
+                name="name"
+                type="text"
+                class="input"
+                placeholder="name"
+                required
+              />
             </div>
             <div class="field input-field">
               <input
@@ -113,13 +117,13 @@
             </div>
             <p class="message"></p>
             <div class="field input-field">
-              <select name="role" id="role" >
+              <select name="role" id="role">
                 <option value="1" class="choose">Enter As</option>
                 <option value="author">Author</option>
                 <option value="attendee">Attendee</option>
               </select>
             </div>
-            <p style="color: red;"><%= error %></p>
+            <p style="color: red"><%= error %></p>
             <!-- <div class="form-link">
               <a href="#" class="forgot-password">Forgot Password?</a>
             </div> -->

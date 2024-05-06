@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const currentPageElem = document.getElementById("current-page");
   const totalPagesElem = document.getElementById("total-pages");
 
-  const itemsPerPage = 2;
+  const itemsPerPage = 10;
   let currentPage = 1;
   let data = [];
 
@@ -121,22 +121,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (cardType === "user") {
         data = JSON.parse(card.dataset.users);
-        tableHeaders = ["User ID", "Name", "Email", "Role", "Actions"];
+        tableHeaders = ["User ID", "Name", "Email", "Role", "Delete"];
         trackFilter.classList.add("hidden"); // Hide filter when not required
-      } else if (cardType === "paper") {
-        data = JSON.parse(card.dataset.papers);
-        tableHeaders = [
-          "Paper ID",
-          "Author Name",
-          "Tracks",
-          "Current Status",
-          "Actions",
-        ];
-        trackFilter.classList.remove("hidden"); // Show filter when needed
       } else if (cardType === "speaker") {
         data = JSON.parse(card.dataset.speakers);
         tableHeaders = ["Serial Number", "Speaker Name"];
         trackFilter.classList.add("hidden"); // Hide filter
+      } else {
+        tableHeaders = "";
       }
 
       // Update the table header

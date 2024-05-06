@@ -47,6 +47,12 @@
             </a>
           </li>
           <li>
+            <a href="/submitted/<%=data%>">
+              <span class="icon"><i class="fa-solid fa-list-check"></i></span>
+              <span class="title">Manage Papers</span>
+            </a>
+          </li>
+          <li>
             <a href="/manage-reviewer/<%=data%>">
               <span class="icon"><i class="fa-solid fa-list-check"></i></span>
               <span class="title">Manage Reviewer</span>
@@ -342,7 +348,7 @@
               <!-- Speaker Details -->
               <br />
 
-              <!-- Committee Details -->
+              <!-- Organization Committee Details -->
               <div class="organization-committee-details">
                 <div class="input-box">
                   <label for="committee" class="heading"
@@ -439,14 +445,31 @@
                   Add Committee
                 </button>
               </div>
-              <!-- Committee Details -->
+              <!-- Organization Committee Details -->
+              <br />
+              <!-- Advisory committee details -->
+              <div class="advisory-details">
+                <div class="input-box">
+                  <label for="committee" class="heading"
+                    >Advisory <span>Committee</span></label
+                  >
+                </div>
+                <div class="advisory-list" id="advisory-list"></div>
+                <button
+                  class="add-btn btn"
+                  onclick="addAdvisory(); return false;"
+                >
+                  Add Advisory Committee
+                </button>
+              </div>
+              <!-- Advisory committee details -->
               <br />
 
-              <!-- Tracks Details -->
+              <!-- Tracks Chairs Details -->
               <div class="tracks-details">
                 <div class="input-box">
                   <label for="committee" class="heading"
-                    >Tracks <span>Detail</span></label
+                    >Tracks <span>Chairs</span></label
                   >
                 </div>
                 <div class="tracks-list" id="tracks-list"></div>
@@ -454,10 +477,28 @@
                   class="add-btn btn"
                   onclick="addTracks(); return false;"
                 >
-                  Add Tracks
+                  Add Track Chairs
                 </button>
               </div>
-              <!-- Tracks Details -->
+              <!-- Tracks Chairs Details -->
+              <br />
+
+              <!-- Technical Program Committe -->
+              <div class="technical-details">
+                <div class="input-box">
+                  <label for="committee" class="heading"
+                    >Technical <span>Committee</span></label
+                  >
+                </div>
+                <div class="technical-list" id="technical-list"></div>
+                <button
+                  class="add-btn btn"
+                  onclick="addTechnical(); return false;"
+                >
+                  Add Technical Committee
+                </button>
+              </div>
+              <!-- Technical Program Committe -->
               <br />
 
               <!-- Sponser Details -->

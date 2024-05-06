@@ -362,6 +362,7 @@ thead{
     justify-content: center;
     align-items: center;
     gap: 10px;
+    margin-bottom: 2rem;
 }
 
 #next-btn, #prev-btn{

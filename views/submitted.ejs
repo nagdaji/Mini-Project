@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+
+    <link rel="stylesheet" href="/css/submitted.css" />
+    <title>Dashboard</title>
+    <!-- font awesome link -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <!-- font awesome link -->
+  </head>
+  <body>
+    <!-- side navigation bar -->
+    <div class="container">
+      <div class="navigation">
+        <div class="toggle-bar">
+          <a href="#">
+            <span class="toggle icon">
+              <i class="fa-solid fa-bars" style="color: #fff"></i>
+            </span>
+            <span class="title">ConfoEase </span>
+          </a>
+        </div>
+        <ul>
+          <li></li>
+          <li>
+            <a href="/admin/<%=data%>">
+              <span class="icon"><i class="fa-solid fa-house"></i></span>
+              <span class="title">Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="/create-event/<%=data%>">
+              <span class="icon"><i class="fa-solid fa-plus"></i></span>
+              <span class="title">Create Event</span>
+            </a>
+          </li>
+          <li>
+            <a href="/edit-event/<%=data%>">
+              <span class="icon"
+                ><i class="fa-solid fa-pen-to-square"></i
+              ></span>
+              <span class="title">Edit Event</span>
+            </a>
+          </li>
+          <li  class="hovered">
+            <a href="/submitted/<%=data%>">
+              <span class="icon"><i class="fa-solid fa-list-check"></i></span>
+              <span class="title">Manage Papers</span>
+            </a>
+          </li>
+          <li>
+            <a href="/manage-reviewer/<%=data%>">
+              <span class="icon"><i class="fa-solid fa-list-check"></i></span>
+              <span class="title">Manage Reviewer</span>
+            </a>
+          </li>
+          <li>
+            <a href="/admin-schedule/<%=data%>">
+              <span class="icon"><i class="fa-regular fa-calendar"></i></span>
+              <span class="title">Schedule</span>
+            </a>
+          </li>
+          <li>
+            <a href="/logout/<%=data%>">
+              <span class="icon"
+                ><i class="fa-solid fa-right-from-bracket"></i
+              ></span>
+              <span class="title">Logout</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- main content -->
+      <div class="main">
+        <!-- top navigation bar -->
+        <div class="top-bar">
+          <div class="search">
+            <label for="Search">
+              <input type="text" placeholder="Search User" />
+              <i
+                class="fa-solid fa-magnifying-glass"
+                style="color: #3867d6"
+              ></i>
+            </label>
+          </div>
+          <div class="user">
+            <img src="/image/user.jpg" alt="" />
+          </div>
+        </div>
+        <!-- top navigation bar -->
+
+        <!-- table for paper details -->
+        <!-- Filter section -->
+            <div class="filter">
+                <label for="statusFilter">Status:</label>
+                <select id="statusFilter" onchange="filterTable()">
+                <option value="all">All</option>
+                <option value="Not Assigned">Not Assigned</option>
+                <option value="Assigned">Assigned</option>
+                <option value="Checked">Checked</option>
+                </select>
+
+                <label for="tracksFilter">Tracks:</label>
+                <select id="tracksFilter" onchange="filterTable()">
+                <option value="all">All</option>
+                <% var uniqueNames = []%>
+                <% for(let j=0;j<r.length;j++) { %>
+                  <%  uniqueNames = [...new Set(r.map(obj => obj.track))]; %>
+                <% } %>
+                <% for(let j=0;j<uniqueNames.length;j++) { %>
+                  <option value="<%= uniqueNames[j] %>"><%= uniqueNames[j] %></option>
+                <% } %>
+                </select>
+            </div>
+
+            <!-- Table with data -->
+            <table id="paperTable">
+                <thead>
+                <tr>
+                    <th>Paper ID</th>
+                    <th>Author Email</th>
+                    <th>Tracks</th>
+                    <th>Status</th>
+                    <th>Reviewer</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                  <!-- Example data -->
+                  <% for(let i=0;i<p.length;i++) { %>
+                  <form action="/update-reveiwer/<%=data%>" method="post">
+                    <tr>
+                    <input name="status" value="<%= p[i]._id %>" type="hidden"/> 
+                    <td><%= p[i]._id %></td>
+                    <td><%= p[i].author %></td>
+                    <td><%= p[i].track %></td>
+                    <td><%= p[i].status %></td>
+                    <% console.log("paper track"+p[i].track) %>
+                    <td>
+                    <select>
+                    <% for(let j=0;j<r.length;j++) { %>
+                      <% console.log(r[j].track) %>
+                      <% if(r[j].track === p[i].track) {%>  
+                        <option value="<%= r[j].name %>"><%= r[j].name %></option>
+                      <% } %>
+                    <% } %>
+                    </select>
+                  </td>
+                    <td><button class="update-btn" type="submit">Update</button></td>
+                  </tr>
+                  </form>
+                <% } %>
+                
+                </tbody>
+            </table>
+
+            <!-- Pagination controls -->
+            <div class="pagination">
+                <button onclick="previousPage()">Previous</button>
+                <button onclick="nextPage()">Next</button>
+            </div>
+        <!-- table for paper details -->
+
+        
+      <!-- main content -->
+    </div>
+    <!-- side navigation bar -->
+
+    <!-- script file -->
+    <script src="/js/submitted.js"></script>
+    <!-- script file -->
+  </body>
+</html>
