@@ -114,7 +114,7 @@
             <td><%= p[i]._id %></td>
             <input type="hidden" name="author" value="<%= p[i].author %>"></input>
             <td><%= p[i].author %></td>
-            <td><%= p[i].name %></td>
+            <td><a href="/uploads/<%= p[i].name %>" target="_blank"><%= p[i].name %></a></td>
               <td>
                 <select name="status">
                   <option value="Approved">Approved</option>

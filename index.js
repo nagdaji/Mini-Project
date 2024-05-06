@@ -92,7 +92,10 @@ const userschema = new mongoose.Schema({
     type: String,
     default: null,
   },
-  track : String,
+  track : {
+    type: String,
+    default: null,
+  },
   paperid: {
     type: [mongoose.Schema.Types.ObjectId],
     ref: "PDF",
@@ -180,7 +183,6 @@ app.get("/conference/:newpage", (req, res) => {
         }
       }
       await formatDate(result.date);
-
       res.render("index.ejs", { data: result });
     })
     .catch((error) => {
@@ -190,10 +192,10 @@ app.get("/conference/:newpage", (req, res) => {
 
 /////////////////////////////////
 
-app.get("/call-for-paper", (req, res) => {
+app.get("/call-for-paper/:conf", (req, res) => {
   async function findData() {
     try {
-      const result = await homemodel.findOne({ eventname: "CONFOEASE" });
+      const result = await homemodel.findOne({ eventname: req.params.conf });
       return result;
     } catch (error) {
       console.error("Error:", error);
@@ -212,10 +214,10 @@ app.get("/call-for-paper", (req, res) => {
 
 ///////////////////////////////////////////////
 
-app.get("/call-for-workshop", (req, res) => {
+app.get("/call-for-workshop/:conf", (req, res) => {
   async function findData() {
     try {
-      const result = await homemodel.findOne({ eventname: "CONFOEASE" });
+      const result = await homemodel.findOne({ eventname: req.params.conf });
       return result;
     } catch (error) {
       console.error("Error:", error);
@@ -378,6 +380,8 @@ app
       twitterconnect: req.body.twitterconnect,
     });
 
+    var name = _.upperCase(req.body.eventname).replace(/\s/g, "");
+    await usermodel.findOneAndUpdate({username : req.user.username} , {conference_created : name});
     await data.save();
     
     res.redirect("/create-event/" + req.params.conf);
@@ -650,7 +654,7 @@ app.route("/update-reveiwer/:conf")
 
   await usermodel.findOneAndUpdate({ username: revemail },{ $pull: { paperid: req.body.status } });
 
-  await PDF.findOneAndUpdate({_id : req.body.status}, {status : "Assigned" , reviewername : req.body.revname});
+  await PDF.findOneAndUpdate({_id : req.body.status}, {reviewer : "Assigned" , reviewername : req.body.revname});
 
   await usermodel.findOneAndUpdate({ username: req.body.revname },{ $push: { paperid: req.body.status } });
 
