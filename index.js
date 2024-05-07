@@ -271,6 +271,19 @@ app.get("/admin/:conf", async (req, res) => {
   } else res.redirect("/login1/" + req.params.conf);
 });
 
+
+
+//////////////////////////////////////////////////////////
+
+// mongoose
+//   .connect("mongodb://127.0.0.1:27017/calendar")
+//   .then( ()=> console.log("MongoDB connectedghj"))
+//   .catch((err) => console.log("Mongo Error", err));
+
+
+
+
+
 app.get("/admin-schedule/:conf", (req, res) => {
   res.render("admin-schedule.ejs", { data: req.params.conf });
 });
