@@ -93,73 +93,111 @@ body{
     text-transform: uppercase;
 }
 
-
-/* Code here for the committee section */
-.container{
+.container {
     width: 80%;
     margin: 0 10% 0 10%;
 }
 
-.container .committees h4{
-    color:#fff;
+.container .committees h4 {
+    color: #fff;
     font-size: 3rem;
     text-transform: uppercase;
 }
 
-.container .committees h4 span{
+.container .committees h4 span {
     color: #3867d6;
     text-transform: uppercase;
 }
 
-.container .committee{
+.container .committee {
     margin-top: 2rem;
     margin-bottom: 8rem;
     display: flex;
+    flex-wrap: wrap; /* Allow items to wrap */
+    justify-content: space-between; /* Space out evenly */
 }
-
 
 .container .person {
-    margin: 2rem 2rem 2rem 2rem;
+    flex-basis: 18%; /* Set base width to ensure max 5 people in a row */
+    text-align: center;
+    margin: 1rem 0;
 }
 
-.container .person h6{
+.container .person h6 {
     color: #fff;
     font-size: 1.5rem;
-    text-align: center;
 }
 
-.container .person a{
+.container .person a {
     font-size: 1.5rem;
     padding: 1.5rem;
-    justify-content:space-evenly;
-    /* margin: 0 5% 0 5%; */
+    display: flex;
+    justify-content: center;
 }
 
-.container .person a i{
-    margin-top: 1.5rem;
+.container .person a i {
     color: #3867d6;
     font-size: 2rem;
 }
 
-.container .committee img{
+.container .committee img {
     height: 15rem;
     width: 15rem;
     border-radius: 50%;
     object-fit: cover;
-    /* margin: 2rem 2rem 2rem 2rem; */
 }
 
-.container .committee .person{
-    text-align: center;
-}
-
-.container .committee .person h4{
+.container .committee .person h4 {
     font-size: 2.5rem;
 }
 
-.container .committee p h4{
+.container .committee p h4 {
     font-size: 1.5rem;
 }
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 1024px) {
+    .container {
+        width: 90%;
+        margin: 0 5% 0 5%;
+    }
+
+    .container .committee {
+        justify-content: space-around; /* More spacing for smaller screens */
+    }
+    
+    .container .person {
+        flex-basis: 30%; /* Allow fewer people per row on smaller screens */
+    }
+
+    .container .committee img {
+        height: 10rem;
+        width: 10rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        margin: 0 2.5% 0 2.5%;
+    }
+
+    .container .committee {
+        justify-content: center; /* Center items on even smaller screens */
+        flex-direction: column; /* Stack people vertically */
+    }
+
+    .container .person {
+        flex-basis: auto; /* Reset to auto to allow stacking */
+        text-align: center; /* Maintain text alignment */
+    }
+    
+    .container .committee img {
+        height: 8rem;
+        width: 8rem;
+    }
+}
+
 
 .btn{
     margin-top: 1rem;

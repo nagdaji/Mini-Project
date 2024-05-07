@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ConfoEase</title>
+    <title><%=data.eventname%></title>
     <link rel="stylesheet" href="/css/style.css" />
     <!-- swiper css -->
     <link
@@ -20,7 +20,7 @@
     
     <!-- header Section -->
     <header class="header">
-      <a href="#" class="logo"><span><%=data.eventname%></span></a>
+      <a href="/conference/<%= data.eventname %>" class="logo"><span><%=data.eventname%></span></a>
 
       <!-- nav bar -->
       <nav class="navbar">
@@ -170,7 +170,9 @@
     <!-- key Date Section  -->
   
     <!-- displaying tracks  -->
-    <table>
+    <section class="tracks" id="tracks">
+      <h2>Tracks <span>Details</span></h2>
+    <table class="paperTable">
       <% for(var i=0;i<data.trackname.length;i++) { %> 
         <tr>
           <td>
@@ -184,6 +186,7 @@
         </tr>
       <%}%>
       </table>
+    </section>
       <!--  end  -->
 
 
@@ -274,47 +277,4 @@
     <!-- contact us section -->
 
 
-    <!-- Footer Section -->
-    <section class="footer" id="footer">
-        <div class="box-conatainer">
-            <div class="box">
-                <h3>Head Quarters</h3>
-                <% for(let i=0;i<data.headquartername.length;i++){ %>
-                  <a href="#"><i class="fas fa-map-marker-alt"></i><%=data.headquartername[i]%></a>
-                <%}%>
-                
-            </div>
-            <div class="box">
-                <h3>Quick links</h3>
-                <a href="/conference/<%= data.eventname %>"><i class="fas fa-arrow-right"></i>Home</a>
-                <a href="/committee/<%= data.eventname %>"><i class="fas fa-arrow-right"></i>Committees</a>
-                <a href="#keydates"><i class="fas fa-arrow-right"></i>Key Dates</a>
-                <a href="/call-for-paper/<%= data.eventname %>"><i class="fas fa-arrow-right"></i>Call for Papers</a>
-                <a href="#contact-us"><i class="fas fa-arrow-right"></i>Contact Us</a>
-                <a href="/login1/<%= data.eventname %>"><i class="fas fa-arrow-right"></i>Login</a>
-            </div>
-            <div class="box">
-                <h3>Contact info</h3>
-                <% for(let i=0;i<data.mobilenumber.length;i++){ %>
-                  <a href="#"><i class="fa-solid fa-phone"></i><%=data.mobilenumber[i]%></a>
-                <%}%>
-                <% for(let i=0;i<data.email.length;i++){ %>
-                  <a href="#"><i class="fa-solid fa-envelope"></i><%=data.email[i]%></a>
-                <%}%>
-            </div>
-
-            <div class="box">
-                <h3>Follow us</h3>
-                <a href="#"><i class="fab fa-facebook-f"></i>facebook</a>
-                <a href="#"><i class="fab fa-twitter"></i>twitter</a>
-                <a href="#"><i class="fab fa-instagram"></i>instagram</a>
-                <a href="#"><i class="fab fa-linkedin-in"></i>linkedin</a>
-            </div>
-          </div>
-          <div class="credit">
-              Created by <span>Group 23</span>| All Rights Reserved
-          </div>
-    </section>
-    <!-- Footer Section -->
-  </body>
-</html>
+  <%- include("partials/footer.ejs"); -%>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ConfoEase</title>
+    <title><%=data.eventname%></title>
     <link rel="stylesheet" href="/css/committee.css" />
     <!-- swiper css -->
     <link
@@ -22,7 +22,7 @@
   <body>
     <!-- header Section -->
     <header class="header">
-      <a href="#" class="logo"><span><%=data.eventname%></span></a>
+      <a href="/conference/<%= data.eventname %>" class="logo"><span><%=data.eventname%></span></a>
 
       <!-- nav bar -->
       <nav class="navbar">
@@ -31,7 +31,7 @@
         <a href="#advisory">Advisory Committees</a>
         <a href="#tracks">Track Chairs</a>
         <a href="#technical">Technical Committees</a>
-        <a href="/signup1/<%= data.eventname %>">Register</a>
+        <a href="/otp/<%= data.eventname %>">Register</a>
         <a href="/login1/<%= data.eventname %>">Login</a>
 
         <div id="menu-bar" class="fas fa-bars"></div>
@@ -151,55 +151,4 @@
       <!-- Technical Program Committees -->
     </div>
 <!-- committees -->
-    <!-- Footer Section -->
-    <section class="footer" id="footer">
-      <div class="box-conatainer">
-        <div class="box">
-          <h3>Head Quarters</h3>
-          <a href="#"
-            ><i class="fas fa-map-marker-alt"></i>Washington DC, USA</a
-          >
-          <a href="#"><i class="fas fa-map-marker-alt"></i>Dubai, UAE</a>
-          <a href="#"><i class="fas fa-map-marker-alt"></i>Delhi, INDIA</a>
-          <a href="#"><i class="fas fa-map-marker-alt"></i>Tokiyo, Japan</a>
-          <a href="#"><i class="fas fa-map-marker-alt"></i>Beijing, China</a>
-        </div>
-        <div class="box">
-          <h3>Quick links</h3>
-          <a href="/conference/<%= data.eventname %>"><i class="fas fa-arrow-right"></i>Home</a>
-          <a href="/committee/<%= data.eventname %>"><i class="fas fa-arrow-right"></i>Committees</a>
-          <a href="/conference/<%= data.eventname %>"><i class="fas fa-arrow-right"></i>Key Dates</a>
-          <a href="/call-for-paper/<%= data.eventname %>"
-            ><i class="fas fa-arrow-right"></i>Call for Papers</a
-          >
-          <a href="/conference/<%= data.eventname %>"><i class="fas fa-arrow-right"></i>Contact Us</a>
-          <a href="/login1/<%= data.eventname %>"><i class="fas fa-arrow-right"></i>Login</a>
-        </div>
-        <div class="box">
-          <h3>Contact info</h3>
-          <a href="#"><i class="fas fa-phone"></i>+1-1234567890</a>
-          <a href="#"><i class="fas fa-phone"></i>+91-1234567890</a>
-          <a href="#"
-            ><i class="fas fa-envelope"></i>confoease@confo.ease.com</a
-          >
-          <a href="#"><i class="fas fa-envelope"></i>head@confoease.com</a>
-          <a href="#"
-            ><i class="fas fa-map-marker-alt"></i>Washington DC, USA, 753698</a
-          >
-        </div>
-
-        <div class="box">
-          <h3>Follow us</h3>
-          <a href="#"><i class="fab fa-facebook-f"></i>facebook</a>
-          <a href="#"><i class="fab fa-twitter"></i>twitter</a>
-          <a href="#"><i class="fab fa-instagram"></i>instagram</a>
-          <a href="#"><i class="fab fa-linkedin-in"></i>linkedin</a>
-        </div>
-      </div>
-      <div class="credit">
-        Created by <span>Group 23</span>| All Rights Reserved
-      </div>
-    </section>
-    <!-- Footer Section -->
-  </body>
-</html>
+<%- include("partials/footer.ejs"); -%>
