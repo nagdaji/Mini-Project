@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/schedule1.css" />
+    <title>ConfoEase</title>
+    <!-- swiper css -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <!-- swipper css link -->
+
+    <!-- font awesome link -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <!-- font awesome link -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    
+    <script>
+          var events = [{
+            title: 'Paper Submission',
+            description: 'Session will start soon',
+            start: '2024-05-13T09:30',
+            end: '2024-05-14T11:25',
+            color: '#3867d6',
+            textcolor: '#fff'
+          },
+          {
+            title: 'Conference1',
+            description: 'Session will start soon',
+            start: '2024-05-17T14:30',
+            end: '2024-05-18T11:25',
+            color: '#3867d6',
+            textcolor: '#fff'
+            }
+          ];
+          document.addEventListener('DOMContentLoaded', function() {
+              var calendarEl = document.getElementById('calendar');
+              var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,listWeek,listDay'
+                  },
+                views: {
+                    dayGridMonth: {buttonText: 'Month'},
+                    listDay: { buttonText: 'Day' },
+                    listWeek: { buttonText: 'Week' },
+                    today: {buttonText: 'Today'}
+                  },
+                events: events 
+              });
+              calendar.render();
+            });
+    </script>
+  </head>
+  <body>
+         <!-- side navigation bar -->
+    <div class="container">
+        <div class="navigation">
+          <div class="toggle-bar">
+            <a href="#">
+              <span class="toggle icon">
+                <i class="fa-solid fa-bars" style="color: #fff"></i>
+              </span>
+              <span class="title">ConfoEase </span>
+            </a>
+          </div>
+          <ul>
+            <li></li>
+            <li >
+              <a href="/reviewer/<%=data%>">
+                <span class="icon"><i class="fa-solid fa-house"></i></span>
+                <span class="title">Home</span>
+              </a>
+            </li>
+            <li class="hovered">
+              <a href="/schedule1/<%=data%>">
+                <span class="icon"><i class="fa-regular fa-calendar"></i></span>
+                <span class="title">Schedule</span>
+              </a>
+            </li>
+            <li>
+              <a href="/logout/<%=data%>">
+                <span class="icon"
+                  ><i class="fa-solid fa-right-from-bracket"></i
+                ></span>
+                <span class="title">Logout</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+  
+        <!-- main content -->
+        <div class="main">
+            <!-- top navigation bar -->
+            <div class="top-bar">
+              <div class="search">
+                <label for="Search">
+                  <input type="text" placeholder="Search User" />
+                  <i
+                    class="fa-solid fa-magnifying-glass"
+                    style="color: #3867d6"
+                  ></i>
+                </label>
+              </div>
+              <div class="user">
+                <img src="/image/user.jpg" alt="" />
+              </div>
+            </div>
+        </div>
+        
+    </div>
+    <div id="calendar"></div>
+      <!-- script file -->
+      <script src="/js/reviewer-dashboard.js"></script>
+      <!-- script file -->
+        <div id="calendar"></div>
+  </body>
+</html>

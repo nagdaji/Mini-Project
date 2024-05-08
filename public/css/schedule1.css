@@ -509,4 +509,11 @@ table {
     background-color: #218838; /* Darker green */
   }
 
-  
+  #calendar {
+    height:550px;
+    width: 850px;
+    margin-top: 150px;
+    margin-left: 400px;
+    font-size: 1.5rem;
+    color: #eee;
+}

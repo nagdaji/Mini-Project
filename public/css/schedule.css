@@ -1,6 +1,8 @@
 
+
 /* Google fonts (Poppins) */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&display=swap');
+
 
 :root{
     --theme-color: #3867d6
@@ -15,11 +17,11 @@
     border: none;
     text-decoration: none;
     text-transform: capitalize;
-    transition: 0.2s linear;
+    transition: 0s linear;
 }
 
 html{
-    font-size: 62.2%;
+    font-size: 62.5%;
     overflow-x: hidden;
     scroll-padding-top: 7rem;
     scroll-behavior: smooth;
@@ -257,256 +259,119 @@ body{
 }
 
 
-
-
-
-/* filters */
-.filter-dropdown {
-    padding: 5px 10px;
-    margin-right: 10px;
-    cursor: pointer;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 2rem;
-}
-
-/* CSS to highlight the active filter button */
-/* .active {
-    background-color: #f1f1f1;
-} */
-
-.filter-container {
-    display: flex;
-    /* background-color: aqua; */
-    padding: 10px 80px 10px 0px;
-    flex-direction: row-reverse;
-    
-}
-
-
-
-
-
-/* paper table */
-
-table, th, td {
-    border: 3px solid #222;
-    border-collapse: collapse;
-    
-}
-table{
-    width: 100%;
-     
-}
-
-tr {
-    height: 60px;
-}
-
-tr td:first-child{
+.upload {
+    background-color: #3867d6;
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
     text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
   }
 
-
-tr td:nth-child(n+2) {
-    padding-left: 13px;
+  .upload .tracks{
+    display: block;
+    font-size: 1.5rem;
   }
 
-/* 
-  tr:nth-child(odd) {
-    background-color: #222;
-  } */
-
-  /* tr:nth-child(even) {
-    background-color: #333;
-  }
-
-tr>th {
-    background-color: #333;
-} */
-#table-container {
-    height: 100%;
-    width: 90%;
-    background-color: black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    
-    margin: 0 5% 5% 5%;
-    font-size: 1.7rem;
-}
-
-.home{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.home h3{
-    font-size: 4rem;
-    color: #fff;
-}
-
-.home span{
-    color: #3867d6;
-}
-
-
-.table{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    margin-top: 5rem;
-}
-
-thead{
-    background-color: #3867d6;
+  .upload #track{
+    background-color: #fff;
     color: #222;
-    border: 3px solid #fff;
-    font-size: 2rem;
-}
-
-#info-table {
-    margin-top: 20px;
-    border-collapse: collapse;
-    width: 80%;
-    color: #fff;
-    font-size: 1.5rem;
-}
-
-#info-table th, #info-table td {
-    border: 3px solid #3867d6;
-    padding: 10px;
-}
-
-
-
-#pagination {
-    color: #fff;
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 2rem;
-}
-
-#next-btn, #prev-btn{
+    border: #222;
+    border-radius: 5px;
+    padding: 10px 20px;
     cursor: pointer;
-}
-
-#track-filter {
-    font-size: 1.5rem;
-    display: flex;
-    margin-top: 2rem;
-    margin-left: 80%;
-    color: #fff;
-    /* border-radius: 5px; */
-}
-
-#track-filter select{
-    border-radius: 5px;
-    margin-left: 1rem;
-    padding-left: 0.5rem;
-}
-
-/* Style the table */
-table {
-    width: 97%;
-    border-collapse: collapse;
-    margin-left: 2rem;
-    font-size: 1.5rem;
-    border-radius: 5px;
   }
 
-  /* Style the table header */
-  th {
+  .upload #track:hover{
     background-color: #3867d6;
-    color: #fff;
-    padding: 10px;
-    text-align: left;
-  }
-
-  /* Style the table rows */
-  tr {
-    background-color: #333;
-    color: #fff;
-    border-radius: 5px;
-  }
-
-  /* Style the table data cells */
-  td {
-    padding: 10px;
-  }
-
-  td select{
-    color: #fff;
-    background-color: #555;
-    font-size: 1.5rem;
-    border-radius: 5px;
-  }
-
-
-  /* Pagination buttons */
-  .pagination {
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-  }
-
-  .pagination button {
-    background-color: #333;
-    color: #3867d6;
-    border: 5px solid #fff;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    margin: 0 5px;
-    font-size: 1.6rem;
-    border-radius: 5px;
-  }
-
-  .pagination button:hover {
-    background-color: #3867d6;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    margin: 0 5px;
-  }
-
-  /* Filter buttons */
-  .filter {
-    margin-top: 3rem;
-    margin-bottom: 3rem;
-    font-size: 1.5rem;
-    color: #fff;
-    margin-left: 2rem;
-  }
-
-
-  .filter select {
-    padding: 5px;
-    font-size: 1.5rem;
-    background-color: #333;
-    color: #fff;
-    border: 1px solid #555;
-    margin-right: 10px;
-    border-radius: 5px;
-  }
-
-  .update-btn {
-    background-color: #28a745; /* Green */
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-  }
-
-  .update-btn:hover {
-    background-color: #218838; /* Darker green */
+    border: 1px solid #fff;
   }
 
   
+  h1 {
+    margin-bottom: 20px;
+    color: #fff;
+    font-size: 2.7rem;
+  }
+  
+  form {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+  }
+  
+  button {
+    background-color: #fff;
+    color: #222;
+    border: #222;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #3867d6;
+    border: 1px solid #fff;
+  }
+  
+  .progress-area {
+    margin-top: 20px;
+  }
+  
+  .progress-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #eee;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .progress {
+    height: 100%;
+    background-color: #007bff;
+  }
+  
+  .uploaded-area {
+    margin-top: 20px;
+  }
+  
+  .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-top: 10px;
+    background-color: #fff;
+  }
+  
+  .row .content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .row i {
+    font-size: 20px;
+    margin-right: 10px;
+    color: #3867d6;
+  }
+  
+  .row .details {
+    text-align: left;
+  }
+  
+  .row .size {
+    font-size: 12px;
+  }
+
+  #calendar {
+    height:550px;
+    width: 850px;
+    margin-top: 150px;
+    margin-left: 400px;
+    font-size: 1.5rem;
+    color: #eee;
+}

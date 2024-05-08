@@ -679,6 +679,14 @@ app.get("/manage-reviewer/:conf", async (req, res) => {
 
 /////////////////////////////////////////////////
 
+app.get("/schedule1/:conf",(req,res)=>{
+  res.render("schedule1.ejs", { data: req.params.conf, error: "" });
+});
+
+app.get("/schedule/:conf",(req,res)=>{
+  res.render("schedule.ejs", { data: req.params.conf, error: "" });
+});
+
 app.get("/logout/:conf", (req, res) => {
   let a = req.params.conf;
   if (req.isAuthenticated()) {
@@ -731,6 +739,9 @@ app.route("/update-status/:conf")
   await usermodel.findOneAndUpdate({username : req.body.author} , {paperstatus : req.body.status});
   res.redirect("/reviewer/"+req.params.conf);
 });
+
+
+
 
 
 app.route("/update-reveiwer/:conf")
