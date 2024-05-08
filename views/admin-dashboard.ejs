@@ -108,16 +108,10 @@
             class="card"
             data-heading="User Registered"
             data-card-type="user"
-            data-users='[
-            {"id": 1, "name": "John Doe", "email": "john@example.com", "role": "Admin"},
-            {"id": 2, "name": "Jane Smith", "email": "jane@example.com", "role": "User"},
-            {"id": 3, "name": "Alice Johnson", "email": "alice@example.com", "role": "User"},
-            {"id": 4, "name": "Bob Brown", "email": "bob@example.com", "role": "Manager"},
-            {"id": 5, "name": "Charlie Black", "email": "charlie@example.com", "role": "Admin"}
-            ]'
+            
           >
             <div>
-              <div class="numbers">1504</div>
+              <div class="numbers"><%=user.length%></div>
               <a href="#info-table" class="cardname">User Registered</a>
             </div>
             <div class="icon">
@@ -127,14 +121,11 @@
           <div
             class="card"
             data-heading="Reviewer"
-            data-card-type=""
-            data-users='[
-          {"id": 3, "name": "Alice Johnson", "email": "alice@example.com", "role": "Reviewer"},
-          {"id": 4, "name": "Bob Brown", "email": "bob@example.com", "role": "Reviewer"}
-          ]'
+            data-card-type="reviewer"
+          
           >
             <div>
-              <div class="numbers">120</div>
+              <div class="numbers"><%= r %></div>
               <a href="/manage-reviewer/<%=data%>" class="cardname">Reviewer</a>
             </div>
             <div class="icon">
@@ -144,14 +135,11 @@
           <div
             class="card"
             data-heading="Authors"
-            data-card-type="user"
-            data-users='[
-        {"id": 3, "name": "Alice Johnson", "email": "alice@example.com", "role": "Reviewer"},
-        {"id": 4, "name": "Bob Brown", "email": "bob@example.com", "role": "Reviewer"}
-        ]'
+            data-card-type="author"
+            
           >
             <div>
-              <div class="numbers">360</div>
+              <div class="numbers"><%= au %></div>
               <a href="#info-table" class="cardname">Authors Registered</a>
             </div>
             <div class="icon">
@@ -164,23 +152,20 @@
           <div
             class="card"
             data-heading="Attendee"
-            data-card-type="user"
-            data-users='[
-        {"id": 3, "name": "Alice Johnson", "email": "alice@example.com", "role": "Reviewer"},
-        {"id": 4, "name": "Bob Brown", "email": "bob@example.com", "role": "Reviewer"}
-        ]'
+            data-card-type="attendee"
+            
           >
             <div>
-              <div class="numbers">1024</div>
+              <div class="numbers"><%= a %></div>
               <a href="#info-table" class="cardname">Attendees</a>
             </div>
             <div class="icon">
               <i class="fa-solid fa-users" style="color: #3687d6"></i>
             </div>
           </div>
-          <div class="card" data-card-type="" data-papers="[]">
+          <div class="card" data-card-type="paper" data-papers="[]">
             <div>
-              <div class="numbers">102</div>
+              <div class="numbers"><%= p.length %></div>
               <a href="/submitted/<%=data%>" class="cardname"
                 >Paper Submitted</a
               >
@@ -192,13 +177,10 @@
           <div
             class="card"
             data-card-type="speaker"
-            data-speakers='[
-          {"serial": 1, "name": "Prof. Green"},
-          {"serial": 2, "name": "Dr. Blue"}
-          ]'
+            
           >
             <div>
-              <div class="numbers">10</div>
+              <div class="numbers"><%= s.length %></div>
               <a href="#info-table" class="cardname">Speaker</a>
             </div>
             <div class="icon">
@@ -221,18 +203,124 @@
         <!-- filter button -->
 
         <!-- dynamic content of the table -->
-        <div class="table">
-          <table id="info-table" class="hidden">
+        <!-- <div class="table"> -->
+          <!-- <table id="info-table" class="hidden">
             <thead>
               <tr id="table-head">
-                <!-- This will be dynamically populated -->
+                This will be dynamically populated
               </tr>
             </thead>
             <tbody id="table-body">
-              <!-- Data will be inserted here -->
+              Data will be inserted here
+            </tbody>
+          </table> -->
+        <!-- </div> -->
+          <!-- all user table -->
+        <div id="all_users">
+          <table class="hidden" id="usertable">
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>User Name</th>
+                <th>Email</th>
+                <th>Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Example data -->
+              <% for(let i=0;i<user.length;i++){ %>
+                <% if (user[i].role != "admin") { %>
+                <tr>
+                  <td><%= user[i]._id %></td>
+                  <td><%= user[i].name %></td>
+                  <td><%= user[i].username %></td>
+                  <td><%= user[i].role %></td>
+                </tr>
+                <% } %>
+              <% } %>
             </tbody>
           </table>
         </div>
+
+        <!-- all author table -->
+        <div id="all_authors">
+          <table id="authortable" class="hidden">
+            <thead>
+              <tr>
+                <th>Author ID</th>
+                <th>Author Name</th>
+                <th>Email</th>
+                <th>Paper Submitted</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Example data -->
+              <% for(let i=0;i<user.length;i++){ %>
+                <% if (user[i].role == "author") { %>
+                <tr>
+                  <td><%= user[i]._id %></td>
+                  <td><%= user[i].name %></td>
+                  <td><%= user[i].username %></td>
+                  <%if(user[i].paperid){%>
+                    <td><%= user[i].paperid[0] %></td>
+                  <%} else {%>
+                    <td>None</td>
+                  <%}%>
+                </tr>
+                <% } %>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- all attendees -->
+        <div id="all_attendees">
+          <table id="attendtable" class="hidden">
+            <thead>
+              <tr>
+                <th>Attendee ID</th>
+                <th>Attendee Name</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Example data -->
+              <% for(let i=0;i<user.length;i++){ %>
+                <% if (user[i].role == "attendee") { %>
+                <tr>
+                  <td><%= user[i]._id %></td>
+                  <td><%= user[i].name %></td>
+                  <td><%= user[i].username %></td>
+                </tr>
+                <% } %>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- all speakers -->
+
+        <div id="all_speakers">
+          <table id="speakertable" class="hidden">
+            <thead>
+              <tr>
+                <th>Speaker Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Example data -->
+              <% for(let i=0;i<s.length;i++){ %>
+                <% if (s[i]) { %>
+                <tr>
+                  <td><%= s[i] %></td>
+                </tr>
+                <% } %>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+
+
         <!-- dynamic content of the table -->
         <div id="pagination" class="hidden">
           <button id="prev-btn" disabled>&lt; Prev</button>

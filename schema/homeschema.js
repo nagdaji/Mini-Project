@@ -5,7 +5,7 @@ const homeschema = new Schema({
     eventname : String,
     conferenceimages : [String],
     conferencedescription : String,
-    date : [String],
+    date : [],
     description : [String],
     aim : String,
     topic : String,

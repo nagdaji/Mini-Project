@@ -109,6 +109,7 @@
       <tbody>
         <!-- Example data -->
         <% for(let i=0;i<p.length;i++){ %>
+          <% if (p[i]) { %>
           <tr>
             <form method="post" action="/update-status/<%=data%>">
             <td><%= p[i]._id %></td>
@@ -124,51 +125,9 @@
               <td><button class="update-btn" type="submit">Update</button></td>
             </form>
           </tr>
+          <% } %>
         <% } %>
-        <!-- <tr data-paper-id="P001">
-          <td>P001</td>
-          <td>John Doe</td>
-          <td>Artificial Intelligence</td>
-          <td>
-            <select>
-              <option value="Submitted">Submitted</option>
-              <option value="Under Review">Under Review</option>
-              <option value="Approved">Approved</option>
-              <option value="Rejected">Rejected</option>
-            </select>
-          </td>
-          <td><button class="update-btn" onclick="updateStatus(this)">Update</button></td>
-        </tr>
-  
-        <tr data-paper-id="P002">
-          <td>P002</td>
-          <td>Jane Smith</td>
-          <td>Blockchain Technologies</td>
-          <td>
-            <select>
-              <option value="Submitted">Submitted</option>
-              <option value="Under Review">Under Review</option>
-              <option value="Approved">Approved</option>
-              <option value="Rejected">Rejected</option>
-            </select>
-          </td>
-          <td><button class="update-btn" onclick="updateStatus(this)">Update</button></td>
-        </tr>
-  
-        <tr data-paper-id="P003">
-          <td>P003</td>
-          <td>Alex Johnson</td>
-          <td>Quantum Computing</td>
-          <td>
-            <select>
-              <option value="Submitted">Submitted</option>
-              <option value="Under Review">Under Review</option>
-              <option value="Approved">Approved</option>
-              <option value="Rejected">Rejected</option>
-            </select>
-          </td>
-          <td><button class="update-btn" onclick="updateStatus(this)">Update</button></td>
-        </tr> -->
+        
       </tbody>
     </table>
   

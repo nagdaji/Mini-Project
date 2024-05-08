@@ -74,7 +74,7 @@ app.use(passport.session());
 
 mongoose
   .connect(
-    "mongodb+srv://kartik:kartik123@cluster0.8ou8ajo.mongodb.net/?retryWrites=true&w=majority"
+    "mongodb+srv://kartik:kartik123@cluster0.8ou8ajo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
   )
   .then(() => console.log("mongo connected"))
   .catch((err) => console.log(err));
@@ -86,20 +86,16 @@ const userschema = new mongoose.Schema({
   role: String,
   conference_created: {
     type: String,
-    default: null,
   },
   conference_enrolled: {
     type: String,
-    default: null,
   },
   track : {
     type: String,
-    default: null,
   },
   paperid: {
     type: [mongoose.Schema.Types.ObjectId],
     ref: "PDF",
-    default: null,
   },
   paperstatus: {
     type: String,
@@ -261,13 +257,26 @@ app.get("/committee/:conf", (req, res) => {
 app.get("/admin/:conf", async (req, res) => {
   if (req.isAuthenticated()) {
 
-    var x = await usermodel.findOne({username : req.user.username});
+    var conf_created = req.user.conference_created;
 
-    var author = await usermodel.find({ conference_enrolled: x.conference_created });
-    var speaker = await homemodel.findOne({eventname : x.conference_created});
-    var paper = await PDF.find({ conference : x.conference_created });
+    var totalpapers = await PDF.find({ conference: conf_created });
+    var totalspeakers = await homemodel.findOne({eventname : conf_created});
+    var totalusers = await usermodel.find({ conference_enrolled: conf_created});
+    
+    var totalattendees = 0;
+    var totalreviewers = 0;
+    var totalauthors = 0;
+    for(let i=0;i<totalusers.length;i++)
+    {
+      if(totalusers[i].role == "attendee")
+        totalattendees++;
+      else if(totalusers[i].role == "reviewer")
+        totalreviewers++;
+      else if(totalusers[i].role == "author")
+        totalauthors++;
+    }
 
-    res.render("admin-dashboard.ejs", { data: req.params.conf });
+    res.render("admin-dashboard.ejs", { data: req.params.conf , p : totalpapers , s : totalspeakers.speakername , user : totalusers, a : totalattendees , r : totalreviewers , au : totalauthors});
   } else res.redirect("/login1/" + req.params.conf);
 });
 
@@ -311,7 +320,6 @@ app
     let memimg = await processFiles(req.files.memberimages);
     let sponimg = await processFiles(req.files.sponserimage);
 
-    // console.log(req.body);
 
     const data = new homemodel({
       eventname: _.upperCase(req.body.eventname).replace(/\s/g, ""),
@@ -427,26 +435,44 @@ app
       author: req.user.username,
       conference: req.params.conf,
     });
-
+    if(req.user.paperid != null)
+    {
+      var x = await PDF.findById({_id : req.user.paperid[0]});
+      var rev = x.reviewername;
+      if(rev != "Not Assigned")
+      {
+        await usermodel.findOneAndUpdate({ username: rev },{ $pull: { paperid: req.user.paperid[0]}});
+      }
+      await PDF.findByIdAndDelete({ _id: req.user.paperid[0]});
+    }
+    
     const savepdf = await pdf.save();
-
     await usermodel.findOneAndUpdate(
       { username: req.user.username },
       { paperid: savepdf._id }
     );
-
+    
     res.redirect("/paper_submission/" + req.params.conf);
   });
 
 ////////////////////////////////////
 
 app.route("/delete_paper/:conf").post(async (req, res) => {
-  if (req.body.action == "yes") {
+  if (req.body.action == "yes") 
+  {  
+    if(req.user.paperid != null)
+    {
+      var x = await PDF.findById({_id : req.user.paperid[0]});
+      var rev = x.reviewername;
+      if(rev != "Not Assigned")
+      {
+        await usermodel.findOneAndUpdate({ username: rev },{ $pull: { paperid: req.user.paperid[0] }});
+      }
+    }
     await usermodel.findOneAndUpdate(
       { username: req.user.username },
       { paperid: null }
     );
-
     await PDF.findByIdAndDelete({ _id: req.body.pdfid });
   }
   res.redirect("/check-status/" + req.params.conf);
@@ -648,7 +674,6 @@ app.route("/update-status/:conf")
 
 app.route("/update-reveiwer/:conf")
 .post(async(req,res)=>{
-  console.log(req.body);
   var paperdetails = await PDF.findById({_id : req.body.status});
   var revemail = paperdetails.reviewername;
 

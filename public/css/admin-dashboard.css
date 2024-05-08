@@ -384,3 +384,38 @@ thead{
     padding-left: 0.5rem;
 }
 
+
+.table{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 5rem;
+}
+
+thead{
+    background-color: #3867d6;
+    color: #222;
+    border: 3px solid #fff;
+    font-size: 2rem;
+}
+
+#all_users , #all_authors ,#all_attendees ,#all_speakers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 100%;
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+#all_users th,#all_authors th, #all_users td ,#all_authors td ,#all_attendees th,#all_attendees td  ,#all_speakers th,#all_speakers td{
+    border: 3px solid #3867d6;
+    padding: 10px;
+}
+.hidden
+{
+    display: none;
+}
