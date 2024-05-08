@@ -109,6 +109,7 @@
       <tbody>
         <!-- Example data -->
         <% for(let i=0;i<p.length;i++){ %>
+          <% if (p[i]) { %>
           <tr>
             <form method="post" action="/update-status/<%=data%>">
             <td><%= p[i]._id %></td>
@@ -124,6 +125,7 @@
               <td><button class="update-btn" type="submit">Update</button></td>
             </form>
           </tr>
+        <% } %>
         <% } %>
         <!-- <tr data-paper-id="P001">
           <td>P001</td>
