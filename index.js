@@ -79,6 +79,10 @@ mongoose
   .then(() => console.log("mongo connected"))
   .catch((err) => console.log(err));
 
+// mongoose.connect("mongodb+srv://arpanak:arpk234@schedule.m9eg9js.mongodb.net/?retryWrites=true&w=majority&appName=schedule")
+//   .then(() => console.log("MongoDB connected"))
+//   .catch((err) => console.error("MongoDB connection error:", err));
+
 const userschema = new mongoose.Schema({
   username: String,
   password: String,
@@ -137,6 +141,37 @@ const pdfSchema = new mongoose.Schema({
 });
 
 const PDF = mongoose.model("PDF", pdfSchema);
+
+
+const eventSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  startTime: {
+    type: Date,
+    required: true
+  },
+  endTime: {
+    type: Date,
+    required: true
+  },
+  color: {
+    type: String,
+    default: '#3867d6' // Default color
+  },
+  textColor: {
+    type: String,
+    default: '#fff' // Default text color
+  }
+});
+
+const scheduleEvent = mongoose.model('scheduleEvent', eventSchema);
+
 
 ////////////////////////////////////
 // for home page
@@ -287,6 +322,45 @@ app.get("/admin/:conf", async (req, res) => {
 app.get("/admin-schedule/:conf", (req, res) => {
   res.render("admin-schedule.ejs", { data: req.params.conf });
 });
+
+app.post('/add-schedule-event', async (req, res) => {
+  console.log(req.body);
+  console.log("caught body");
+  try {
+      const { title, description, start, end, color, textColor } = req.body;
+              
+      if (!title || !description ||!start || !end) {
+          console.log("hello1");
+          return res.status(400).json({ error: 'Missing required fields' });
+      }
+      const newEvent = new scheduleEvent({
+          title: title,
+          description: description,
+          startTime: new Date(start), // Ensure startTime and endTime are Date objects
+          endTime: new Date(end),
+          color: color || '#3867d6', // Use provided color or default
+          textColor: textColor || '#fff' // Use provided textColor or default
+          });
+      console.log("abcd");
+      console.log(newEvent);
+      const savedEvent = await newEvent.save();
+      res.status(201).json(savedEvent);
+      } catch (error) {
+      console.error('Error adding event:', error);
+      res.status(500).json({ error: 'Error adding event' });
+  }
+});
+
+app.get('/get-schedule-events', async (req, res) => {
+  try {
+    const events = await Event.find();
+    res.json(events);
+  } catch (error) {
+    console.error('Error fetching events:', error);
+    res.status(500).json({ error: 'Error fetching events' });
+  }
+});
+
 
 app.get("/reviewer/:conf", async (req, res) => {
   if (req.isAuthenticated()) {
@@ -539,7 +613,7 @@ app
               error: "user does not exists",
             });
           } else {
-            usermodel
+              usermodel
               .findOne({ username: req.body.username })
               .then(async (result) => {
                 if (result.role == "admin" && req.params.conf == "CONFOEASE") {
