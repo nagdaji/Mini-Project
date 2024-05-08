@@ -2,7 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="/css/attendee.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+
+    <link rel="stylesheet" href="/css/schedule.css" />
     <title>Dashboard</title>
     <!-- font awesome link -->
     <link
@@ -65,8 +74,23 @@
         </div>
         <ul>
           <li></li>
-          <li class="hovered">
-            <a href="/schedule/<%=data%>">
+          <li>
+            <a href="/paper_submission/<%=data%>">
+              <span class="icon"><i class="fa-regular fa-newspaper"></i></span>
+              <span class="title">Submit Papers</span>
+            </a>
+          </li>
+          <li>
+            <a href="/check-status/<%=data%>">
+              <span class="icon"
+                ><i class="fa-solid fa-check-to-slot"></i
+              ></span>
+              <span class="title">Check Status</span>
+            </a>
+          </li>
+
+          <li  class="hovered">
+            <a href="/schedule/<%data%>">
               <span class="icon"><i class="fa-regular fa-calendar"></i></span>
               <span class="title">Schedule</span>
             </a>
@@ -100,13 +124,16 @@
           </div>
         </div>
         <!-- top navigation bar -->
+
+        
+        
       </div>
       <!-- main content -->
     </div>
     <!-- side navigation bar -->
     <div id="calendar"></div>
     <!-- script file -->
-    <script src="/js/attendee.js"></script>
+    <script src="/js/paper_submission.js"></script>
     <!-- script file -->
   </body>
 </html>

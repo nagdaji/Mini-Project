@@ -110,6 +110,7 @@
         <!-- Example data -->
         <% for(let i=0;i<p.length;i++){ %>
           <% if (p[i]) { %>
+          <% if (p[i]) { %>
           <tr>
             <form method="post" action="/update-status/<%=data%>">
             <td><%= p[i]._id %></td>
@@ -138,7 +139,7 @@
   </div>
 <!-- table for paper details -->
 
-    </div>
+      </div>
     <!-- script file -->
     <script src="/js/reviewer-dashboard.js"></script>
     <!-- script file -->
