@@ -11,7 +11,7 @@
     <meta http-equiv="Expires" content="0" />
     <meta http-equiv="Cache-Control" content="no-cache" />
 
-    <link rel="stylesheet" href="/css/paper_submission.css" />
+    <link rel="stylesheet" href="/css/schedule.css" />
     <title>Dashboard</title>
     <!-- font awesome link -->
     <link
@@ -19,6 +19,46 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
     <!-- font awesome link -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    
+    <script>
+          var events = [{
+            title: 'Paper Submission',
+            description: 'Session will start soon',
+            start: '2024-05-13T09:30',
+            end: '2024-05-14T11:25',
+            color: '#3867d6',
+            textcolor: '#fff'
+          },
+          {
+            title: 'Conference1',
+            description: 'Session will start soon',
+            start: '2024-05-17T14:30',
+            end: '2024-05-18T11:25',
+            color: '#3867d6',
+            textcolor: '#fff'
+            }
+          ];
+          document.addEventListener('DOMContentLoaded', function() {
+              var calendarEl = document.getElementById('calendar');
+              var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,listWeek,listDay'
+                  },
+                views: {
+                    dayGridMonth: {buttonText: 'Month'},
+                    listDay: { buttonText: 'Day' },
+                    listWeek: { buttonText: 'Week' },
+                    today: {buttonText: 'Today'}
+                  },
+                events: events 
+              });
+              calendar.render();
+            });
+    </script>
   </head>
   <body>
     <!-- side navigation bar -->
@@ -34,7 +74,7 @@
         </div>
         <ul>
           <li></li>
-          <li class="hovered">
+          <li>
             <a href="/paper_submission/<%=data%>">
               <span class="icon"><i class="fa-regular fa-newspaper"></i></span>
               <span class="title">Submit Papers</span>
@@ -49,8 +89,8 @@
             </a>
           </li>
 
-          <li>
-            <a href="/schedule/<%=data%>">
+          <li  class="hovered">
+            <a href="/schedule/<%data%>">
               <span class="icon"><i class="fa-regular fa-calendar"></i></span>
               <span class="title">Schedule</span>
             </a>
@@ -85,40 +125,13 @@
         </div>
         <!-- top navigation bar -->
 
-        <!-- file upload box -->
-        <div class="upload-box">
-          <div class="upload">
-            <h1>Upload Your Papers</h1>
-            
-              
-              <form
-                id="upload-form"
-                action="/paper_submission/<%= data %>"
-                method="post"
-                enctype="multipart/form-data"
-              >
-
-              <input type="file" class="file-input" name="files" hidden />
-              <label for="tracks" class="tracks">Choose Track:</label>
-            
-              <select name="track" id="track">
-                <% for(let i=0;i<tracks.tracksname.length;i++) { %>
-                  <option name = "track" value="<%= tracks.tracksname[i] %>"><%= tracks.tracksname[i] %></option>
-                  <% } %>
-              </select>
-              <button type="button" id="upload-btn">Choose File</button>
-              <button type="submit">Upload</button>
-            </form>
-            <div class="progress-area"></div>
-            <div class="uploaded-area"></div>
-          </div>
-        </div>
-        <!-- file upload box -->
+        
+        
       </div>
       <!-- main content -->
     </div>
     <!-- side navigation bar -->
-
+    <div id="calendar"></div>
     <!-- script file -->
     <script src="/js/paper_submission.js"></script>
     <!-- script file -->

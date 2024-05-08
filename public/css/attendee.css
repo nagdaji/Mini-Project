@@ -259,3 +259,12 @@ body{
 }
 
 
+
+#calendar {
+    height: 500px;
+    width: 800px;
+    margin-top: 150px;
+    margin-left: 450px;
+    font-size: 1.5rem;
+    color: #eee;
+}

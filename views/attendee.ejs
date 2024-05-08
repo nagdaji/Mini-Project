@@ -10,6 +10,46 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     />
     <!-- font awesome link -->
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js'></script>
+    
+    <script>
+          var events = [{
+            title: 'Paper Submission',
+            description: 'Session will start soon',
+            start: '2024-05-13T09:30',
+            end: '2024-05-14T11:25',
+            color: '#3867d6',
+            textcolor: '#fff'
+          },
+          {
+            title: 'Conference1',
+            description: 'Session will start soon',
+            start: '2024-05-17T14:30',
+            end: '2024-05-18T11:25',
+            color: '#3867d6',
+            textcolor: '#fff'
+            }
+          ];
+          document.addEventListener('DOMContentLoaded', function() {
+              var calendarEl = document.getElementById('calendar');
+              var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,listWeek,listDay'
+                  },
+                views: {
+                    dayGridMonth: {buttonText: 'Month'},
+                    listDay: { buttonText: 'Day' },
+                    listWeek: { buttonText: 'Week' },
+                    today: {buttonText: 'Today'}
+                  },
+                events: events 
+              });
+              calendar.render();
+            });
+    </script>
   </head>
   <body>
     <!-- side navigation bar -->
@@ -64,7 +104,7 @@
       <!-- main content -->
     </div>
     <!-- side navigation bar -->
-
+    <div id="calendar"></div>
     <!-- script file -->
     <script src="/js/attendee.js"></script>
     <!-- script file -->
