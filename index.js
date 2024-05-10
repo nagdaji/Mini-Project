@@ -290,7 +290,7 @@ app.get("/committee/:conf", (req, res) => {
 
 //////////////////////////////////////
 app.get("/admin/:conf", async (req, res) => {
-  if (req.isAuthenticated()) {
+  if (req.isAuthenticated() && req.user.role == "admin") {
 
     var conf_created = req.user.conference_created;
 
@@ -372,7 +372,7 @@ app.get('/get-schedule-events', async (req, res) => {
 
 
 app.get("/reviewer/:conf", async (req, res) => {
-  if (req.isAuthenticated()) {
+  if (req.isAuthenticated() && req.user.role == "reviewer") {
     var papers = req.user.paperid;
     var paperdetails = [];
     if(papers)
@@ -483,9 +483,9 @@ app
   });
 
 app.route("/attendee/:conf").get((req, res) => {
-  if (req.isAuthenticated()) {
+  if (req.isAuthenticated() && req.user.role == "attendee") {
     res.render("attendee.ejs", { data: req.params.conf });
-  } else res.render("login1.ejs", { data: req.params.conf });
+  } else res.redirect("/login1/" + req.params.conf);
 });
 
 ////////////////////////////////
@@ -510,7 +510,7 @@ app.get("/tracks/:conf", (req, res) => {
 app
   .route("/paper_submission/:conf")
   .get(async (req, res) => {
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated() && req.user.role == "author") {
       var t = await homemodel.findOne({ eventname: req.params.conf });
       res.render("paper_submission.ejs", { data: req.params.conf, tracks: t });
     } else res.redirect("/login1/" + req.params.conf);
