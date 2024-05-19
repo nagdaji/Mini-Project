@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%=data.eventname%></title>
+    <link rel="stylesheet" href="/css/call-for-paper.css" />
+
+    <!-- font awesome link -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <!-- font awesome link -->
+  </head>
+  <body>
+    <!-- header Section -->
+    <header class="header">
+      <a href="/conference/<%= data.eventname %>" class="logo"><span>C</span>onfoEase</a>
+
+      <!-- nav bar -->
+      <nav class="navbar">
+        <a href="/conference/<%= data.eventname %>">Home</a>
+        <a href="/committee/<%= data.eventname %>">Committees</a>
+        <a href="/call-for-paper/<%= data.eventname %>">Call For Papers</a>
+        <a href="/call-for-workshop/<%= data.eventname %>">Workshop Proposals</a>
+        <a href="#tracks">Tracks</a>
+        <a href="/otp/<%= data.eventname %>">Register</a>
+        <a href="/login1/<%= data.eventname %>">Login</a>
+
+        <div id="menu-bar" class="fas fa-bars"></div>
+      </nav>
+      <!-- Nab Bar ended -->
+    </header>
+    <!-- header Section -->
+
+    <!-- Section for displaying the heading -->
+    <section class="home" id="home">
+      <div class="content">
+        <h3>Call For <span>Paper</span></h3>
+      </div>
+    </section>
+    <!-- Section for heading closed -->
+
+    <div class="container">
+      <div class="aims-scope">
+        <h3>Aims and <span>Scope</span></h3>
+        <p><%= data.aim %></p>
+      </div>
+      <div class="topic-interest">
+        <h3>Topic of <span>Interest</span></h3>
+        <p><%= data.topic %></p>
+      </div>
+      <div class="submissions-guidelines">
+        <h3>Submission <span>Guidelines</span></h3>
+        <p><%= data.guidelines %></p>
+      </div>
+      <div class="how-to-submit">
+        <h3>How to prepare <span>Submission</span></h3>
+        <p><%= data.papersubmission %></p>
+      </div>
+      <div class="tracks" id="tracks">
+        <h3>Tracks</h3>
+        <p></p>
+      </div>
+      <div class="Contact">
+        <h3>Contact<span></span></h3>
+        <p><%= data.contact %></p>
+      </div>
+    </div>
+
+    <%- include("partials/footer.ejs"); -%>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="/css/login.css" />
+    <!-- swiper css -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <!-- swipper css link -->
+
+    <!-- font awesome link -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <!-- font awesome link -->
+  </head>
+  <body>
+    <!-- header Section -->
+    <header class="header">
+      <a href="#" class="logo"><span><%=data%></span></a>
+
+      <!-- nav bar -->
+      <nav class="navbar">
+        <a href="/conference/<%=data%>">Home</a>
+        <a href="/committee/<%=data%>">Committees</a>
+        <a href="/tracks/<%=data%>">Tracks</a>
+        <a href="/otp/<%= data%>">Register</a>
+        <a href="/login1/<%= data%>">Login</a>
+
+        <div id="menu-bar" class="fas fa-bars"></div>
+      </nav>
+      <!-- Nab Bar ended -->
+    </header>
+    <!-- header Section -->
+
+    <!-- login form  -->
+    <secton class="container forms">
+      <div class="form login">
+        <div class="form-content">
+          <header>Login</header>
+          <form action="/login1/<%=data%>" method="post">
+            <div class="field input-field">
+              <input
+                name="username"
+                type="email"
+                class="input"
+                placeholder="email"
+                required
+              />
+            </div>
+            <div class="field input-field">
+              <input
+                name="password"
+                type="password"
+                class="password"
+                placeholder="password"
+                required
+              />
+              <i
+                class="fa-solid fa-eye-slash eye-icon"
+                style="color: #3687d6"
+              ></i>
+            </div>
+            <div class="form-link">
+              <a href="#" class="forgot-password">Forgot Password?</a>
+            </div>
+            <div class="field button-field">
+              <button type="submit">Login</button>
+            </div>
+            <div class="message">
+              <h2
+                style="
+                  color: red;
+                  font-size: 1.5rem;
+                  text-align: center;
+                  margin-bottom: 10px;
+                "
+              >
+                <%=error%>
+              </h2>
+            </div>
+          </form>
+          <div class="form-link">
+            <span
+              >Don't have an account
+              <a href="/otp/<%= data %>" class="signup-link">Register</a></span
+            >
+          </div>
+        </div>
+      </div>
+    </secton>
+    <!-- login form  -->
+    <script src="/js/login.js"></script>
+  </body>
+</html>

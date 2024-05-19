@@ -1,0 +1,210 @@
+/* Google fonts (Poppins) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&display=swap');
+
+
+:root{
+    --theme-color: #3867d6
+}
+
+*{
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: 0.2s linear;
+}
+
+html{
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-padding-top: 7rem;
+    scroll-behavior: smooth;
+}
+
+section{
+    padding: 1.5rem;
+}
+
+
+body {
+	font-family: 'Montserrat', sans-serif;
+	margin: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	background: #222;
+}
+
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #333;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.5rem 9%;
+}
+
+.header .logo{
+    color: #fff;
+    font-weight: bolder;
+    font-size: 2.5rem;
+}
+
+.header .logo span {
+    color: #3867d6;
+}
+
+.header .navbar a{
+    font-size: 1.7rem;
+    color: #fff;
+    margin-left: 2rem;
+}
+
+.header .navbar a:hover{
+    color: #3867d6;
+}
+
+#menu-bar{
+    font-size: 3rem;
+    color: #fff;
+    cursor: pointer;
+    display: none;
+}
+
+
+.container {
+	width: 100%;
+	max-width: 400px;
+}
+
+.card {
+	background-color: #fff;
+	border-radius: 10px;
+	overflow: hidden;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.card .headers {
+	background-color: #3867d6;
+	color: #fff;
+	padding: 20px;
+	text-align: center;
+}
+
+.mailinput{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.mail{
+	margin-top: 2rem;
+	justify-content: center;
+	background-color: #ddd;
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #222;
+	border-radius: 5px;
+	outline: none;
+}
+
+.mail:hover{
+	background-color: #ffe;
+}
+
+.content {
+	padding: 20px;
+}
+
+button {
+	background-color: white;
+	color: #222;
+	padding: 10px;
+	border: 1px solid #222;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+button:hover {
+	background-color: #45a049;
+}
+
+.otp-form {
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 20px;
+}
+
+input {
+	width: calc(100% - 30px);
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	outline: none;
+}
+
+.success-message {
+	display: none;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 20px;
+	color: #4CAF50;
+}
+
+.error-message {
+	color: #e74c3c;
+	margin-top: 10px;
+}
+
+button:disabled {
+	background-color: #ccc;
+	cursor: not-allowed;
+}
+
+.success-message p {
+	margin: 10px 0;
+}
+
+.otp-display {
+	margin-top: 20px;
+	text-align: center;
+}
+
+.otp-text {
+	font-size: 18px;
+	margin: 0;
+}
+
+input:disabled {
+	background-color: #f2f2f2;
+	color: #a0a0a0;
+	cursor: not-allowed;
+}
+
+.timer {
+	margin-top: 10px;
+	font-size: 14px;
+}
+
+.btn{
+	transition: all 0.3 ease;
+    cursor: pointer;
+	
+}
+
+.btn:hover{
+	background-color: #1e15c3;
+    color: #fff;
+}

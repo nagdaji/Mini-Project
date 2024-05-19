@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+
+    <link rel="stylesheet" href="/css/admin-dashboard.css" />
+    <title>Dashboard</title>
+    <!-- font awesome link -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <!-- font awesome link -->
+  </head>
+  <body>
+    <!-- side navigation bar -->
+    <div class="container">
+      <div class="navigation">
+        <div class="toggle-bar">
+          <a href="#">
+            <span class="toggle icon">
+              <i class="fa-solid fa-bars" style="color: #fff"></i>
+            </span>
+            <span class="title">ConfoEase </span>
+          </a>
+        </div>
+        <ul>
+          <li></li>
+          <li class="hovered">
+            <a href="/admin/<%=data%>">
+              <span class="icon"><i class="fa-solid fa-house"></i></span>
+              <span class="title">Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="/create-event/<%=data%>">
+              <span class="icon"><i class="fa-solid fa-plus"></i></span>
+              <span class="title">Create Event</span>
+            </a>
+          </li>
+          <li>
+            <a href="/edit-event/<%=data%>">
+              <span class="icon"
+                ><i class="fa-solid fa-pen-to-square"></i
+              ></span>
+              <span class="title">Edit Event</span>
+            </a>
+          </li>
+          <li>
+            <a href="/submitted/<%=data%>">
+              <span class="icon"><i class="fa-solid fa-list-check"></i></span>
+              <span class="title">Manage Papers</span>
+            </a>
+          </li>
+          <li>
+            <a href="/manage-reviewer/<%=data%>">
+              <span class="icon"><i class="fa-solid fa-list-check"></i></span>
+              <span class="title">Manage Reviewer</span>
+            </a>
+          </li>
+          <li>
+            <a href="/admin-schedule/<%=data%>">
+              <span class="icon"><i class="fa-regular fa-calendar"></i></span>
+              <span class="title">Schedule</span>
+            </a>
+          </li>
+          <li>
+            <a href="/logout/<%=data%>">
+              <span class="icon"
+                ><i class="fa-solid fa-right-from-bracket"></i
+              ></span>
+              <span class="title">Logout</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- main content -->
+      <div class="main">
+        <!-- top navigation bar -->
+        <div class="top-bar">
+          <div class="search">
+            <label for="Search">
+              <input type="text" placeholder="Search User" />
+              <i
+                class="fa-solid fa-magnifying-glass"
+                style="color: #3867d6"
+              ></i>
+            </label>
+          </div>
+          <div class="user">
+            <img src="/image/user.jpg" alt="" />
+          </div>
+        </div>
+        <!-- top navigation bar -->
+
+        <!-- cards  -->
+        <div class="cardbox">
+          <div
+            class="card"
+            data-heading="User Registered"
+            data-card-type="user"
+            
+          >
+            <div>
+              <div class="numbers"><%=user.length%></div>
+              <a href="#info-table" class="cardname">User Registered</a>
+            </div>
+            <div class="icon">
+              <i class="fa-solid fa-user" style="color: #3687d6"></i>
+            </div>
+          </div>
+          <div
+            class="card"
+            data-heading="Reviewer"
+            data-card-type="reviewer"
+          
+          >
+            <div>
+              <div class="numbers"><%= r %></div>
+              <a href="/manage-reviewer/<%=data%>" class="cardname">Reviewer</a>
+            </div>
+            <div class="icon">
+              <i class="fa-solid fa-chalkboard-user" style="color: #3687d6"></i>
+            </div>
+          </div>
+          <div
+            class="card"
+            data-heading="Authors"
+            data-card-type="author"
+            
+          >
+            <div>
+              <div class="numbers"><%= au %></div>
+              <a href="#info-table" class="cardname">Authors Registered</a>
+            </div>
+            <div class="icon">
+              <i
+                class="fa-solid fa-book-open-reader"
+                style="color: #3687d6"
+              ></i>
+            </div>
+          </div>
+          <div
+            class="card"
+            data-heading="Attendee"
+            data-card-type="attendee"
+            
+          >
+            <div>
+              <div class="numbers"><%= a %></div>
+              <a href="#info-table" class="cardname">Attendees</a>
+            </div>
+            <div class="icon">
+              <i class="fa-solid fa-users" style="color: #3687d6"></i>
+            </div>
+          </div>
+          <div class="card" data-card-type="paper" data-papers="[]">
+            <div>
+              <div class="numbers"><%= p.length %></div>
+              <a href="/submitted/<%=data%>" class="cardname"
+                >Paper Submitted</a
+              >
+            </div>
+            <div class="icon">
+              <i class="fa-solid fa-book" style="color: #3687d6"></i>
+            </div>
+          </div>
+          <div
+            class="card"
+            data-card-type="speaker"
+            
+          >
+            <div>
+              <div class="numbers"><%= s.length %></div>
+              <a href="#info-table" class="cardname">Speaker</a>
+            </div>
+            <div class="icon">
+              <i class="fa-solid fa-microphone" style="color: #3687d6"></i>
+            </div>
+          </div>
+        </div>
+        <!-- cards  -->
+
+        <!-- filter button -->
+        <div id="track-filter" class="hidden">
+          <label for="track-select">Filter by Track: </label>
+          <select id="track-select">
+            <option value="">All</option>
+            <option value="Science">Science</option>
+            <option value="Technology">Technology</option>
+            <option value="Engineering">Engineering</option>
+          </select>
+        </div>
+        <!-- filter button -->
+
+        <!-- dynamic content of the table -->
+        <!-- <div class="table"> -->
+          <!-- <table id="info-table" class="hidden">
+            <thead>
+              <tr id="table-head">
+                This will be dynamically populated
+              </tr>
+            </thead>
+            <tbody id="table-body">
+              Data will be inserted here
+            </tbody>
+          </table> -->
+        <!-- </div> -->
+          <!-- all user table -->
+        <div id="all_users">
+          <table class="hidden" id="usertable">
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>User Name</th>
+                <th>Email</th>
+                <th>Role</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Example data -->
+              <% for(let i=0;i<user.length;i++){ %>
+                <% if (user[i].role != "admin") { %>
+                <tr>
+                  <td><%= user[i]._id %></td>
+                  <td><%= user[i].name %></td>
+                  <td><%= user[i].username %></td>
+                  <td><%= user[i].role %></td>
+                </tr>
+                <% } %>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- all author table -->
+        <div id="all_authors">
+          <table id="authortable" class="hidden">
+            <thead>
+              <tr>
+                <th>Author ID</th>
+                <th>Author Name</th>
+                <th>Email</th>
+                <th>Paper Submitted</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Example data -->
+              <% for(let i=0;i<user.length;i++){ %>
+                <% if (user[i].role == "author") { %>
+                <tr>
+                  <td><%= user[i]._id %></td>
+                  <td><%= user[i].name %></td>
+                  <td><%= user[i].username %></td>
+                  <%if(user[i].paperid){%>
+                    <td><%= user[i].paperid[0] %></td>
+                  <%} else {%>
+                    <td>None</td>
+                  <%}%>
+                </tr>
+                <% } %>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- all attendees -->
+        <div id="all_attendees">
+          <table id="attendtable" class="hidden">
+            <thead>
+              <tr>
+                <th>Attendee ID</th>
+                <th>Attendee Name</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Example data -->
+              <% for(let i=0;i<user.length;i++){ %>
+                <% if (user[i].role == "attendee") { %>
+                <tr>
+                  <td><%= user[i]._id %></td>
+                  <td><%= user[i].name %></td>
+                  <td><%= user[i].username %></td>
+                </tr>
+                <% } %>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- all speakers -->
+
+        <div id="all_speakers">
+          <table id="speakertable" class="hidden">
+            <thead>
+              <tr>
+                <th>Speaker Name</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Example data -->
+              <% for(let i=0;i<s.length;i++){ %>
+                <% if (s[i]) { %>
+                <tr>
+                  <td><%= s[i] %></td>
+                </tr>
+                <% } %>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+
+
+        <!-- dynamic content of the table -->
+        <div id="pagination" class="hidden">
+          <button id="prev-btn" disabled>&lt; Prev</button>
+          <span id="current-page">1</span> / <span id="total-pages">1</span>
+          <button id="next-btn" disabled>Next &gt;</button>
+        </div>
+      </div>
+      <!-- main content -->
+    </div>
+    <!-- side navigation bar -->
+
+    <!-- script file -->
+    <script src="/js/admin-dashboard.js"></script>
+    <!-- script file -->
+  </body>
+</html>

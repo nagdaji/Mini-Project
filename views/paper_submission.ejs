@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Cache-Control"
+      content="no-cache, no-store, must-revalidate"
+    />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Cache-Control" content="no-cache" />
+
+    <link rel="stylesheet" href="/css/paper_submission.css" />
+    <title>Dashboard</title>
+    <!-- font awesome link -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <!-- font awesome link -->
+  </head>
+  <body>
+    <!-- side navigation bar -->
+    <div class="container">
+      <div class="navigation">
+        <div class="toggle-bar">
+          <a href="#">
+            <span class="toggle icon">
+              <i class="fa-solid fa-bars" style="color: #fff"></i>
+            </span>
+            <span class="title"><%=data%> </span>
+          </a>
+        </div>
+        <ul>
+          <li></li>
+          <li class="hovered">
+            <a href="/paper_submission/<%=data%>">
+              <span class="icon"><i class="fa-regular fa-newspaper"></i></span>
+              <span class="title">Submit Papers</span>
+            </a>
+          </li>
+          <li>
+            <a href="/check-status/<%=data%>">
+              <span class="icon"
+                ><i class="fa-solid fa-check-to-slot"></i
+              ></span>
+              <span class="title">Check Status</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/schedule/<%=data%>">
+              <span class="icon"><i class="fa-regular fa-calendar"></i></span>
+              <span class="title">Schedule</span>
+            </a>
+          </li>
+          <li>
+            <a href="/logout/<%=data%>">
+              <span class="icon"
+                ><i class="fa-solid fa-right-from-bracket"></i
+              ></span>
+              <span class="title">Logout</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- main content -->
+      <div class="main">
+        <!-- top navigation bar -->
+        <div class="top-bar">
+          <div class="search">
+            <label for="Search">
+              <input type="text" placeholder="Search User" />
+              <i
+                class="fa-solid fa-magnifying-glass"
+                style="color: #3867d6"
+              ></i>
+            </label>
+          </div>
+          <div class="user">
+            <img src="/image/user.jpg" alt="" />
+          </div>
+        </div>
+        <!-- top navigation bar -->
+
+        <!-- file upload box -->
+        <div class="upload-box">
+          <div class="upload">
+            <h1>Upload Your Papers</h1>
+            
+              
+              <form
+                id="upload-form"
+                action="/paper_submission/<%= data %>"
+                method="post"
+                enctype="multipart/form-data"
+              >
+
+              <input type="file" class="file-input" name="files" hidden required />
+              <label for="tracks" class="tracks">Choose Track:</label>
+            
+              <select name="track" id="track">
+                <% for(let i=0;i<tracks.tracksname.length;i++) { %>
+                  <option name = "track" value="<%= tracks.tracksname[i] %>"><%= tracks.tracksname[i] %></option>
+                  <% } %>
+              </select>
+              <button type="button" id="upload-btn">Choose File</button>
+              <button type="submit">Upload</button>
+            </form>
+            <div class="progress-area"></div>
+            <div class="uploaded-area"></div>
+          </div>
+        </div>
+        <!-- file upload box -->
+      </div>
+      <!-- main content -->
+    </div>
+    <!-- side navigation bar -->
+
+    <!-- script file -->
+    <script src="/js/paper_submission.js"></script>
+    <!-- script file -->
+  </body>
+</html>

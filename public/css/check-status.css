@@ -1,0 +1,391 @@
+
+
+/* Google fonts (Poppins) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&display=swap');
+
+
+:root{
+    --theme-color: #3867d6
+}
+
+*{
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: 0s linear;
+}
+
+html{
+    font-size: 62.5%;
+    overflow-x: hidden;
+    scroll-padding-top: 7rem;
+    scroll-behavior: smooth;
+}
+
+section{
+    padding: 1.5rem;
+}
+
+body{
+    background: #222;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container{
+    position: relative;
+    width: 100%;
+}
+
+.container .navigation{
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    background: #3867d6;
+    border-left: 10px solid #3867d6;
+    transition: 0.5s;
+    overflow: hidden;
+}
+
+
+
+.container .navigation .toggle-bar{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    color: #fff;
+    font-size: 2.5rem;
+}
+
+.container .navigation .toggle-bar a{
+    display: flex;
+}
+
+.container .navigation .toggle-bar .icon{
+    position: relative;
+    display: block;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+}
+
+.container .navigation .toggle-bar .title{
+    position: relative;
+    display: block;
+    padding: 10px 10px 10px 10px;
+    min-width: 60px;
+    height: 60px;
+    list-style: 60px;
+    font-size: 2.5rem;
+    color: #fff;
+}
+
+.container .navigation.active{
+    width: 80px;
+}
+
+.container .navigation ul{
+    position: absolute;
+    top: 8rem;
+    left: 0;
+    width: 100%;
+}
+
+.container .navigation ul li{
+    position: relative;
+    width: 100%;
+    list-style: none;
+    border-top-left-radius: 3rem;
+    border-bottom-left-radius: 3rem;
+}
+
+.container .navigation ul li:nth-child(1) a{
+    margin-bottom: 40px;
+    pointer-events: none;
+}
+
+
+
+.container .navigation ul li:hover, .container .navigation ul li.hovered{
+    background-color: #222;
+}
+
+.container .navigation ul li a{
+    position: relative;
+    display: block;
+    width: 100%;
+    display: flex;
+    text-decoration: none;
+    color: #fff;
+}
+
+.container .navigation ul li:hover a, .container .navigation ul li.hovered a{
+    color: #3867d6;
+}
+
+.container .navigation ul li:hover a .title, .container .navigation ul li.hovered a .title{
+    color: #fff;
+}
+
+.container .navigation ul li a .icon{
+    position: relative;
+    display: block;
+    min-width: 60px;
+    height: 60px;
+    line-height: 60px;
+    text-align: center;
+}
+
+.container .navigation ul li a .icon i{
+    font-size: 2.1rem;
+}
+
+.container .navigation ul li a .title{
+    position: relative;
+    display: block;
+    padding: 10px 10px 10px 10px;
+    height: 60px;
+    list-style: 60px;
+    font-size: 2.1rem;
+}
+
+.container .navigation ul li:hover a::before, .container .navigation ul li.hovered a::before{
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -50px;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: 35px 35px 0 10px #222;
+    pointer-events: none;
+
+}
+
+
+.container .navigation ul li:hover a::after, .container .navigation ul li.hovered
+ a::after{
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -50px;
+    width: 50px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 50%;
+    box-shadow: 35px -35px 0 10px #222;
+    pointer-events: none;
+
+}
+
+.container .main{
+    position: absolute;
+    width: calc(100% - 300px);
+    left: 300px;
+    min-height: 100vh;
+    transition: 0.5s;
+}
+
+.container .main.active{
+    width: calc(100% - 80px);
+    left: 80px;
+}
+
+.container .main .top-bar {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+
+
+.container .main .top-bar .search{
+    position: relative;
+    width: 350px;
+    margin: 0 15px;
+}
+
+.container .main .top-bar .search label{
+    position: relative;
+    width: 100%;
+}
+
+.container .main .top-bar .search label input{
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    padding: 5px 20px;
+    padding-left: 40px;
+    font-size: 18px;
+    outline: none;
+    border: 1px solid #3867d6;
+}
+
+.container .main .top-bar .search label i{
+    position: absolute;
+    /* top: 0; */
+    margin-top: 0.7rem;
+    font-size: 2.4rem;
+    left: 10px;
+}
+
+.container .main .top-bar .user{
+    margin: 0 10px;
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.container .main .top-bar .user img{
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+#paper-container {
+    background-color: #3867d6;
+    max-width: 770px;
+    margin: 50px auto;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+
+}
+
+#author-name {
+    font-size: 2.5rem;
+    color: #fff;
+}
+
+#pdf-viewer {
+    margin-top: 10px;
+    border: 1px solid #222;
+    border-radius: 5px;
+    box-shadow:  0 2px 4px 0 #fff, 0 2px 15px 0 #fff;
+    background-color: #222;
+}
+
+#paper-status {
+    margin-top: 20px;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+#status-text{
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+#delete-button {
+    background-color: #fff;
+    color: #222;
+    border: #222;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+#delete-button:hover {
+    background-color: #3867d6;
+    border: 1px solid #fff;
+}
+
+
+
+/* Modal styles */
+.modal {
+    display: none; /* Hide modal by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+    z-index: 9999; /* Ensure modal is on top of other content */
+}
+
+.modal-dialog {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #222;
+    border-radius: 10px;
+}
+
+.modal-content {
+    padding: 20px;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border-bottom: 1px solid #eee; */
+}
+
+.modal-title {
+    margin-left: 32%;
+    font-size: 2rem;
+    color: #3867d6;
+    margin-bottom: 5px;
+}
+
+.modal-body {
+    padding: 20px 0;
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+    /* border-top: 1px solid #ddd; */
+    line-height: 2rem;
+}
+
+/* Button styles */
+button {
+    background-color: #fff;
+    color: #222;
+    border: #222;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.5rem;
+}
+
+.btn-secondary{
+    row-gap: 1rem;
+
+}
+
+button:hover {
+    background-color: #3867d6;
+    border: 1px solid #fff;
+}
+

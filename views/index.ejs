@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%=data.eventname%></title>
+    <link rel="stylesheet" href="/css/style.css" />
+    <!-- swiper css -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <!-- swipper css link -->
+
+    <!-- font awesome link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <!-- font awesome link -->
+  </head>
+  <body>
+    
+    <!-- header Section -->
+    <header class="header">
+      <a href="/conference/<%= data.eventname %>" class="logo"><span><%=data.eventname%></span></a>
+
+      <!-- nav bar -->
+      <nav class="navbar">
+
+        
+        <a href="/conference/<%=data.eventname%>">Home</a>
+        <a href="/committee/<%=data.eventname%>">Committees</a>
+        <a href="#speakers">Speakers</a>
+        <a href="#contact-us">Contact Us</a>
+        <a href="/otp/<%= data.eventname %>">Register</a>
+        <a href="/login1/<%= data.eventname %>">Login</a>
+        
+
+        <div id="menu-bar" class="fas fa-bars"></div>
+      </nav>
+      <!-- Nab Bar ended -->
+    </header>
+    <!-- header Section -->
+
+    <!-- Section for displaying the heading -->
+    <section class="home" id="home">
+      <div class="content">
+        <h3>Welcome to <span><%=data.eventname%></span></h3>
+      </div>
+    </section>
+    <!-- Section for heading closed -->
+
+    <!-- Div for Photo Gallery -->
+    <div class="top_container">
+      <div class="photo">
+        <h3>Photo <span>Gallery</span></h3>
+        <div class="home-slider swiper mySwiper swiper-container">
+          <div class="swiper-wrapper">
+            <!-- <div class="swiper-slide first-photo">
+              <img
+                src="/image/confo8.jpg"
+              />
+              <div class="centered">
+                <h2>ICDM 2k24</h2>
+                <span>Abu Dhabi, UAE</span>
+                <p>9-20 DEC.</p>
+              </div>
+            </div> -->
+
+            <% for(let i = 0; i < data.conferenceimages.length; i++) { %>
+              <div class="swiper-slide">
+                <img
+                  src="<%= data.conferenceimages[i] %>"
+                />
+              </div>
+            <% } %>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Photo Gallery closed -->
+
+    <!-- swipper js -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- swipper js  -->
+
+    <!-- swipper file -->
+    <script src="/js/app.js"></script>
+
+    <div class="middle">
+      <div class="info">
+        <h2><span><%= data.eventname %></span></h2>
+        <p style="text-align: left;">
+          <%=data.conferencedescription%>
+        </p>
+      </div>
+    </div>
+
+    <!-- services cards -->
+    <div class="cards">
+    <sectiion class="services" id="services">
+        <div class="box-conatainer">
+            <div class="box">
+                <div class="fa-regular fa-calendar-days" style="color: #3867d6;"></div>
+                <!-- <div class="fas fa-date"></div> -->
+                <a href="#keydates"><h3>Key <span>Dates</span></h3></a>
+                <p>Important dates: submission, registration, conference</p>
+            </div>
+            <div class="box">
+                <div class="fa-solid fa-envelope-open-text" style="color: #3867d6;"></div>
+                <!-- <div class="fas fa-date"></div> -->
+                <a href="/call-for-paper/<%= data.eventname %>"><h3>Call for <span>Papers</span></h3></a>
+                <p>Please find the submission guidelines and topic overview for the conference</p>
+            </div>
+            <div class="box">
+                <div class="fa-solid fa-person-chalkboard" style="color: #3867d6;"></div>
+                <!-- <div class="fas fa-letter"></div> -->
+                <a href="/call-for-workshop/<%= data.eventname %>"><h3>Call for <span>Workshop</span></h3></a>
+                <p>We warmly invite proposals for workshops on current and emerging topics in data mining</p>
+            </div>
+            <div class="box">
+                <div class="fa-solid fa-user-plus" style="color: #3867d6;"></div>
+                <!-- <div class="fas fa-teacher"></div> -->
+                <a href="/otp/<%= data.eventname %>"><h3>New <span>User</span></h3></a>
+                <p>Register for the conference</p>
+            </div>
+            <div class="box">
+                <div class="fa-solid fa-location-dot" style="color: #3867d6;"></div>
+                <!-- <div class="fas fa-registration"></div> -->
+                <a href="#venue"><h3>Venue <span>Details</span></h3></a>
+                <p>Details about conference place</p>
+            </div>
+            <div class="box">
+                <div class="fa-solid fa-people-group" style="color: #3867d6;"></div>
+                <!-- <div class="fas fa-venue"></div> -->
+                <a href="/committee/<%= data.eventname %>"><h3>Organization <span>Committees</span></h3></a>
+                <p>Meet the experts behind the event</p>
+            </div>
+        </div>
+    </sectiion>
+
+    </div>
+    <!-- services cards -->
+
+    
+    <!-- key Date Section  -->
+    <div class="display-date" id="keydates">
+      <h2>Key <span>Dates</span></h2>
+    </div>
+    <div class="keydates">
+      <!-- for rendering dates -->
+      <div class="dates">
+        <h2>Date</h2>
+        <% for(let i=0;i<data.date.length;i++) { %>
+          <p><%=data.date[i]%></p> 
+        <%}%>
+      </div>
+      <!-- for rendering dates -->
+      
+      <!-- for rendering description -->
+      <div class="description">
+        <h2>Description</h2>
+        <% for(let i=0;i<data.description.length;i++) { %>
+          <p><%=data.description[i]%></p> 
+        <%}%>
+        
+      </div>
+      <!-- for rendering description -->
+      
+    </div>
+    <!-- key Date Section  -->
+  
+    <!-- displaying tracks  -->
+    <section class="tracks" id="tracks">
+      <h2>Tracks <span>Details</span></h2>
+    <table class="paperTable">
+      <% for(var i=0;i<data.trackname.length;i++) { %> 
+        <tr>
+          <td>
+          <b><h4><%= data.trackname[i] %></h4></b>
+          </td>
+            <% for(var j=0;j<data.nooftrack[i];j++) { %> 
+              <td>
+                <h4><span><%= data.trackmembername[j]%></span></h4>
+              </td>
+            <%}%>
+        </tr>
+      <%}%>
+      </table>
+    </section>
+      <!--  end  -->
+
+
+    <!-- Speakers Section -->
+    <section class="speakers" id="speakers">
+        <h2>Speaker <span>Message</span></h2>
+        <div class="box-conatainer">
+
+          <% for(let i=0;i<data.speakerimages.length;i++) {%>
+            <div class="box">
+              <img src="<%= data.speakerimages[i] %>">
+              <h4><%= data.speakername[i] %></h4>
+              <h6><%= data.speakeroccupation[i] %></h6>
+            </div>
+          <%}%>
+          
+        </div>
+    </section>
+    <!-- Speakers Section -->
+
+
+    <!-- Venue Details -->
+    <div class="venue-details" id="venue">
+        <h2>Venue <span>Details</span></h2>
+    </div>
+    <div class="venue">
+        <h2>Venue: <span><%=data.venue%></span></h2>
+        <div class="venue-info">
+          <%=data.venuedescription%>
+      </div>
+
+        <div class="venue-photo">
+            <div class="venue-slider swiper mySwiper swiper-container">
+                <div class="swiper-wrapper">
+                  <% for(let i = 0; i < data.venueimages.length; i++) { %>
+                    <div class="swiper-slide">
+                      <img
+                        src="<%= data.venueimages[i] %>"
+                      />
+                    </div>
+                  <% } %>
+                </div>
+              </div>
+        </div>
+    </div>
+    <!-- Venue Details -->
+
+    <!-- swiper js -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <!-- swiper js  -->
+
+    <!-- swiper file -->
+    <script src="/js/app.js"></script>
+    <!-- swiper file-->
+
+    <!-- sponsers sections -->
+    <div class="sponsers" id="sponsers">
+        <h2>Our <span>Sponsors</span></h2>
+    </div>
+    <div class="sponsers-list">
+      <% for(let i = 0; i < data.sponsorimage.length; i++) { %>
+        <div class="sponser-container">
+          <img
+            src="<%= data.sponsorimage[i] %>"
+          />
+        </div>
+        <% } %>
+    </div>
+    <!-- sponsers sections -->
+
+
+    <!-- contact us section -->
+    <section class="contact-us" id="contact-us">
+        <h2>Contact <span>US</span></h2>
+        <form action="#">
+            <div class="input-box">
+                <input type="text" placeholder="name">
+                <input type="email" placeholder="email">
+            </div>
+            <div class="input-box">
+                <input type="tel" placeholder="phone">
+                <input type="text" placeholder="subject">
+            </div>
+            <textarea name="" id="" cols="30" rows="10" placeholder="message"></textarea>
+            <input type="submit" value="Send Message" class="btn">
+        </form>
+    </section>
+    <!-- contact us section -->
+
+
+  <%- include("partials/footer.ejs"); -%>

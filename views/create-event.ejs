@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/create-event.css" />
+    <title>Create Conference</title>
+    <!-- font awesome link -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <!-- font awesome link -->
+  </head>
+  <body>
+    <!-- side navigation bar -->
+    <div class="container">
+      <div class="navigation">
+        <div class="toggle-bar">
+          <a href="#">
+            <span class="toggle icon">
+              <i class="fa-solid fa-bars" style="color: #fff"></i>
+            </span>
+            <span class="title">ConfoEase </span>
+          </a>
+        </div>
+        <ul>
+          <li></li>
+          <li>
+            <a href="/admin/<%=data%>">
+              <span class="icon"><i class="fa-solid fa-house"></i></span>
+              <span class="title">Home</span>
+            </a>
+          </li>
+          <li class="hovered">
+            <a href="/create-event/<%=data%>">
+              <span class="icon"><i class="fa-solid fa-plus"></i></span>
+              <span class="title">Create Event</span>
+            </a>
+          </li>
+          <li>
+            <a href="/edit-event/<%=data%>">
+              <span class="icon"
+                ><i class="fa-solid fa-pen-to-square"></i
+              ></span>
+              <span class="title">Edit Event</span>
+            </a>
+          </li>
+          <li>
+            <a href="/submitted/<%=data%>">
+              <span class="icon"><i class="fa-solid fa-list-check"></i></span>
+              <span class="title">Manage Papers</span>
+            </a>
+          </li>
+          <li>
+            <a href="/manage-reviewer/<%=data%>">
+              <span class="icon"><i class="fa-solid fa-list-check"></i></span>
+              <span class="title">Manage Reviewer</span>
+            </a>
+          </li>
+          <li>
+            <a href="/admin-schedule/<%=data%>">
+              <span class="icon"><i class="fa-regular fa-calendar"></i></span>
+              <span class="title">Schedule</span>
+            </a>
+          </li>
+          <li>
+            <a href="/logout/<%=data%>">
+              <span class="icon"
+                ><i class="fa-solid fa-right-from-bracket"></i
+              ></span>
+              <span class="title">Logout</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- main content -->
+      <div class="main">
+        <!-- top navigation bar -->
+        <div class="top-bar">
+          <div class="search">
+            <label for="Search">
+              <input type="text" name="Search-here" placeholder="Search Here" />
+              <i
+                class="fa-solid fa-magnifying-glass"
+                style="color: #3867d6"
+              ></i>
+            </label>
+          </div>
+          <div class="user">
+            <img src="/image/user.jpg" alt="" />
+          </div>
+        </div>
+        <!-- top navigation bar -->
+
+        <!-- heading for event creation -->
+        <section class="home" id="home">
+          <div class="content">
+            <h3>Create an <span>Conference</span></h3>
+          </div>
+        </section>
+        <!-- heading for event creation -->
+
+        <!-- form for taking user input for conference creation -->
+
+        <div class="form-container">
+          <section class="event-creation" id="event-creation">
+            <form
+              method="post"
+              action="/create-event/<%=data %>"
+              enctype="multipart/form-data"
+            >
+              <!-- Basic event details -->
+              <div class="event">
+                <div class="input-box">
+                  <label for="event-details" class="heading"
+                    >Event <span>Details</span></label
+                  >
+                </div>
+                <div class="input-box">
+                  <label for="eventname">Event Name:</label>
+                  <label for="images">Conference Images</label>
+                </div>
+                <div class="input-box">
+                  <input
+                    type="text"
+                    name="eventname"
+                    placeholder="Event Name"
+                  />
+                  <input type="file" name="conferenceimages" multiple />
+                </div>
+                <div class="input-box">
+                  <label for="conferencedescription"
+                    >Conference Description</label
+                  >
+                </div>
+                <textarea
+                  name="conferencedescription"
+                  id=""
+                  cols="30"
+                  rows="5"
+                  placeholder="Conference-Description"
+                ></textarea>
+              </div>
+              <!-- Basic event details -->
+
+              <!-- key dates  -->
+              <div class="key-dates-insert" id="key-dates-insert">
+                <div class="input-box">
+                  <label for="key-date-details" class="heading"
+                    >Key Date <span>Details</span></label
+                  >
+                </div>
+                <div class="input-box view1">
+                  <label for="key-dates">Key Dates</label>
+                  <label for="key-dates-description">Description</label>
+                </div>
+                <div class="input-box view1">
+                  <input type="date" name="date[]" placeholder="Date" />
+                  <input
+                    type="text"
+                    name="description[]"
+                    placeholder="Description"
+                  />
+                  <button class="remove-btn btn" onclick="removeField(this)">
+                    Remove
+                  </button>
+                </div>
+              </div>
+              <div class="input-box">
+                <button class="add-btn btn" onclick="addField(); return false;">
+                  Add Date
+                </button>
+              </div>
+              <!-- key dates  -->
+
+              <!-- Call for paper -->
+              <div class="call-for-paper-details">
+                <div class="input-box">
+                  <label for="call-for-paper" class="heading"
+                    >Call For <span>Paper</span></label
+                  >
+                </div>
+                <div class="input-box">
+                  <label for="aims-and-scope">Aims and Scope</label>
+                </div>
+                <textarea
+                  name="aim"
+                  id=""
+                  cols="30"
+                  rows="5"
+                  placeholder="Aims and Scope"
+                ></textarea>
+                <div class="input-box">
+                  <label for="topic-of-interest">Topic Of Interest</label>
+                </div>
+                <textarea
+                  name="topic"
+                  id=""
+                  cols="30"
+                  rows="5"
+                  placeholder="Topic Of Interest"
+                ></textarea>
+                <div class="input-box">
+                  <label for="submission-guidelines"
+                    >Submission Guidelines</label
+                  >
+                </div>
+                <textarea
+                  name="guidelines"
+                  id=""
+                  cols="30"
+                  rows="5"
+                  placeholder="Submission Guidelines"
+                ></textarea>
+                <div class="input-box">
+                  <label for="how-to-prepare-submission"
+                    >How to Prepare Submission</label
+                  >
+                </div>
+                <textarea
+                  name="papersubmission"
+                  id=""
+                  cols="30"
+                  rows="5"
+                  placeholder="How to Prepare Submission"
+                ></textarea>
+                <div class="input-box">
+                  <label for="contact">Contact</label>
+                </div>
+                <textarea
+                  name="contact"
+                  id=""
+                  cols="30"
+                  rows="2"
+                  placeholder="Contact"
+                ></textarea>
+              </div>
+              <!-- Call for paper -->
+
+              <!-- Call for workshop proposal -->
+              <div class="call-for-workshop-proposal">
+                <div class="input-box">
+                  <label for="call-for-paper" class="heading"
+                    >Call For Workshop <span>Proposal</span></label
+                  >
+                </div>
+                <div class="input-box">
+                  <label for="aims-and-scope">Aims and Scope</label>
+                </div>
+                <textarea
+                  name="workshopaim"
+                  id=""
+                  cols="30"
+                  rows="5"
+                  placeholder="Aims and Scope"
+                ></textarea>
+                <div class="input-box">
+                  <label for="preparing-workshop-proposal"
+                    >Preparing Workshop Proposal</label
+                  >
+                </div>
+                <textarea
+                  name="workshopproposal"
+                  id=""
+                  cols="30"
+                  rows="5"
+                  placeholder="Preparing Workshop Proposal"
+                ></textarea>
+              </div>
+              <!-- Call for workshop proposal -->
+
+              <!-- Venue Details -->
+              <div class="venue-details">
+                <div class="input-box">
+                  <label for="venue-details" class="heading"
+                    >Venue <span>Details</span></label
+                  >
+                </div>
+                <div class="input-box">
+                  <label for="venuename">Venue Name:</label>
+                  <label for="images">Venue Images</label>
+                </div>
+                <div class="input-box">
+                  <input type="text" name="venue" placeholder="Event Name" />
+                  <input type="file" name="venueimages" multiple />
+                </div>
+                <div class="input-box">
+                  <label for="venuedescription">Venue Description</label>
+                </div>
+                <textarea
+                  name="venuedescription"
+                  id=""
+                  cols="30"
+                  rows="5"
+                  placeholder="Venue"
+                ></textarea>
+              </div>
+              <!-- Venue Details -->
+
+              <!-- Speaker Details -->
+              <div class="speakers-details" id="speakers-details">
+                <div class="input-box">
+                  <label for="speakers-details" class="heading"
+                    >Speaker <span>Details</span></label
+                  >
+                </div>
+                <div id="speaker-list">
+                  <div class="each-speaker">
+                    <div class="input-box">
+                      <label for="speakername">Speaker Name:</label>
+                      <label for="images">Speaker Images</label>
+                    </div>
+                    <div class="input-box">
+                      <input
+                        type="text"
+                        name="speakername[]"
+                        placeholder="Speaker Name"
+                      />
+                      <input type="file" name="speakerimages" />
+                    </div>
+                    <div class="input-box">
+                      <label for="venuedescription">Speaker Occupation</label>
+                    </div>
+                    <div class="input-box">
+                      <input
+                        type="text"
+                        name="speakeroccupation[]"
+                        placeholder="Speaker Occupation"
+                      />
+                    </div>
+                    <button
+                      class="remove-btn btn"
+                      onclick="removeSpeaker(this)"
+                    >
+                      Remove speaker
+                    </button>
+                  </div>
+                </div>
+                <button
+                  class="add-btn btn"
+                  onclick="addSpeaker(); return false;"
+                >
+                  Add Speaker
+                </button>
+              </div>
+              <!-- Speaker Details -->
+              <br />
+
+              <!-- Organization Committee Details -->
+              <div class="organization-committee-details">
+                <div class="input-box">
+                  <label for="committee" class="heading"
+                    >Committees <span>Details</span></label
+                  >
+                </div>
+                <div class="committee-list" id="committee-list">
+                  <!-- <div class="each-committee">
+                    <div class="input-box">
+                      <label for="committee-name">Committee Name:</label>
+                      <label for="committee-member">Number of Members:</label>
+                    </div>
+                    <div class="input-box">
+                      <input
+                        type="text"
+                        name="committeename"
+                        placeholder="Committee Name"
+                      />
+                      <input
+                        type="number"
+                        id="numMembers"
+                        min="1"
+                        value="1"
+                        placeholder="Number of Members"
+                        onkeydown="addMemberFields(this)"
+                        onkeyup="addMemberFields(this)"
+                      />
+                    </div>
+                    <div
+                      class="committee-member-list"
+                      id="committee-member-list"
+                    >
+                      <div class="each-user">
+                        <div class="input-box">
+                          <label for="user-name">Member Name:</label>
+                          <label for="images">Member Images</label>
+                        </div>
+                        <div class="input-box">
+                          <input
+                            type="text"
+                            name="membername"
+                            placeholder="Member Name"
+                          />
+                          <input type="file" name="memberimages" />
+                        </div>
+                        <div class="input-box view">
+                          <label for="facebool">Facebook:</label>
+                          <label for="facebool">Twitter:</label>
+                          <label for="facebool">LinkedIn:</label>
+                        </div>
+                        <div class="input-box view">
+                          <input
+                            type="text"
+                            name="facebooklink"
+                            placeholder="Facebook"
+                          />
+                          <input
+                            type="text"
+                            name="twitterlink"
+                            placeholder="Twitter"
+                          />
+                          <input
+                            type="text"
+                            name="linkedinlink"
+                            placeholder="LinkedIn"
+                          />
+                        </div>
+                        <button
+                          class="remove-btn btn"
+                          onclick="removeCommitteeMember(this)"
+                        >
+                          Remove User
+                        </button>
+                      </div>
+                    </div>
+                    <button
+                      class="add-btn btn"
+                      onclick="addCommitteeMember(this); return false;"
+                    >
+                      Add User</button
+                    ><br />
+                    <button
+                      class="remove-btn btn"
+                      onclick="removeCommittee(this)"
+                    >
+                      Remove Committee
+                    </button>
+                  </div> -->
+                </div>
+                <button
+                  class="add-btn btn"
+                  onclick="addCommittee(); return false;"
+                >
+                  Add Committee
+                </button>
+              </div>
+              <!-- Organization Committee Details -->
+              <br />
+              <!-- Advisory committee details -->
+              <div class="advisory-details">
+                <div class="input-box">
+                  <label for="committee" class="heading"
+                    >Advisory <span>Committee</span></label
+                  >
+                </div>
+                <div class="advisory-list" id="advisory-list"></div>
+                <button
+                  class="add-btn btn"
+                  onclick="addAdvisory(); return false;"
+                >
+                  Add Advisory Committee
+                </button>
+              </div>
+              <!-- Advisory committee details -->
+              <br />
+
+              <!-- Tracks Details -->
+              <div class="track-details">
+                <div class="input-box">
+                  <label for="committee" class="heading"
+                    >Track <span>Details</span></label
+                  >
+                </div>
+                <div class="track-list" id="track-list"></div>
+                <button class="add-btn btn" onclick="addTrack(); return false;">
+                  Add Track Chairs
+                </button>
+              </div>
+              <!-- Tracks Details -->
+              <br />
+              <!-- Tracks Chairs Details -->
+              <div class="tracks-details">
+                <div class="input-box">
+                  <label for="committee" class="heading"
+                    >Tracks <span>Chairs</span></label
+                  >
+                </div>
+                <div class="tracks-list" id="tracks-list"></div>
+                <button
+                  class="add-btn btn"
+                  onclick="addTracks(); return false;"
+                >
+                  Add Track Chairs
+                </button>
+              </div>
+              <!-- Tracks Chairs Details -->
+              <br />
+
+              <!-- Technical Program Committe -->
+              <div class="technical-details">
+                <div class="input-box">
+                  <label for="committee" class="heading"
+                    >Technical <span>Committee</span></label
+                  >
+                </div>
+                <div class="technical-list" id="technical-list"></div>
+                <button
+                  class="add-btn btn"
+                  onclick="addTechnical(); return false;"
+                >
+                  Add Technical Committee
+                </button>
+              </div>
+              <!-- Technical Program Committe -->
+              <br />
+
+              <!-- Sponser Details -->
+              <div class="sponsers">
+                <div class="input-box">
+                  <label for="sponsers" class="heading"
+                    >Sponsers <span>Details</span></label
+                  >
+                </div>
+                <div class="sponsers-list" id="sponsers-list">
+                  <div class="each-sponser">
+                    <div class="input-box">
+                      <label for="sponsername">Sponser Name:</label>
+                      <label for="images">Sponser Images</label>
+                    </div>
+                    <div class="input-box">
+                      <input
+                        type="text"
+                        name="sponsername[]"
+                        placeholder="Sponser Name"
+                      />
+                      <input type="file" name="sponserimage" />
+                    </div>
+                    <button
+                      class="remove-btn btn"
+                      onclick="removeSponser(this)"
+                    >
+                      Remove Sponser
+                    </button>
+                  </div>
+                </div>
+                <button
+                  class="add-btn btn"
+                  onclick="addSponser(); return false;"
+                >
+                  Add Sponser
+                </button>
+              </div>
+              <!-- Sponser Details -->
+
+              <!-- headquarters details -->
+              <div class="headquarters">
+                <div class="input-box">
+                  <label for="headquarters-details" class="heading"
+                    >Headquarters <span>Details</span></label
+                  >
+                </div>
+                <div class="quarter-list" id="quarter-list">
+                  <div class="each-headquarter">
+                    <div class="input-box">
+                      <label for="headquartersname">Headquarter Name:</label>
+                      <label for="headquarterslink">Headquarter link:</label>
+                    </div>
+                    <div class="input-box">
+                      <input
+                        type="text"
+                        name="headquartername[]"
+                        placeholder="Headquarter Name"
+                      />
+                      <input
+                        type="text"
+                        name="headquarterlink[]"
+                        placeholder="Headquarter Link"
+                      />
+                      <button
+                        class="remove-btn btn"
+                        onclick="removequarters(this)"
+                      >
+                        Remove Headquarter
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  class="add-btn btn"
+                  onclick="addquarters(); return false;"
+                >
+                  Add Headquarter
+                </button>
+              </div>
+              <!-- headquarters details -->
+
+              <!-- Contact Info -->
+              <div class="contact-info">
+                <div class="input-box">
+                  <label for="contact-details" class="heading"
+                    >Contact <span>Details</span></label
+                  >
+                </div>
+                <div class="contact-list" id="contact-list">
+                  <div class="each-contact">
+                    <div class="input-box">
+                      <label for="mobile-number">Mobile Number:</label>
+                      <label for="email">Email:</label>
+                    </div>
+                    <div class="input-box">
+                      <input
+                        type="tel"
+                        name="mobilenumber[]"
+                        placeholder="Mobile Number"
+                      />
+                      <input
+                        type="email"
+                        name="email[]"
+                        placeholder="Email id"
+                      />
+                      <button
+                        class="remove-btn btn"
+                        onclick="removeContact(this)"
+                      >
+                        Remove Contact
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  class="add-btn btn"
+                  onclick="addcontact(); return false;"
+                >
+                  Add Contact
+                </button>
+              </div>
+              <!-- Contact Info -->
+
+              <!-- Follow up -->
+              <div class="follow-us">
+                <div class="input-box">
+                  <label for="follow-us" class="heading"
+                    >Social Media <span>Handles</span></label
+                  >
+                </div>
+                <div class="input-box">
+                  <label for="facebook">Facebook</label>
+                  <label for="Twitter">Twitter</label>
+                </div>
+                <div class="input-box">
+                  <input
+                    type="text"
+                    name="facebookconnect"
+                    placeholder="Facebook Link"
+                  />
+                  <input
+                    type="text"
+                    name="twitterconnect"
+                    placeholder="Twitter Link"
+                  />
+                </div>
+                <div class="input-box">
+                  <label for="LinkedIn">LinkedIn</label>
+                  <label for="Instagram">Instagram</label>
+                </div>
+                <div class="input-box">
+                  <input
+                    type="text"
+                    name="linkedinconnect"
+                    placeholder="LinkedIn Link"
+                  />
+                  <input
+                    type="text"
+                    name="instagramconnect"
+                    placeholder="Instagram Link"
+                  />
+                </div>
+              </div>
+              <!-- Follow up -->
+
+              <input
+                type="submit"
+                id="create-event-submission"
+                value="Send Message"
+                class="btn"
+              />
+            </form>
+          </section>
+        </div>
+        <!-- form for taking user input for conference creation -->
+      </div>
+      <!-- main content -->
+    </div>
+    <!-- side navigation bar -->
+
+    <!-- script file -->
+    <script src="/js/create-event.js"></script>
+    <!-- script file -->
+  </body>
+</html>
