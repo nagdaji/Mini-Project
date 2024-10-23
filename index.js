@@ -8,12 +8,11 @@ const { format } = require("date-fns");
 const data = [];
 const { signup } = require("./public/js/mail");
 const { processFiles } = require("./utils/utils");
-// const axios = require("axios");
 const homemodel = require("./schema/homeschema");
 const multer = require("multer");
 
 const app = express();
-app.use(express.static("public"));
+// app.use(express.static("public"));
 
 const path = require("path");
 
@@ -77,7 +76,7 @@ mongoose
     "mongodb+srv://kartik:kartik123@cluster0.8ou8ajo.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
   )
   .then(() => console.log("mongo connected"))
-  .catch((err) => console.log(err));
+  .catch((err) => console.log(err)); 
 
 // mongoose.connect("mongodb+srv://arpanak:arpk234@schedule.m9eg9js.mongodb.net/?retryWrites=true&w=majority&appName=schedule")
 //   .then(() => console.log("MongoDB connected"))
@@ -293,25 +292,32 @@ app.get("/admin/:conf", async (req, res) => {
   if (req.isAuthenticated() && req.user.role == "admin") {
 
     var conf_created = req.user.conference_created;
-
-    var totalpapers = await PDF.find({ conference: conf_created });
-    var totalspeakers = await homemodel.findOne({eventname : conf_created});
-    var totalusers = await usermodel.find({ conference_enrolled: conf_created});
-    
-    var totalattendees = 0;
-    var totalreviewers = 0;
-    var totalauthors = 0;
-    for(let i=0;i<totalusers.length;i++)
+    if(conf_created != null)
     {
-      if(totalusers[i].role == "attendee")
-        totalattendees++;
-      else if(totalusers[i].role == "reviewer")
-        totalreviewers++;
-      else if(totalusers[i].role == "author")
-        totalauthors++;
-    }
+      var totalpapers = await PDF.find({ conference: conf_created });
+      var totalspeakers = await homemodel.findOne({eventname : conf_created});
+      var totalusers = await usermodel.find({ conference_enrolled: conf_created});
+      var totalattendees = 0;
+      var totalreviewers = 0;
+      var totalauthors = 0;
+      for(let i=0;i<totalusers.length;i++)
+      {
+        if(totalusers[i].role == "attendee")
+          totalattendees++;
+        else if(totalusers[i].role == "reviewer")
+          totalreviewers++;
+        else if(totalusers[i].role == "author")
+          totalauthors++;
+      }
 
-    res.render("admin-dashboard.ejs", { data: req.params.conf , p : totalpapers , s : totalspeakers.speakername , user : totalusers, a : totalattendees , r : totalreviewers , au : totalauthors});
+      res.render("admin-dashboard.ejs", { data: req.params.conf , p : totalpapers , s : totalspeakers.speakername , user : totalusers, a : totalattendees , r : totalreviewers , au : totalauthors});
+    }
+    else
+    {
+      res.render("admin-dashboard.ejs", { data: req.params.conf , p : 0 , s : 0 , user : 0, a : 0 , r : 0 , au : 0});
+    }
+  
+    
   } else res.redirect("/login1/" + req.params.conf);
 });
 
@@ -319,27 +325,15 @@ app.get("/admin/:conf", async (req, res) => {
 
 //////////////////////////////////////////////////////////
 
-// mongoose
-//   .connect("mongodb://127.0.0.1:27017/calendar")
-//   .then( ()=> console.log("MongoDB connectedghj"))
-//   .catch((err) => console.log("Mongo Error", err));
-
-
-
-
 
 app.get("/admin-schedule/:conf", (req, res) => {
   res.render("admin-schedule.ejs", { data: req.params.conf });
 });
-
 app.post('/add-schedule-event', async (req, res) => {
-  console.log(req.body);
-  console.log("caught body");
   try {
       const { title, description, start, end, color, textColor } = req.body;
               
       if (!title || !description ||!start || !end) {
-          console.log("hello1");
           return res.status(400).json({ error: 'Missing required fields' });
       }
       const newEvent = new scheduleEvent({
@@ -350,8 +344,6 @@ app.post('/add-schedule-event', async (req, res) => {
           color: color || '#3867d6', // Use provided color or default
           textColor: textColor || '#fff' // Use provided textColor or default
           });
-      console.log("abcd");
-      console.log(newEvent);
       const savedEvent = await newEvent.save();
       res.status(201).json(savedEvent);
       } catch (error) {
@@ -496,7 +488,6 @@ app
     res.render("otp.ejs", { data: req.params.conf });
   })
   .post(async (req, res) => {
-    console.log(req.body.otp);
     await signup(req.body.otp, req.body.username);
     res.redirect("/otp" + req.params.conf);
   });
@@ -522,7 +513,7 @@ app
       author: req.user.username,
       conference: req.params.conf,
     });
-    if(req.user.paperid != null)
+    if(req.user.paperid.length > 0)
     {
       var x = await PDF.findById({_id : req.user.paperid[0]});
       var rev = x.reviewername;
@@ -545,7 +536,7 @@ app
 ////////////////////////////////////
 
 app.route("/delete_paper/:conf").post(async (req, res) => {
-  if (req.body.action == "yes") 
+  if(req.body.action == "yes") 
   {  
     if(req.user.paperid != null)
     {
@@ -665,7 +656,7 @@ app
                     res.render("login1.ejs", {
                       data: req.params.conf,
                       error: "user does not exists",
-                    });
+                    })
                   }
                 }
               });
@@ -688,7 +679,6 @@ app.get("/submitted/:conf", async (req, res) => {
   
     var reviewer = await usermodel.find({ conference_enrolled: x.conference_created , role : "reviewer" });
     var paper = await PDF.find({ conference : x.conference_created });
-
     res.render("submitted.ejs", { data: req.params.conf , r : reviewer , p : paper});
 
   } else res.redirect("/login1/" + req.params.conf);
@@ -765,9 +755,6 @@ app.route("/update-status/:conf")
   await usermodel.findOneAndUpdate({username : req.body.author} , {paperstatus : req.body.status});
   res.redirect("/reviewer/"+req.params.conf);
 });
-
-
-
 
 
 app.route("/update-reveiwer/:conf")

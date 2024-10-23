@@ -139,7 +139,9 @@
             
           >
             <div>
-              <div class="numbers"><%= au %></div>
+              <% if(au) {%>
+                <div class="numbers"><%= au %></div>
+              <% } %>
               <a href="#info-table" class="cardname">Authors Registered</a>
             </div>
             <div class="icon">
@@ -180,7 +182,9 @@
             
           >
             <div>
-              <div class="numbers"><%= s.length %></div>
+              <% if(s) { %>
+                <div class="numbers"><%= s.length %></div>
+              <% } %>
               <a href="#info-table" class="cardname">Speaker</a>
             </div>
             <div class="icon">

@@ -1,0 +1,2 @@
+arySize;
+    cin >> librarySi

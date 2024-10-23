@@ -1,4 +1,3 @@
-
 let conf;
 let otpGen;
 let username;

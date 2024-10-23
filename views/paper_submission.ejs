@@ -102,7 +102,7 @@
               <label for="tracks" class="tracks">Choose Track:</label>
             
               <select name="track" id="track">
-                <% for(let i=0;i<tracks.tracksname.length;i++) { %>
+                <%for(let i=0;i<tracks.tracksname.length;i++) { %>
                   <option name = "track" value="<%= tracks.tracksname[i] %>"><%= tracks.tracksname[i] %></option>
                   <% } %>
               </select>
