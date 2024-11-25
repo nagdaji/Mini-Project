@@ -175,46 +175,9 @@ document.addEventListener("DOMContentLoaded", () => {
           document.getElementById("speakertable").classList.add("hidden");
         }
       }
-      
-      // let tableHeaders = [];
-
-      // if (cardType === "user") {
-      //   data = JSON.parse(card.dataset.users);
-      //   tableHeaders = ["User ID", "Name", "Email", "Role", "Delete"];
-      //   trackFilter.classList.add("hidden"); // Hide filter when not required
-      // } else if (cardType === "speaker") {
-      //   data = JSON.parse(card.dataset.speakers);
-      //   tableHeaders = ["Serial Number", "Speaker Name"];
-      //   trackFilter.classList.add("hidden"); // Hide filter
-      // } else {
-      //   tableHeaders = "";
-      // }
-
-      // Update the table header
-      // tableHead.innerHTML = "";
-      // tableHeaders.forEach((header) => {
-      //   const th = document.createElement("th");
-      //   th.textContent = header;
-      //   tableHead.appendChild(th);
-      // });
 
       currentPage = 1; // Reset to the first page when switching data
       updateTable();
-
-      // Make the table and pagination visible
-      // infoTable.classList.remove("hidden");
-      // pagination.classList.remove("hidden");
-
-      // const deleteButtons = document.querySelectorAll(".delete-button");
-      // deleteButtons.forEach((button) => {
-      //   button.addEventListener("click", (event) => {
-      //     const itemId = event.target.dataset.itemId;
-      //     console.log(`Item with ID ${itemId} deleted.`);
-      //     event.target.closest("tr").remove(); // Remove row from table
-      //     data = data.filter((item) => item.id != itemId); // Update data array
-      //     updateTable(); // Re-render table after deletion
-      //   });
-      // });
     });
   });
   document.querySelectorAll('.role-selector').forEach((selector) => {
