@@ -3,7 +3,7 @@ const nodemailer = require("nodemailer");
 require("dotenv").config();
 
 const signup = async (otp,email) => {
-  
+  console.log(otp);
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {

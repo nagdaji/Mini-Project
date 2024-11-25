@@ -230,15 +230,36 @@
                 <th>Role</th>
               </tr>
             </thead>
-            <tbody>
+            <!-- <tbody> -->
               <!-- Example data -->
-              <% for(let i=0;i<user.length;i++){ %>
+              <!-- <% for(let i=0;i<user.length;i++){ %>
                 <% if (user[i].role != "admin") { %>
                 <tr>
                   <td><%= user[i]._id %></td>
                   <td><%= user[i].name %></td>
                   <td><%= user[i].username %></td>
                   <td><%= user[i].role %></td>
+                </tr>
+                <% } %>
+              <% } %> -->
+            <!-- </tbody> -->
+            <tbody>
+              <% for(let i=0;i<user.length;i++){ %>
+                <% if (user[i].role != "admin") { %>
+                <tr>
+                  <td><%= user[i]._id %></td>
+                  <td><%= user[i].name %></td>
+                  <td><%= user[i].username %></td>
+                  <td>
+                    <select 
+                      class="role-selector" 
+                      data-user-id="<%= user[i]._id %>"
+                    >
+                      <option value="author" <%= user[i].role === "author" ? "selected" : "" %>>Author</option>
+                      <option value="reviewer" <%= user[i].role === "reviewer" ? "selected" : "" %>>Reviewer</option>
+                      <option value="attendee" <%= user[i].role === "attendee" ? "selected" : "" %>>Attendee</option>
+                    </select>
+                  </td>
                 </tr>
                 <% } %>
               <% } %>

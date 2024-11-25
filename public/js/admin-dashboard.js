@@ -217,4 +217,32 @@ document.addEventListener("DOMContentLoaded", () => {
       // });
     });
   });
+  document.querySelectorAll('.role-selector').forEach((selector) => {
+    selector.addEventListener('change', async (event) => {
+      const userId = event.target.getAttribute('data-user-id');
+      const newRole = event.target.value;
+
+      try {
+        const response = await fetch(`/update-role/${userId}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ role: newRole }),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          alert(`Role updated successfully to ${newRole}`);
+          window.location.reload();
+        } else {
+          alert(`Failed to update role: ${result.message}`);
+        }
+      } catch (err) {
+        console.error('Error updating role:', err);
+        alert('An error occurred while updating the role.');
+      }
+    });
+  });
 });

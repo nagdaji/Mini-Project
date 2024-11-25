@@ -788,6 +788,31 @@ app.route("/delete-reveiwer/:conf")
     res.redirect("/login1/"+req.params.conf);
 });
 //////////////////////////////////////////////////////////////////
+// update roles
+app.post('/update-role/:userId', async (req, res) => {
+  const { userId } = req.params;
+  const { role } = req.body;
+  console.log(userId)
+  try {
+    // Validate role and update database
+    const validRoles = ['author', 'reviewer', 'attendee'];
+    if (!validRoles.includes(role)) {
+      return res.status(400).json({ message: 'Invalid role' });
+    }
+    
+    const updatedUser = await usermodel.findByIdAndUpdate(userId, { role }, { new: true });
+    if (!updatedUser) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.status(200).json({ message: 'Role updated successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+////////////////////////////////////////////////////
+
 
 app.listen(8000, () => {
   console.log("Server running on port 8000!!");
