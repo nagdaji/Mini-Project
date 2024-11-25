@@ -13,7 +13,6 @@ async function OTPFn() {
   showOtp.classList.add("otp-display");
   temp.appendChild(showOtp);
   document.getElementById("otpForm").style.display = "flex";
-  console.log(otpGen);
   startTimer();
   username = document.getElementById("email").value;
   conf = document.getElementById("conf").value;
