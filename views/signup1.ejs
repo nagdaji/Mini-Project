@@ -116,13 +116,17 @@
               ></i>
             </div>
             <p class="message"></p>
-            <div class="field input-field">
-              <select name="role" id="role">
-                <option value="1" class="choose">Enter As</option>
-                <option value="author">Author</option>
-                <option value="attendee">Attendee</option>
-              </select>
-            </div>
+            <% if(data != "CONFOEASE") {%>
+              <div class="field input-field">
+                <select name="role" id="role">
+                  <option value="1" class="choose">Enter As</option>
+                  <option value="author">Author</option>
+                  <option value="attendee">Attendee</option>
+                </select>
+              </div>
+            <% } else { %>
+                <h3>You will be Registering as admin </h3>
+            <% } %>
             <p style="color: red"><%= error %></p>
             <!-- <div class="form-link">
               <a href="#" class="forgot-password">Forgot Password?</a>
