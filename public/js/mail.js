@@ -11,7 +11,6 @@ const signup = async (otp,email) => {
       pass: process.env.APP_PASSWORD,
     }, 
   });
-  console.log(otp);
   await transporter.sendMail({
     from: `⭐ ConfoEase ⭐ ${process.env.USER}`,
     to: `${email}`,

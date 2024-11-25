@@ -8,7 +8,6 @@ const { format } = require("date-fns");
 const data = [];
 const { signup } = require("./public/js/mail");
 const { processFiles } = require("./utils/utils");
-// const axios = require("axios");
 const homemodel = require("./schema/homeschema");
 const multer = require("multer");
 
@@ -289,25 +288,32 @@ app.get("/admin/:conf", async (req, res) => {
   if (req.isAuthenticated() && req.user.role == "admin") {
 
     var conf_created = req.user.conference_created;
-
-    var totalpapers = await PDF.find({ conference: conf_created });
-    var totalspeakers = await homemodel.findOne({eventname : conf_created});
-    var totalusers = await usermodel.find({ conference_enrolled: conf_created});
-    
-    var totalattendees = 0;
-    var totalreviewers = 0;
-    var totalauthors = 0;
-    for(let i=0;i<totalusers.length;i++)
+    if(conf_created != null)
     {
-      if(totalusers[i].role == "attendee")
-        totalattendees++;
-      else if(totalusers[i].role == "reviewer")
-        totalreviewers++;
-      else if(totalusers[i].role == "author")
-        totalauthors++;
-    }
+      var totalpapers = await PDF.find({ conference: conf_created });
+      var totalspeakers = await homemodel.findOne({eventname : conf_created});
+      var totalusers = await usermodel.find({ conference_enrolled: conf_created});
+      var totalattendees = 0;
+      var totalreviewers = 0;
+      var totalauthors = 0;
+      for(let i=0;i<totalusers.length;i++)
+      {
+        if(totalusers[i].role == "attendee")
+          totalattendees++;
+        else if(totalusers[i].role == "reviewer")
+          totalreviewers++;
+        else if(totalusers[i].role == "author")
+          totalauthors++;
+      }
 
-    res.render("admin-dashboard.ejs", { data: req.params.conf , p : totalpapers , s : totalspeakers.speakername , user : totalusers, a : totalattendees , r : totalreviewers , au : totalauthors});
+      res.render("admin-dashboard.ejs", { data: req.params.conf , p : totalpapers , s : totalspeakers.speakername , user : totalusers, a : totalattendees , r : totalreviewers , au : totalauthors});
+    }
+    else
+    {
+      res.render("admin-dashboard.ejs", { data: req.params.conf , p : 0 , s : 0 , user : 0, a : 0 , r : 0 , au : 0});
+    }
+  
+    
   } else res.redirect("/login1/" + req.params.conf);
 });
 
