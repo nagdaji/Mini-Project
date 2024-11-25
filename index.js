@@ -79,10 +79,6 @@ mongoose
   .then(() => console.log("mongo connected"))
   .catch((err) => console.log(err));
 
-// mongoose.connect("mongodb+srv://arpanak:arpk234@schedule.m9eg9js.mongodb.net/?retryWrites=true&w=majority&appName=schedule")
-//   .then(() => console.log("MongoDB connected"))
-//   .catch((err) => console.error("MongoDB connection error:", err));
-
 const userschema = new mongoose.Schema({
   username: String,
   password: String,
@@ -319,27 +315,16 @@ app.get("/admin/:conf", async (req, res) => {
 
 //////////////////////////////////////////////////////////
 
-// mongoose
-//   .connect("mongodb://127.0.0.1:27017/calendar")
-//   .then( ()=> console.log("MongoDB connectedghj"))
-//   .catch((err) => console.log("Mongo Error", err));
-
-
-
-
 
 app.get("/admin-schedule/:conf", (req, res) => {
   res.render("admin-schedule.ejs", { data: req.params.conf });
 });
 
 app.post('/add-schedule-event', async (req, res) => {
-  console.log(req.body);
-  console.log("caught body");
   try {
       const { title, description, start, end, color, textColor } = req.body;
               
       if (!title || !description ||!start || !end) {
-          console.log("hello1");
           return res.status(400).json({ error: 'Missing required fields' });
       }
       const newEvent = new scheduleEvent({
@@ -350,8 +335,6 @@ app.post('/add-schedule-event', async (req, res) => {
           color: color || '#3867d6', // Use provided color or default
           textColor: textColor || '#fff' // Use provided textColor or default
           });
-      console.log("abcd");
-      console.log(newEvent);
       const savedEvent = await newEvent.save();
       res.status(201).json(savedEvent);
       } catch (error) {
@@ -496,7 +479,6 @@ app
     res.render("otp.ejs", { data: req.params.conf });
   })
   .post(async (req, res) => {
-    console.log(req.body.otp);
     await signup(req.body.otp, req.body.username);
     res.redirect("/otp" + req.params.conf);
   });
