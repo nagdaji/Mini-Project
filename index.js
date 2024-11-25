@@ -792,7 +792,6 @@ app.route("/delete-reveiwer/:conf")
 app.post('/update-role/:userId', async (req, res) => {
   const { userId } = req.params;
   const { role } = req.body;
-  console.log(userId)
   try {
     // Validate role and update database
     const validRoles = ['author', 'reviewer', 'attendee'];
