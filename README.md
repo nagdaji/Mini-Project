@@ -35,54 +35,54 @@ Follow these steps to set up the project locally:
 ---
 
 
+# ConfoEase – User Guide
+
 ## How to Use the Website
 
-### Step 1: Access the Main Website
-- Navigate to [ConfoEase](https://confoease.onrender.com/).
-- Upon landing, a default conference will be visible.
+1. **Landing on the Website**:
+   - Visit the main website at [https://confoease.onrender.com/](https://confoease.onrender.com/).
+   - A default conference will be displayed on the main page.
 
-### Step 2: Register as a User
-- Click the **Register** button on the top-right corner of the page.
-- Complete the email verification process via OTP to proceed with registration.
-- After verifying your email, provide additional details and set your password.
-- Once registered, you will be assigned the **Admin** role for managing conference websites you create.
+2. **Registration**:
+   - Click the **Register** button located in the top-right corner.
+   - Verify your email by entering the OTP sent to your registered email address. This step is mandatory for further registration.
+   - After email verification, proceed to provide additional details and set your password.
 
-### Step 3: Create a Conference Website
-- As an Admin, create a conference from your dashboard.
-- Access your conference website via the route: `/conference/[Conference Name]`.
-  > **Note**: Remember the name of your conference for future reference.
+3. **Admin Role Assignment**:
+   - Once registered, you will be assigned the **Admin** role for the conference website you create.
 
-### Step 4: User Roles and Actions
-#### On the Conference Website (`/conference/[Conference Name]`):
-- **Admin**:
-  - Create a new conference.
-  - Change role of users registered for the conference.
-  - Create, manage, and delete Reviewers.
-  - Change user roles in the **User Registered** section.
-  - Assign Reviewers to Papers submitted by Authors in the **Manage Papers** section.
-- **Author**:
-  - Submit research papers for the conference.
-  - Track the status of submitted papers.
-  - View the conference schedule.
-- **Attendee**:
-  - Register interest in attending the conference.
-  - Access the conference schedule.
-- **Reviewer**:
-  - Assigned by Admin to review Authors' papers.
-  - Can reject or accept papers.
+4. **Creating a Conference Website**:
+   - As an Admin, create a new conference through the dashboard.
+   - Access your newly created conference website by navigating to:
+     ```
+     /conference/[Conference Name]
+     ```
+     Replace `[Conference Name]` with the name of the conference you created.
+     > **Note**: Remember the name of the conference you create in the Admin dashboard for future reference.
 
-### Additional Notes
-- Roles (Admin, Author, Attendee, Reviewer) are specific to a particular conference.
-  - Example: An Author registered for `/conference/HelloWorld` cannot access `/conference/WorldHello`.
-- Deleting a Reviewer is managed in the **Manage Reviewer** section of the Admin dashboard.
+5. **Roles and Functionalities**:
+   - On the new conference website (`/conference/[Conference Name]`), users can register as **Authors** or **Attendees**:
+     - **Authors**:
+       - Submit research papers for the conference.
+       - Track the status of submitted papers.
+       - View the conference schedule.
+     - **Attendees**:
+       - Register to attend the conference.
+       - View the conference schedule.
+     - **Reviewers**:
+       - Assigned by the Admin to verify and review the papers submitted by Authors.
+   - The **Admin** can:
+     - Create and manage Reviewers.
+     - Assign Reviewers to Authors in the **Manage Papers** section.
+     - Change user roles in the **User Registered** section by updating the role column in the displayed table.
+     - Delete Reviewers through the **Manage Reviewer** section.
 
-### Key Features
-- **Admin Dashboard**:
-  - Centralized control for managing users, papers, and roles.
-- **Role Management**:
-  - Flexible system for assigning and updating user roles.
-- **Paper Submission and Review**:
-  - Streamlined workflow for submitting and reviewing research papers.
+6. **Role-Specific Access**:
+   - User roles (Admin, Author, Attendee, Reviewer) are specific to a particular conference.
+   - For example, an Author registered for `/conference/HelloWorld` cannot log in to `/conference/WorldHello`.
+
+7. **Managing Papers and Reviewers**:
+   - Assign Reviewers to papers submitted by Authors through the **Manage Papers** section of the Admin dashboard.
+   - Delete Reviewers using the **Manage Reviewer** section.
 
 ---
-
