@@ -495,7 +495,7 @@ app.get("/tracks/:conf", (req, res) => {
 });
 
 //////////////////////////////////
-app
+  app
   .route("/paper_submission/:conf")
   .get(async (req, res) => {
     if (req.isAuthenticated() && req.user.role == "author") {
@@ -510,7 +510,7 @@ app
       author: req.user.username,
       conference: req.params.conf,
     });
-    if(req.user.paperid != null)
+    if(req.user.paperid.length > 0)
     {
       var x = await PDF.findById({_id : req.user.paperid[0]});
       var rev = x.reviewername;
